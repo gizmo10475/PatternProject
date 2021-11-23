@@ -1,5 +1,3 @@
-CREATE DATABASE IF NOT EXISTS pattern;
-
 USE pattern; -- database name subject to change
 
 DROP TABLE IF EXISTS travel_log;

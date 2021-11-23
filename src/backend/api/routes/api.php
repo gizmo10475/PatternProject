@@ -3,6 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\bikes;
+use App\Models\cities;
+use App\Models\accounts;
+use App\Models\customers;
+use App\Models\station2city;
+use App\Models\stations;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,20 +22,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/bike', function () {
-    $test = ['BikeID: ', 'Location: ', 'Active: ', 'Speed: ', 'Charging: ', 'Warning: ', 'City ID: '];
-    return $test;
+    return bikes::All();
 });
 
 Route::get('/city', function () {
-    return 'city';
+    return cities::All();
 });
 
 Route::get('/stations', function () {
-    return 'stations';
+    return stations::All();
 });
 
 Route::get('/customers', function () {
-    return 'customers';
+    return customers::All();
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

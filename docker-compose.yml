@@ -1,0 +1,6 @@
+version: "3"
+services:
+  db:
+    build: ./src/backend/sql
+    ports:
+      - "3306:3306"

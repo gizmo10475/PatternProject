@@ -14,9 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/bike', function(){
+Route::get('/bike', function () {
     $test = ['BikeID: ', 'Location: ', 'Active: ', 'Speed: ', 'Charging: ', 'Warning: ', 'City ID: '];
     return $test;
+});
+
+Route::get('/city', function () {
+    return 'city';
+});
+
+Route::get('/stations', function () {
+    return 'stations';
+});
+
+Route::get('/customers', function () {
+    return 'customers';
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

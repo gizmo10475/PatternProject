@@ -6,3 +6,5 @@ WORKDIR /docker-entrypoint-initdb.d
 
 COPY setup.sql .
 COPY tables.sql .
+
+EXPOSE 3306

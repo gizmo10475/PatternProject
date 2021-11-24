@@ -249,11 +249,11 @@ Parameters:
 Slots
 ```
 ___
-# /customers
+# /customer
 
 Display all customers:
 ```
-GET /customers
+GET /customer
 ```
 Result:
 
@@ -276,7 +276,7 @@ ___
 
 Display specific customer:
 ```
-GET /customers/{id}
+GET /customer/{id}
 ```
 Result:
 
@@ -290,7 +290,7 @@ Result:
 ___
 Update specific customer:
 ```
-PUT /customers/{id}
+PUT /customer/{id}
 ```
 Parameters:
 
@@ -301,7 +301,7 @@ ___
 
 Display customer history:
 ```
-GET /customers/{id}/history
+GET /customer/{id}/history
 ```
 Result:
 
@@ -335,7 +335,7 @@ ___
 
 Add customer log to history:
 ```
-POST /customers/{id}/history
+POST /customer/{id}/history
 ```
 Parameters:
 

@@ -11,5 +11,7 @@ class stations extends Model
 
     public $timestamps = false;
 
-    protected $primaryKey = 'pid';
+    protected $fillable = [
+        'slots'
+    ];
 }

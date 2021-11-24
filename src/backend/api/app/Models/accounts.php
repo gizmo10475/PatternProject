@@ -11,5 +11,7 @@ class accounts extends Model
 
     public $timestamps = false;
 
-    protected $primaryKey = 'pid';
+    protected $fillable = [
+        'email'
+    ];
 }

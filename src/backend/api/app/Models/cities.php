@@ -11,5 +11,7 @@ class cities extends Model
 
     public $timestamps = false;
 
-    protected $primaryKey = 'pid';
+    protected $fillable = [
+        'name'
+    ];
 }

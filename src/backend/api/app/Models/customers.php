@@ -11,5 +11,8 @@ class customers extends Model
 
     public $timestamps = false;
 
-    protected $primaryKey = 'pid';
+    protected $fillable = [
+        'name',
+        'account'
+    ];
 }

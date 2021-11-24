@@ -1,14 +1,13 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Models\bikes;
-use App\Models\cities;
-use App\Models\accounts;
-use App\Models\customers;
-use App\Models\station2city;
-use App\Models\stations;
+use App\Http\Controllers\BikeController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\StationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,21 +20,48 @@ use App\Models\stations;
 |
 */
 
-Route::get('/bike', function () {
-    return bikes::All();
-});
+//bike routes
+Route::get('/bike', [BikeController::class, 'index']);
+Route::post('/bike', [BikeController::class, 'store']);
+Route::get('/bike/{id}', [BikeController::class, 'show']);
+Route::put('/bike/{id}', [BikeController::class, 'update']);
+Route::delete('/bike/{id}', [BikeController::class, 'destroy']);
 
-Route::get('/city', function () {
-    return cities::All();
-});
 
-Route::get('/stations', function () {
-    return stations::All();
-});
+//city routes
+Route::get('/city', [CityController::class, 'index']);
+Route::post('/city', [CityController::class, 'store']);
+Route::get('/city/{id}', [CityController::class, 'show']);
+Route::put('/city/{id}', [CityController::class, 'update']);
+Route::delete('/city/{id}', [CityController::class, 'destroy']);
 
-Route::get('/customers', function () {
-    return customers::All();
-});
+
+//stations routes
+Route::get('/stations', [StationsController::class, 'index']);
+Route::post('/stations', [StationsController::class, 'store']);
+Route::get('/stations/{id}', [StationsController::class, 'show']);
+Route::put('/stations/{id}', [StationsController::class, 'update']);
+Route::delete('/stations/{id}', [StationsController::class, 'destroy']);
+
+
+//customer routes
+Route::get('/customer', [CustomerController::class, 'index']);
+Route::post('/customer', [CustomerController::class, 'store']);
+Route::get('/customer/{id}', [CustomerController::class, 'show']);
+Route::put('/customer/{id}', [CustomerController::class, 'update']);
+Route::delete('/customer/{id}', [CustomerController::class, 'destroy']);
+//customer history
+Route::get('/customer/{id}/history', [CustomerController::class, 'showHistory']);
+Route::post('/customer/{id}/history', [CustomerController::class, 'storeHistory']);
+//register
+Route::post('/register', [CustomerController::class, 'storeCustomer']);
+
+
+//admin routes
+Route::get('/admin/customers', [AdminController::class, 'index']);
+Route::delete('/admin/customers/{id}', [AdminController::class, 'destroy']);
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

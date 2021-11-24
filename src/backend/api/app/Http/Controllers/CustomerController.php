@@ -78,18 +78,34 @@ class CustomerController extends Controller
     }
 
     /**
-     * Store a new customer.
+     * Store a new account.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeCustomer(Request $request) //POST customer/{id}/history
+    public function storeAccount(Request $request) //POST customer/{id}/history
     {
         $request->validate([ //this needs to be in 'body' to get posted.
             'email' => 'required',
-            // 'account' => 'required' //this should not be here /Eddie.
             // need to also add a row in 'customer'. /Eddie.
         ]);
         return accounts::create($request->all());
     }
+
+
+    // /**
+    //  * Store a new customer.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function storeCustomer(Request $request) //POST customer/{id}/history
+    // {
+    //     $request->validate([ //this needs to be in 'body' to get posted.
+    //         'name' => 'required',
+    //         'account' => 'required' //this should not be here /Eddie.
+    //     ]);
+    //     return customers::create($request->all());
+    // }
+
 }

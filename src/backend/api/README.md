@@ -103,7 +103,7 @@ GET /bike/{id}
 
 Response format:
 
-```json
+```json5
 {
     "id": 1, // {id}
     "longitude": 0.0,
@@ -182,7 +182,7 @@ GET /city/{id}
 
 Response format:
 
-```
+```json
 {
     "id": 1,
     "name": "Karlskrona"
@@ -333,7 +333,7 @@ GET /stations/{id}
 
 Response format:
 
-```json
+```json5
 {
     "id": 1, // {id}
     "slots": 0
@@ -367,6 +367,12 @@ Parameters:
 | Name  | Type | Required | Description                                   |
 | ----- | ---- | -------- | --------------------------------------------- |
 | slots | int  | no       | New amount of total parking spaces in station |
+
+Response format:
+
+```json
+To be added
+```
 
 ### Customer endpoints
 
@@ -435,6 +441,12 @@ To be added
 Delete customer account.
 ```http
 DELETE /customer/{id}
+```
+
+Response format:
+
+```json
+To be added
 ```
 
 

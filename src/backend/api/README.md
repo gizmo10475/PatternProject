@@ -277,8 +277,8 @@ Response format:
 	{
 		"slots": 0,
 		"available": 0,
-		longitude: 0.0,
-		latitude: 0.0
+		"longitude": 0.0,
+		"latitude": 0.0
 	}
 ]
 ```

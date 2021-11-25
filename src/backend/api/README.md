@@ -1,5 +1,13 @@
 # API
 
+## Table of Contents
+
+- [Setup](#Setup)
+- [Development](#Development)
+- [API Endpoints](API Endpoints)
+  - [Bike endpoints](#Bike endpoints)
+  - [City endpoints](#City endpoints )
+
 ## Setup
 
 After having cloned the repository you need to install all of the dependencies using Composer. This is done with the following command:
@@ -12,13 +20,13 @@ $ composer install
 
 To start the development server you run the following command:
 
-```
+```bash
 $ php artisan serve
 ```
 
 You should have started the database docker container before doing this, as well as filling out your database credentials in a .env file. See [.env.example](.env.example). The following part of the example file are the important bits:
 
-```
+```ini
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -29,20 +37,19 @@ DB_PASSWORD=
 
 These should be filled in correctly.
 
+## API Endpoints
 
+All requests should be prefaced by /api.
 
+### Bike endpoints
 
-
-## Use of API
-
-# /bike
-To get all bikes:
-```
+```http
 GET /bike
 ```
-Result:
 
-```
+Response format: 
+
+```json
 [
     {
         "id": X,
@@ -62,25 +69,43 @@ Result:
     }
 ]
 ```
-___
+
+Parameters:
+|Name|Type|Required|Description|
+|----|----|----|----|
+|active|bool|no|If set to true only retrieve active bikes.|
+
+---
 
 To add a new bike:
-```
+
+```http
 POST /bike
 ```
-Required parameters:
+
+Parameters:
+
+| Name     | Type   | Required |
+| -------- | ------ | -------- |
+| location | string | yes      |
+
+Response format: 
+
+```json
+To be added
 ```
-location
-```
-___
+
+---
+
 To get specific bike:
-```
+
+```http
 GET /bike/{id}
 ```
 
-Result:
+Response format:
 
-```
+```json
 {
     "id": {id},
     "location": "xxxxx",
@@ -90,36 +115,44 @@ Result:
     "warning": 0
 }
 ```
-___
+
+---
+
 To remove specific bike:
-```
+
+```http
 DELETE /bike/{id}
 ```
-___
+
+---
+
 To update specific bike:
-```
+
+```http
 PUT /bike/{id}
 ```
 
-Optional parameters:
-```
-location
-active
-speed
-charging
-warning
-```
-___
-# /city
+Parameters:
+
+| Name     | Type   | Required |
+| -------- | ------ | -------- |
+| location | string | no       |
+| active   | bool   | no       |
+| speed    | int    | no       |
+| charging | bool   | no       |
+| warning  | bool   | no       |
+
+### City endpoints
 
 Display all cities:
-```
+
+```http
 GET /city
 ```
 
 Result:
 
-```
+```json
 [
     {
         "id": 1,
@@ -131,11 +164,15 @@ Result:
     }
 ]
 ```
-___
+
+---
+
 Display specific city:
-```
+
+```http
 GET /city/{id}
 ```
+
 Result:
 
 ```
@@ -144,58 +181,81 @@ Result:
     "name": "XXXXX"
 }
 ```
-___
+
+---
+
 Remove specific city:
+
 ```
 DELETE /city/{id}
 ```
-___
+
+---
+
 Update specific city:
+
 ```
 PUT /city/{id}
 ```
+
 Optional parameters:
+
 ```
 name
 ```
-___
+
+---
+
 Get all bikes in city: (ROUTE IN DEVELOPMENT)
+
 ```
 GET /city/{id}/bikes
 ```
+
 Result:
 
 ```
 ROUTE IN DEVELOPMENT
 ```
-___
+
+---
+
 Add bike to city: (ROUTE IN DEVELOPMENT)
+
 ```
 POST /city/{id}/bikes
 ```
+
 Parameter:
 
 ```
 bike id (ROUTE IN DEVELOPMENT)
 ```
-___
+
+---
 
 Get all stations in city: (ROUTE IN DEVELOPMENT)
+
 ```
 GET /city/{id}/stations
 ```
+
 Result:
 
 ```
 ROUTE IN DEVELOPMENT
 ```
-___
+
+---
+
 # /stations
 
 Display all stations:
+
 ```
 GET /stations
 ```
+
 Result:
 
 ```
@@ -210,21 +270,29 @@ Result:
     }
 ]
 ```
-___
+
+---
+
 Add new station:
+
 ```
 POST /stations
 ```
+
 Parameter:
 
 ```
 Slots
 ```
-___
+
+---
+
 Display specific stations:
+
 ```
 GET /stations/{id}
 ```
+
 Result:
 
 ```
@@ -233,28 +301,39 @@ Result:
     "slots": X
 }
 ```
-___
+
+---
+
 Remove specific station:
+
 ```
 DELETE /stations/{id}
 ```
-___
+
+---
+
 Update specific station:
+
 ```
 PUT /stations/{id}
 ```
+
 Parameters:
 
 ```
 Slots
 ```
-___
+
+---
+
 # /customer
 
 Display all customers:
+
 ```
 GET /customer
 ```
+
 Result:
 
 ```
@@ -272,12 +351,15 @@ Result:
 
 ]
 ```
-___
+
+---
 
 Display specific customer:
+
 ```
 GET /customer/{id}
 ```
+
 Result:
 
 ```
@@ -287,22 +369,29 @@ Result:
     "account": X
 }
 ```
-___
+
+---
+
 Update specific customer:
+
 ```
 PUT /customer/{id}
 ```
+
 Parameters:
 
 ```
 ??????????
 ```
-___
+
+---
 
 Display customer history:
+
 ```
 GET /customer/{id}/history
 ```
+
 Result:
 
 ```
@@ -331,12 +420,15 @@ Result:
     }
 ]
 ```
-___
+
+---
 
 Add customer log to history:
+
 ```
 POST /customer/{id}/history
 ```
+
 Parameters:
 
 ```
@@ -348,13 +440,17 @@ end_location
 cost
 city
 ```
-___
+
+---
+
 # /admin
 
 Display all customers:
+
 ```
 GET /admin/customers
 ```
+
 Result:
 
 ```
@@ -372,22 +468,27 @@ Result:
 
 ]
 ```
-___
+
+---
+
 Remove specific customer:
+
 ```
 DELETE /admin/customers/{id}
 ```
-___
+
+---
+
 # /register
 
 Register new customer:
+
 ```
 POST /register
 ```
+
 Parameters:
 
 ```
 UNDER DEVELOPMENT
 ```
-
-

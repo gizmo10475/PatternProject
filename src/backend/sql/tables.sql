@@ -14,7 +14,8 @@ DROP TABLE IF EXISTS administrators;
 
 CREATE TABLE bikes (
     `id` INT AUTO_INCREMENT NOT NULL,
-    `location` CHAR(20), -- change depending on coordinate format?
+    `longitude` FLOAT,
+    `latitude` FLOAT,
     `active` BOOLEAN DEFAULT 0,
     `speed` INT DEFAULT 0,
     `charging` BOOLEAN DEFAULT 0,
@@ -49,7 +50,8 @@ ENGINE INNODB
 CREATE TABLE stations (
     `id` INT AUTO_INCREMENT NOT NULL,
     `slots` INT NOT NULL,
-    `location` CHAR(20) NOT NULL,
+    `longitude` FLOAT,
+    `latitude` FLOAT,
 
     PRIMARY KEY (`id`)
 )
@@ -106,9 +108,11 @@ CREATE TABLE travel_log (
     `id` INT AUTO_INCREMENT NOT NULL,
     `customer` INT NOT NULL,
     `bike` INT NOT NULL,
-    `start_location` CHAR(20) NOT NULL,
+    `start_longitude` FLOAT NOT NULL,
+    `start_latitude` FLOAT NOT NULL,
     `start_time` TIMESTAMP NOT NULL,
-    `end_location` CHAR(20) NOT NULL,
+    `end_longitude` FLOAT NOT NULL,
+    `end_latitude` FLOAT NOT NULL,
     `end_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `cost` FLOAT NOT NULL,
     `city` INT NOT NULL,

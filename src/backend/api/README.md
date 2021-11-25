@@ -191,6 +191,27 @@ Response format:
 
 ---
 
+Add a city:
+
+```http
+POST /city/
+```
+
+Parameters:
+
+| Name | Type   | Required | Description |
+| ---- | ------ | -------- | ----------- |
+| name | string | yes      | City name   |
+
+Response format:
+
+```json
+To be added
+```
+
+
+---
+
 Remove a city:
 
 ```http
@@ -298,7 +319,9 @@ Response format:
     {
         "id": 1,
         "slots": 0,
-        "available": 0
+        "available": 0,
+        "longitude": 0.0,
+		"latitude": 0.0
     }
 ]
 ```
@@ -313,9 +336,11 @@ POST /stations
 
 Parameters:
 
-| Name  | Type | Required | Description                               |
-| ----- | ---- | -------- | ----------------------------------------- |
-| slots | int  | yes      | Total number of parking spaces in station |
+| Name      | Type | Required | Description                               |
+| --------- | ---- | -------- | ----------------------------------------- |
+| slots     | int  | yes      | Total number of parking spaces in station |
+| longitude | int  | yes      | Longitude coordinate                      |
+| latitude  | int  | yes      | Latitude coordinate                       |
 
 Response format:
 
@@ -336,7 +361,9 @@ Response format:
 ```json5
 {
     "id": 1, // {id}
-    "slots": 0
+    "slots": 0,
+    "longitude": 0.0,
+    "latitude": 0.0
 }
 ```
 
@@ -364,9 +391,11 @@ PUT /stations/{id}
 
 Parameters:
 
-| Name  | Type | Required | Description                                   |
-| ----- | ---- | -------- | --------------------------------------------- |
-| slots | int  | no       | New amount of total parking spaces in station |
+| Name      | Type | Required | Description                               |
+| --------- | ---- | -------- | ----------------------------------------- |
+| slots     | int  | no       | Total number of parking spaces in station |
+| longitude | int  | no       | Longitude coordinate                      |
+| latitude  | int  | no       | Latitude coordinate                       |
 
 Response format:
 
@@ -390,7 +419,8 @@ Response format:
         "id": 1,
         "name": "Test Testingson",
         "email": "test@test.com",
-        "credits": 0.0
+        "credits": 0.0,
+        "api_key": 000
     }
 ]
 ```
@@ -410,7 +440,8 @@ Response format:
     "id": 1,
     "name": "Test Testingson",
     "email": "test@test.com",
-    "credits": 0.0
+    "credits": 0.0,
+    "api_key": 000
 }
 ```
 
@@ -554,6 +585,7 @@ Parameters:
 | Name  | Type   | Required | Description            |
 | ----- | ------ | -------- | ---------------------- |
 | email | string | yes      | Email to register with |
+| name  | string | yes      | Name to register with  |
 
 Response format:
 

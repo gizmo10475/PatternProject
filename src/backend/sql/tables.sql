@@ -49,6 +49,7 @@ ENGINE INNODB
 CREATE TABLE stations (
     `id` INT AUTO_INCREMENT NOT NULL,
     `slots` INT NOT NULL,
+    `location` CHAR(20) NOT NULL,
 
     PRIMARY KEY (`id`)
 )
@@ -94,6 +95,7 @@ CREATE TABLE customers (
     `id` INT AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(50) NOT NULL,
     `account` INT NOT NULL,
+    `credits` FLOAT DEFAULT 0 NOT NULL,
 
     PRIMARY KEY (`id`),
     FOREIGN KEY (`account`) REFERENCES accounts (`id`)

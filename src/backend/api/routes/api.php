@@ -27,7 +27,6 @@ Route::get('/bike/{id}', [BikeController::class, 'show']);
 Route::put('/bike/{id}', [BikeController::class, 'update']);
 Route::delete('/bike/{id}', [BikeController::class, 'destroy']);
 
-
 //city routes
 Route::get('/city', [CityController::class, 'index']);
 Route::post('/city', [CityController::class, 'store']);
@@ -46,7 +45,7 @@ Route::delete('/stations/{id}', [StationsController::class, 'destroy']);
 
 //customer routes
 Route::get('/customer', [CustomerController::class, 'index']);
-Route::post('/customer', [CustomerController::class, 'store']);
+Route::post('/customer', [CustomerController::class, 'storeCustomer']);
 Route::get('/customer/{id}', [CustomerController::class, 'show']);
 Route::put('/customer/{id}', [CustomerController::class, 'update']);
 Route::delete('/customer/{id}', [CustomerController::class, 'destroy']);

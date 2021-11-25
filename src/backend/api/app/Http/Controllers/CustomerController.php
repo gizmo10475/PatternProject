@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\customers;
 use App\Models\customerHistory;
 use App\Models\accounts;
@@ -15,7 +16,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() //GET customer
+    public function index(): Response //GET customer
     {
         return customers::All();
     }
@@ -26,7 +27,7 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) //GET customer/{id}
+    public function show(int $id): Response //GET customer/{id}
     {
         return customers::find($id);
     }
@@ -38,7 +39,7 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) //PUT customer/id
+    public function update(Request $request, int $id): Response //PUT customer/id
     {
         $customer = customers::find($id);
         $customer->update($request->all());
@@ -51,7 +52,7 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showHistory($id) //GET customer/{id}/history
+    public function showHistory(int $id): Response //GET customer/{id}/history
     {
         return customerHistory::where('customer', $id)->get();
     }
@@ -62,7 +63,7 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeHistory(Request $request) //POST customer/{id}/history
+    public function storeHistory(Request $request): Response //POST customer/{id}/history
     {
         $request->validate([ //this needs to be in 'body' to get posted.
             'customer' => 'required',
@@ -85,7 +86,7 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeCustomer(Request $request) //POST customer/{id}/history
+    public function storeCustomer(Request $request): Response //POST customer/{id}/history
     {
         $request->validate([ //this needs to be in 'body' to get posted.
             'name' => 'required',
@@ -101,7 +102,7 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) //DELETE customer/{id}
+    public function destroy(int $id): Response //DELETE customer/{id}
     {
         return customers::destroy($id);
     }

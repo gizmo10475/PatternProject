@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \Illuminate\Http\Response;
 use App\Models\customers;
 
 class AdminController extends Controller
@@ -12,7 +13,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() //GET admin/customers
+    public function index(): Response //GET admin/customers
     {
         return customers::All();
     }
@@ -23,7 +24,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) //DELETE admin/customers/{id}
+    public function destroy(int $id): Response //DELETE admin/customers/{id}
     {
         return customers::destroy($id);
     }

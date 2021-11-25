@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\stations;
 
 
@@ -13,7 +14,7 @@ class StationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() //GET station
+    public function index(): Response //GET station
     {
         return stations::All();
     }
@@ -24,7 +25,7 @@ class StationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) //POST station
+    public function store(Request $request): Response //POST station
     {
         $request->validate([ //this needs to be in 'body' to get posted.
             'slots' => 'required',
@@ -40,7 +41,7 @@ class StationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) //GET station/{id}
+    public function show(int $id): Response //GET station/{id}
     {
         return stations::find($id);
     }
@@ -52,7 +53,7 @@ class StationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) //PUT station{id}
+    public function update(Request $request, int $id): Response //PUT station{id}
     {
         $station = stations::find($id);
         $station->update($request->all());
@@ -65,7 +66,7 @@ class StationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) //DELETE station/{id}
+    public function destroy(int $id): Response //DELETE station/{id}
     {
         return stations::destroy($id);
     }

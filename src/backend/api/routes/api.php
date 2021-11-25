@@ -54,7 +54,7 @@ Route::delete('/customer/{id}', [CustomerController::class, 'destroy']);
 Route::get('/customer/{id}/history', [CustomerController::class, 'showHistory']);
 Route::post('/customer/{id}/history', [CustomerController::class, 'storeHistory']);
 //register
-Route::post('/register', [CustomerController::class, 'storeAccount']);
+// Route::post('/register', [CustomerController::class, 'storeAccount']);
 Route::post('/register', [CustomerController::class, 'storeCustomer']);
 
 

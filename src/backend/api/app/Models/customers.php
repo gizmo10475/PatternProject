@@ -12,7 +12,7 @@ class customers extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name'
-        // 'account'
+        'name',
+        'email'
     ];
 }

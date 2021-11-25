@@ -14,9 +14,11 @@ class customerHistory extends Model
     protected $fillable = [
         'customer',
         'bike',
-        'start_location',
+        'start_longitude',
+        'start_latitude',
         'start_time',
-        'end_location',
+        'end_longitude',
+        'end_latitude',
         // 'end_time',
         'cost',
         'city'

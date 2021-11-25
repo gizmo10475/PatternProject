@@ -27,7 +27,9 @@ class StationsController extends Controller
     public function store(Request $request) //POST station
     {
         $request->validate([ //this needs to be in 'body' to get posted.
-            'slots' => 'required'
+            'slots' => 'required',
+            'longitude' => 'required',
+            'latitude' => 'required'
         ]);
         return stations::create($request->all());
     }

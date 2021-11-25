@@ -12,12 +12,11 @@ class bikes extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'location',
+        'longitude',
+        'latitude',
         'active',
         'speed',
         'charging',
         'warning'
     ];
-
-    // protected $primaryKey = 'pid';
 }

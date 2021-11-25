@@ -67,30 +67,45 @@ class CustomerController extends Controller
         $request->validate([ //this needs to be in 'body' to get posted.
             'customer' => 'required',
             'bike' => 'required',
-            'start_location' => 'required',
+            'start_longitude' => 'required',
+            'start_latitude' => 'required',
             'start_time' => 'required',
-            'end_location' => 'required',
             // 'end_time' => 'required',
             'cost' => 'required',
+            'end_longitude' => 'required',
+            'end_latitude' => 'required',
             'city' => 'required',
         ]);
         return customerHistory::create($request->all());
     }
 
     /**
-     * Store a new account.
+     * Store a new customer.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeAccount(Request $request) //POST customer/{id}/history
+    public function storeCustomer(Request $request) //POST customer/{id}/history
     {
         $request->validate([ //this needs to be in 'body' to get posted.
+            'name' => 'required',
             'email' => 'required',
-            // need to also add a row in 'customer'. /Eddie.
         ]);
-        return accounts::create($request->all());
+        return customers::create($request->all());
     }
+
+
+    /**
+     * Remove a specific customer account.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id) //DELETE customer/{id}
+    {
+        return customers::destroy($id);
+    }
+
 
 
     // /**

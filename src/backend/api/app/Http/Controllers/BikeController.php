@@ -26,7 +26,8 @@ class BikeController extends Controller
     public function store(Request $request) //POST bike
     {
         $request->validate([ //this needs to be in 'body' to get posted.
-            'location' => 'required'
+            'longitude' => 'required',
+            'latitude' => 'required'
         ]);
         return bikes::create($request->all());
     }

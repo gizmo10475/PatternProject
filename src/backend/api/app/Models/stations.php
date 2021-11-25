@@ -12,6 +12,8 @@ class stations extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'slots'
+        'slots',
+        'longitude',
+        'latitude'
     ];
 }

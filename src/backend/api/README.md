@@ -6,7 +6,11 @@
 - [Development](#Development)
 - [API Endpoints](#API-Endpoints)
   - [Bike endpoints](#Bike-endpoints)
-  - [City endpoints](#City-endpoints )
+  - [City endpoints](#City-endpoints)
+  - [Station endpoints](#Station-endpoints)
+  - [Customer endpoints](#Customer-endpoints)
+  - [Admin endpoints](#Admin-endpoints)
+  - [Account endpoints](#Account-endpoints)
 
 ## Setup
 
@@ -37,6 +41,8 @@ DB_PASSWORD=
 
 These should be filled in correctly.
 
+To run the API:s docker container you need to create a similar file, named .env.docker and fill out the appropriate information for the databases docker container.
+
 ## API Endpoints
 
 All requests should be prefaced by /api.
@@ -47,33 +53,25 @@ All requests should be prefaced by /api.
 GET /bike
 ```
 
-Response format: 
+Parameters:
+|Name|Type|Required|Description|
+|----|----|--------|-----------|
+|active|bool|no|If set to true only retrieve active bikes.|
 
+Response format: 
 ```json
 [
     {
-        "id": X,
-        "location": "xxxxx",
-        "active": X,
-        "speed": X,
-        "charging": X,
-        "warning": X
-    },
-    {
-        "id": X,
-        "location": "xxxxx",
-        "active": X,
-        "speed": X,
-        "charging": X,
-        "warning": X
+        "id": 1,
+        "longitude": 0.0,
+        "latitude": 0.0,
+        "active": 0,
+        "speed": 0,
+        "charging": 0,
+        "warning": 0
     }
 ]
 ```
-
-Parameters:
-|Name|Type|Required|Description|
-|----|----|----|----|
-|active|bool|no|If set to true only retrieve active bikes.|
 
 ---
 
@@ -97,7 +95,7 @@ To be added
 
 ---
 
-To get specific bike:
+To get a bike:
 
 ```http
 GET /bike/{id}
@@ -107,8 +105,9 @@ Response format:
 
 ```json
 {
-    "id": {id},
-    "location": "xxxxx",
+    "id": 1, // {id}
+    "longitude": 0.0,
+    "latitude": 0.0,
     "active": 0,
     "speed": 0,
     "charging": 0,
@@ -118,15 +117,20 @@ Response format:
 
 ---
 
-To remove specific bike:
+To remove a bike:
 
 ```http
 DELETE /bike/{id}
 ```
 
+Response format:
+```json
+To be added
+```
+
 ---
 
-To update specific bike:
+To update a bike:
 
 ```http
 PUT /bike/{id}
@@ -134,13 +138,20 @@ PUT /bike/{id}
 
 Parameters:
 
-| Name     | Type   | Required |
-| -------- | ------ | -------- |
-| location | string | no       |
-| active   | bool   | no       |
-| speed    | int    | no       |
-| charging | bool   | no       |
-| warning  | bool   | no       |
+| Name      | Type  | Required | Description                      |
+| --------- | ----- | -------- | -------------------------------- |
+| longitude | float | no       | Longitude coordinate             |
+| latitude  | float | no       | Latitude coordinate              |
+| active    | bool  | no       | Set bike as active/inactive      |
+| speed     | int   | no       | Set current bike speed           |
+| charging  | bool  | no       | Set charging status              |
+| warning   | bool  | no       | Set battery level warning status |
+
+Response format: 
+```json
+To be added
+```
+
 
 ### City endpoints
 
@@ -150,123 +161,144 @@ Display all cities:
 GET /city
 ```
 
-Result:
+Response format:
 
 ```json
 [
     {
         "id": 1,
-        "name": "XXXXX"
-    },
-    {
-        "id": 2,
-        "name": "XXXXX"
+        "name": "Karlskrona"
     }
 ]
 ```
 
 ---
 
-Display specific city:
+Display a city:
 
 ```http
 GET /city/{id}
 ```
 
-Result:
+Response format:
 
 ```
 {
-    "id": X,
-    "name": "XXXXX"
+    "id": 1,
+    "name": "Karlskrona"
 }
 ```
 
 ---
 
-Remove specific city:
+Remove a city:
 
-```
+```http
 DELETE /city/{id}
+```
+
+Response format:
+```json
+To be added
 ```
 
 ---
 
-Update specific city:
+Update a city:
 
-```
+```http
 PUT /city/{id}
 ```
 
-Optional parameters:
+Parameters:
 
-```
-name
+| Name | Type   | Required | Description |
+| ---- | ------ | -------- | ----------- |
+| name | string | no       | City name   |
+
+Response format:
+
+```json
+To be added
 ```
 
 ---
 
 Get all bikes in city: (ROUTE IN DEVELOPMENT)
 
-```
+```http
 GET /city/{id}/bikes
 ```
 
-Result:
+Parameters:
 
-```
-ROUTE IN DEVELOPMENT
+| Name   | Type | Required | Description                                   |
+| ------ | ---- | -------- | --------------------------------------------- |
+| active | bool | no       | If true, only get active bikes in chosen city |
+
+Response format:
+
+```json
+To be added
 ```
 
 ---
 
 Add bike to city: (ROUTE IN DEVELOPMENT)
 
-```
+```http
 POST /city/{id}/bikes
 ```
 
-Parameter:
+Parameters:
 
-```
-bike id (ROUTE IN DEVELOPMENT)
+| Name | Type | Required | Description                        |
+| ---- | ---- | -------- | ---------------------------------- |
+| id   | int  | yes      | ID of the bike to register to city |
+
+Response format:
+
+```json
+To be added
 ```
 
 ---
 
 Get all stations in city: (ROUTE IN DEVELOPMENT)
 
-```
+```http
 GET /city/{id}/stations
 ```
 
-Result:
+Response format:
 
+```json
+[
+	{
+		"slots": 0,
+		"available": 0,
+		longitude: 0.0,
+		latitude: 0.0
+	}
+]
 ```
-ROUTE IN DEVELOPMENT
-```
 
----
-
-# /stations
+### Station endpoints
 
 Display all stations:
 
-```
+```http
 GET /stations
 ```
 
-Result:
+Response format:
 
-```
+```json
 [
     {
         "id": 1,
-        "slots": X
-    },
-    {
-        "id": 2,
-        "slots": X
+        "slots": 0,
+        "available": 0
     }
 ]
 ```
@@ -275,220 +307,245 @@ Result:
 
 Add new station:
 
-```
+```http
 POST /stations
 ```
 
-Parameter:
+Parameters:
 
-```
-Slots
+| Name  | Type | Required | Description                               |
+| ----- | ---- | -------- | ----------------------------------------- |
+| slots | int  | yes      | Total number of parking spaces in station |
+
+Response format:
+
+```json
+To be added
 ```
 
 ---
 
-Display specific stations:
+Display a station:
 
-```
+```http
 GET /stations/{id}
 ```
 
-Result:
+Response format:
 
-```
+```json
 {
-    "id": X,
-    "slots": X
+    "id": 1, // {id}
+    "slots": 0
 }
 ```
 
 ---
 
-Remove specific station:
+Remove a station:
 
-```
+```http
 DELETE /stations/{id}
+```
+
+Response format:
+
+```json
+To be added
 ```
 
 ---
 
-Update specific station:
+Update a station:
 
-```
+```http
 PUT /stations/{id}
 ```
 
 Parameters:
 
-```
-Slots
-```
+| Name  | Type | Required | Description                                   |
+| ----- | ---- | -------- | --------------------------------------------- |
+| slots | int  | no       | New amount of total parking spaces in station |
 
----
-
-# /customer
+### Customer endpoints
 
 Display all customers:
 
-```
+```http
 GET /customer
 ```
 
-Result:
+Response format:
 
-```
+```json
 [
     {
-        "id": X,
-        "name": "XXXX",
-        "account": X
-    },
-    {
-        "id": X,
-        "name": "XXXX",
-        "account": X
+        "id": 1,
+        "name": "Test Testingson",
+        "email": "test@test.com",
+        "credits": 0.0
     }
-
 ]
 ```
 
 ---
 
-Display specific customer:
+Display a customer:
 
-```
+```http
 GET /customer/{id}
 ```
 
-Result:
+Response format:
 
-```
+```json
 {
-    "id": X,
-    "name": "XXXX",
-    "account": X
+    "id": 1,
+    "name": "Test Testingson",
+    "email": "test@test.com",
+    "credits": 0.0
 }
 ```
 
 ---
 
-Update specific customer:
+Update a customer:
 
-```
+```http
 PUT /customer/{id}
 ```
 
 Parameters:
 
+| Name    | Type   | Required | Description                         |
+| ------- | ------ | -------- | ----------------------------------- |
+| name    | string | no       | New name for the customer           |
+| email   | string | no       | New email for the customer          |
+| credits | float  | no       | New credit balance for the customer |
+
+Response format:
+
+```json
+To be added
 ```
-??????????
+
+---
+
+Delete customer account.
+```http
+DELETE /customer/{id}
 ```
+
 
 ---
 
 Display customer history:
 
-```
+```http
 GET /customer/{id}/history
 ```
 
-Result:
+Response format:
 
-```
+```json
 [
     {
         "id": 1,
-        "customer": X,
-        "bike": X,
-        "start_location": "XXXXX",
+        "customer": 1,
+        "bike": 1,
+        "start_longitude": 0.0,
+        "start_latitude": 0.0,
         "start_time": "2021-11-24 15:00:00",
-        "end_location": "XXXXX",
+        "end_longitude": 0.0,
+        "end_latitude": 0.0,
         "end_time": "2021-11-24 14:14:10",
-        "cost": XX,
-        "city": X
-    },
-    {
-        "id": 2,
-        "customer": X,
-        "bike": X,
-        "start_location": "XXXXX",
-        "start_time": "2021-11-24 15:15:00",
-        "end_location": "XXXXX",
-        "end_time": "2021-11-24 14:16:35",
-        "cost": XX,
-        "city": X
+        "cost": 0.0,
+        "city": 1
     }
 ]
 ```
 
 ---
 
-Add customer log to history:
+Save a trip to the log:
 
-```
+```http
 POST /customer/{id}/history
 ```
 
 Parameters:
 
-```
-customer
-bike
-start_location
-start_time
-end_location
-cost
-city
+| Name            | Type   | Required | Description                                |
+| --------------- | ------ | -------- | ------------------------------------------ |
+| customer        | int    | yes      | ID of the customer                         |
+| bike            | int    | yes      | ID of the used bike                        |
+| start_longitude | float  | yes      | Longitude coordinate of starting position  |
+| start_latitude  | float  | yes      | Latitude coordinate of starting position   |
+| start_time      | string | yes      | Time trip started. Desired time format TBD |
+| cost            | float  | yes      | Cost of the trip                           |
+| end_longitude   | float  | yes      | Longitude coordinate of ending position    |
+| end_latitude    | float  | yes      | Latitude coordinate of ending position     |
+| city            | int    | yes      | ID of city                                 |
+
+Response format:
+
+```json
+To be added
 ```
 
----
-
-# /admin
+### Admin endpoints
 
 Display all customers:
 
-```
+```http
 GET /admin/customers
 ```
 
-Result:
+Response format:
 
-```
+```json
 [
     {
-        "id": X,
-        "name": "XXXX",
-        "account": X
-    },
-    {
-        "id": X,
-        "name": "XXXX",
-        "account": X
+        "id": 1,
+        "name": "Test Testingson",
+        "email": "test@test.com",
+        "credits": 0.0
     }
-
 ]
 ```
 
 ---
 
-Remove specific customer:
+Remove a customer:
 
-```
+```http
 DELETE /admin/customers/{id}
 ```
 
----
+Response format:
 
-# /register
-
-Register new customer:
-
+```json
+To be added
 ```
+
+### Account endpoints
+
+Register account
+
+```http
 POST /register
 ```
 
 Parameters:
 
+| Name  | Type   | Required | Description            |
+| ----- | ------ | -------- | ---------------------- |
+| email | string | yes      | Email to register with |
+
+Response format:
+
+```json
+To be added
 ```
-UNDER DEVELOPMENT
-```
+

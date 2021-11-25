@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use App\Models\stations;
 
 
@@ -14,9 +14,9 @@ class StationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): Response //GET station
+    public function index(): JsonResponse //GET station
     {
-        return stations::All();
+        return response()->json(["data" => stations::All()]);
     }
 
     /**
@@ -25,14 +25,16 @@ class StationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): Response //POST station
+    public function store(Request $request): JsonResponse //POST station
     {
         $request->validate([ //this needs to be in 'body' to get posted.
             'slots' => 'required',
             'longitude' => 'required',
             'latitude' => 'required'
         ]);
-        return stations::create($request->all());
+        return response()->json([
+            "data" => stations::create($request->all())
+        ]);
     }
 
     /**
@@ -41,9 +43,9 @@ class StationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): Response //GET station/{id}
+    public function show(int $id): JsonResponse //GET station/{id}
     {
-        return stations::find($id);
+        return response()->json(["data" => stations::find($id)]);
     }
 
     /**
@@ -53,11 +55,11 @@ class StationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id): Response //PUT station{id}
+    public function update(Request $request, int $id): JsonResponse //PUT station{id}
     {
         $station = stations::find($id);
         $station->update($request->all());
-        return $station;
+        return response()->json(["data" => $station]);
     }
 
     /**
@@ -66,8 +68,8 @@ class StationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id): Response //DELETE station/{id}
+    public function destroy(int $id): JsonResponse //DELETE station/{id}
     {
-        return stations::destroy($id);
+        return response()->json(["data" => stations::destroy($id)]);
     }
 }

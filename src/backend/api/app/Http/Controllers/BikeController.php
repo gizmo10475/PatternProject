@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use App\Models\bikes;
 
 class BikeController extends Controller
@@ -13,9 +13,9 @@ class BikeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): Response //GET bike
+    public function index(): JsonResponse //GET bike
     {
-        return bikes::All();
+        return response()->json(["data" => bikes::All()]);
     }
 
     /**
@@ -24,13 +24,15 @@ class BikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): Response //POST bike
+    public function store(Request $request): JsonResponse //POST bike
     {
         $request->validate([ //this needs to be in 'body' to get posted.
             'longitude' => 'required',
             'latitude' => 'required'
         ]);
-        return bikes::create($request->all());
+        return response()->json(
+            ["data" => bikes::create($request->all())
+        ]);
     }
 
     /**
@@ -39,9 +41,9 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): Response //GET bike/{id}
+    public function show(int $id): JsonResponse //GET bike/{id}
     {
-        return bikes::find($id);
+        return response()->json(["data" => bikes::find($id)]);
     }
 
     /**
@@ -51,11 +53,11 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id): Response //PUT bike/{id}
+    public function update(Request $request, int $id): JsonResponse //PUT bike/{id}
     {
         $bike = bikes::find($id);
         $bike->update($request->all());
-        return $bike;
+        return response()->json(["data" => $bike]);
     }
 
     /**
@@ -64,8 +66,8 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id): Response //DELETE bike/{id}
+    public function destroy(int $id): JsonResponse //DELETE bike/{id}
     {
-        return bikes::destroy($id);
+        return response()->json(["data" => bikes::destroy($id)]);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use App\Models\cities;
 
 class CityController extends Controller
@@ -13,9 +13,9 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): Response //GET city
+    public function index(): JsonResponse //GET city
     {
-        return cities::All();
+        return response()->json(["data" => cities::All()]);
     }
 
     /**
@@ -24,12 +24,12 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): Response //POST city
+    public function store(Request $request): JsonResponse //POST city
     {
         $request->validate([ //this needs to be in 'body' to get posted.
             'name' => 'required'
         ]);
-        return cities::create($request->all());
+        return response()->json(["data" => cities::create($request->all())]);
     }
 
     /**
@@ -38,9 +38,9 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): Response //GET city/{id}
+    public function show(int $id): JsonResponse //GET city/{id}
     {
-        return cities::find($id);
+        return response()->json(["data" => cities::find($id)]);
     }
 
     /**
@@ -50,11 +50,11 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id): Response //PUT city/{id}
+    public function update(Request $request, int $id): JsonResponse //PUT city/{id}
     {
         $city = cities::find($id);
         $city->update($request->all());
-        return $city;
+        return response()->json(["data" => $city]);
     }
 
     /**
@@ -63,8 +63,8 @@ class CityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id): Response //DELETE city/{id}
+    public function destroy(int $id): JsonResponse //DELETE city/{id}
     {
-        return cities::destroy($id);
+        return response()->json(["data" => cities::destroy($id)]);
     }
 }

@@ -4,9 +4,9 @@
 
 - [Setup](#Setup)
 - [Development](#Development)
-- [API Endpoints](API Endpoints)
-  - [Bike endpoints](#Bike endpoints)
-  - [City endpoints](#City endpoints )
+- [API Endpoints](#API%20Endpoints)
+  - [Bike endpoints](#Bike%20endpoints)
+  - [City endpoints](#City%20endpoints )
 
 ## Setup
 

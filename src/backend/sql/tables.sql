@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS stations;
 DROP TABLE IF EXISTS cities;
 
 DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS administrators;
 
 CREATE TABLE bikes (
     `id` INT AUTO_INCREMENT NOT NULL,
@@ -80,11 +80,10 @@ CREATE TABLE station2city (
 ENGINE INNODB
 ;
 
-DROP TABLE IF EXISTS accounts;
-CREATE TABLE accounts (
+CREATE TABLE administrators (
     `id` INT AUTO_INCREMENT NOT NULL,
     `email` VARCHAR(100) NOT NULL,
-    `admin` BOOLEAN NOT NULL DEFAULT 0,
+    `api_key` VARCHAR(100),
 
     PRIMARY KEY (`id`)
 )
@@ -94,11 +93,11 @@ ENGINE INNODB
 CREATE TABLE customers (
     `id` INT AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(50) NOT NULL,
-    `account` INT NOT NULL,
+    `email` VARCHAR(100) NOT NULL,
     `credits` FLOAT DEFAULT 0 NOT NULL,
+    `api_key` VARCHAR(100),
 
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`account`) REFERENCES accounts (`id`)
+    PRIMARY KEY (`id`)
 )
 ENGINE INNODB
 ;

@@ -49,6 +49,8 @@ All requests should be prefaced by /api.
 
 ### Bike endpoints
 
+Get all bikes
+
 ```http
 GET /bike
 ```
@@ -60,17 +62,19 @@ Parameters:
 
 Response format: 
 ```json
-[
-    {
-        "id": 1,
-        "longitude": 0.0,
-        "latitude": 0.0,
-        "active": 0,
-        "speed": 0,
-        "charging": 0,
-        "warning": 0
-    }
-]
+{
+    "data": [
+    	{
+        	"id": 1,
+        	"longitude": 0.0,
+        	"latitude": 0.0,
+        	"active": 0,
+        	"speed": 0,
+        	"charging": 0,
+        	"warning": 0
+    	}
+	]
+}
 ```
 
 ---
@@ -83,14 +87,21 @@ POST /bike
 
 Parameters:
 
-| Name     | Type   | Required |
-| -------- | ------ | -------- |
-| location | string | yes      |
+| Name      | Type  | Required | Description               |
+| --------- | ----- | -------- | ------------------------- |
+| longitude | float | yes      | Bike longitude coordinate |
+| latitude  | float | yes      | Bike latitude coordinate  |
 
 Response format: 
 
 ```json
-To be added
+{
+    "data": {
+        "longitude": 0.0,
+        "latitude": 0.0,
+        id: 1
+    }
+}
 ```
 
 ---
@@ -105,13 +116,15 @@ Response format:
 
 ```json5
 {
-    "id": 1, // {id}
-    "longitude": 0.0,
-    "latitude": 0.0,
-    "active": 0,
-    "speed": 0,
-    "charging": 0,
-    "warning": 0
+    "data": {
+        "id": 1, // {id}
+        "longitude": 0.0,
+        "latitude": 0.0,
+        "active": 0,
+        "speed": 0,
+        "charging": 0,
+        "warning": 0
+	}
 }
 ```
 
@@ -124,9 +137,13 @@ DELETE /bike/{id}
 ```
 
 Response format:
-```json
-To be added
+```json5
+{
+    "data": 1
+}
 ```
+
+Response is 1 if removal was successful, 0 if not.
 
 ---
 
@@ -148,8 +165,18 @@ Parameters:
 | warning   | bool  | no       | Set battery level warning status |
 
 Response format: 
-```json
-To be added
+```json5
+{
+    "data": {
+        "id": 1, // {id}
+        "longitude": 0.0,
+        "latitude": 0.0,
+        "active": 0,
+        "speed": 0,
+        "charging": 0,
+        "warning": 0
+	}
+}
 ```
 
 
@@ -164,12 +191,14 @@ GET /city
 Response format:
 
 ```json
-[
-    {
-        "id": 1,
-        "name": "Karlskrona"
-    }
-]
+{
+	"data": [
+        {
+            "id": 1,
+            "name": "Karlskrona"
+        }
+    ]
+}
 ```
 
 ---
@@ -182,10 +211,12 @@ GET /city/{id}
 
 Response format:
 
-```json
+```json5
 {
-    "id": 1,
-    "name": "Karlskrona"
+    "data": {
+        "id": 1, // {id}
+        "name": "Karlskrona"
+	}
 }
 ```
 
@@ -206,7 +237,12 @@ Parameters:
 Response format:
 
 ```json
-To be added
+{
+    "data": {
+        "name": "Karlskrona",
+        "id": 1
+    }
+}
 ```
 
 
@@ -220,8 +256,12 @@ DELETE /city/{id}
 
 Response format:
 ```json
-To be added
+{
+    "data": 1
+}
 ```
+
+Response is 1 if removal was successful, 0 if not.
 
 ---
 
@@ -233,14 +273,19 @@ PUT /city/{id}
 
 Parameters:
 
-| Name | Type   | Required | Description |
-| ---- | ------ | -------- | ----------- |
-| name | string | no       | City name   |
+| Name | Type   | Required | Description   |
+| ---- | ------ | -------- | ------------- |
+| name | string | no       | New city name |
 
 Response format:
 
-```json
-To be added
+```json5
+{
+    "data": {
+        "id": 1, // {id}
+        "name": "Kalmar"
+    }
+}
 ```
 
 ---
@@ -259,8 +304,13 @@ Parameters:
 
 Response format:
 
-```json
-To be added
+```json5
+{
+    "data": {
+        "id": 1, // {id}
+        "name": "Karlskrona"
+    }
+}
 ```
 
 ---
@@ -315,15 +365,17 @@ GET /stations
 Response format:
 
 ```json
-[
-    {
-        "id": 1,
-        "slots": 0,
-        "available": 0,
-        "longitude": 0.0,
-		"latitude": 0.0
-    }
-]
+{
+    "data": [
+        {
+            "id": 1,
+        	"slots": 10,
+			"longitude": 59.8594,
+			"latitude": 17.64,
+            "available": 0
+		}
+	]
+}
 ```
 
 ---
@@ -341,11 +393,19 @@ Parameters:
 | slots     | int  | yes      | Total number of parking spaces in station |
 | longitude | int  | yes      | Longitude coordinate                      |
 | latitude  | int  | yes      | Latitude coordinate                       |
+| city      | int  | yes      | ID of the city the station is in          |
 
 Response format:
 
 ```json
-To be added
+{
+    "data": {
+        "longitude": 0.0,
+        "latitude": 0.0,
+        "slots": 0,
+        "id": 1
+    }
+}
 ```
 
 ---
@@ -360,10 +420,13 @@ Response format:
 
 ```json5
 {
-    "id": 1, // {id}
-    "slots": 0,
-    "longitude": 0.0,
-    "latitude": 0.0
+    "data": {
+        "id": 1, // {id}
+        "longitude": 0.0,
+        "latitude": 0.0,
+        "slots": 0,
+        "available": 0
+    }
 }
 ```
 
@@ -378,8 +441,12 @@ DELETE /stations/{id}
 Response format:
 
 ```json
-To be added
+{
+    "data": 1
+}
 ```
+
+Response is 1 if removal was successful, 0 if not.
 
 ---
 
@@ -399,8 +466,15 @@ Parameters:
 
 Response format:
 
-```json
-To be added
+```json5
+{
+    "data": {
+        "id": 1, // {id}
+        "slots": 0,
+        "longitude": 0.0,
+        "latitude": 0.0
+    }
+}
 ```
 
 ### Customer endpoints
@@ -414,15 +488,17 @@ GET /customer
 Response format:
 
 ```json
-[
-    {
-        "id": 1,
-        "name": "Test Testingson",
-        "email": "test@test.com",
-        "credits": 0.0,
-        "api_key": 000
-    }
-]
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Test Testingson",
+            "email": "test@test.com",
+            "credits": 0.0,
+            "api_key": ""
+        }
+	]
+}
 ```
 
 ---
@@ -435,13 +511,15 @@ GET /customer/{id}
 
 Response format:
 
-```json
+```json5
 {
-    "id": 1,
-    "name": "Test Testingson",
-    "email": "test@test.com",
-    "credits": 0.0,
-    "api_key": 000
+    "data": {
+        "id": 1, // {id}
+        "name": "Test Testingson",
+        "email": "test@test.com",
+        "credits": 0.0,
+        "api_key": ""
+	}
 }
 ```
 
@@ -463,8 +541,16 @@ Parameters:
 
 Response format:
 
-```json
-To be added
+```json5
+{
+    "data": {
+        "id": 1, // {id}
+        "name": "Test Testingson",
+        "email": "test@test.com",
+        "credits": 0.0,
+        "api_key": ""
+	}
+}
 ```
 
 ---
@@ -477,8 +563,12 @@ DELETE /customer/{id}
 Response format:
 
 ```json
-To be added
+{
+    "data": 1
+}
 ```
+
+Response is 1 if removal was successful, 0 if not.
 
 
 ---
@@ -491,22 +581,24 @@ GET /customer/{id}/history
 
 Response format:
 
-```json
-[
-    {
-        "id": 1,
-        "customer": 1,
-        "bike": 1,
-        "start_longitude": 0.0,
-        "start_latitude": 0.0,
-        "start_time": "2021-11-24 15:00:00",
-        "end_longitude": 0.0,
-        "end_latitude": 0.0,
-        "end_time": "2021-11-24 14:14:10",
-        "cost": 0.0,
-        "city": 1
-    }
-]
+```json5
+{
+    "data": [
+        {
+            "id": 1,
+            "customer": 1, // {id}
+            "bike": 1,
+            "start_longitude": 0.0,
+            "start_latitude": 0.0,
+            "start_time": "2021-11-24 15:00:00",
+            "end_longitude": 0.0,
+            "end_latitude": 0.0,
+            "end_time": "2021-11-24 14:14:10",
+            "cost": 0.0,
+            "city": 1
+        }
+    ]
+}
 ```
 
 ---
@@ -533,8 +625,22 @@ Parameters:
 
 Response format:
 
-```json
-To be added
+```json5
+{
+    "data": {
+        "id": 1,
+        "customer": 1, // {id}
+        "bike": 1,
+        "start_longitude": 0.0,
+        "start_latitude": 0.0,
+        "start_time": "2021-11-24 15:00:00",
+        "end_longitude": 0.0,
+        "end_latitude": 0.0,
+        "end_time": "2021-11-24 14:14:10",
+        "cost": 0.0,
+        "city": 1
+    }
+}
 ```
 
 ### Admin endpoints
@@ -548,14 +654,17 @@ GET /admin/customers
 Response format:
 
 ```json
-[
-    {
-        "id": 1,
-        "name": "Test Testingson",
-        "email": "test@test.com",
-        "credits": 0.0
-    }
-]
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Test Testingson",
+            "email": "test@test.com",
+            "credits": 0.0,
+            "api_key": ""
+        }
+	]
+}
 ```
 
 ---
@@ -569,8 +678,12 @@ DELETE /admin/customers/{id}
 Response format:
 
 ```json
-To be added
+{
+    "data": 1
+}
 ```
+
+Response is 1 if removal was successful, 0 if not.
 
 ### Account endpoints
 

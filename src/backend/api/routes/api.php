@@ -65,16 +65,8 @@ Route::get('/customer/{id}/history', [CustomerController::class, 'showHistory'])
 Route::post('/customer/{id}/history', [CustomerController::class, 'storeHistory']);
 
 //register
-// Route::post('/register', [CustomerController::class, 'storeCustomer']); //old
 Route::post('/register', [AuthController::class, 'register']);
-
 
 //admin routes
 Route::get('/admin/customers', [AdminController::class, 'index']);
 Route::delete('/admin/customers/{id}', [AdminController::class, 'destroy']);
-
-
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});

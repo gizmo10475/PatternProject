@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-- [Setup](#Setup)
-- [Development](#Development)
-- [API Endpoints](#API-Endpoints)
-  - [Bike endpoints](#Bike-endpoints)
-  - [City endpoints](#City-endpoints)
-  - [Station endpoints](#Station-endpoints)
-  - [Customer endpoints](#Customer-endpoints)
-  - [Admin endpoints](#Admin-endpoints)
-  - [Account endpoints](#Account-endpoints)
+-   [Setup](#Setup)
+-   [Development](#Development)
+-   [API Endpoints](#API-Endpoints)
+    -   [Bike endpoints](#Bike-endpoints)
+    -   [City endpoints](#City-endpoints)
+    -   [Station endpoints](#Station-endpoints)
+    -   [Customer endpoints](#Customer-endpoints)
+    -   [Admin endpoints](#Admin-endpoints)
+    -   [Account endpoints](#Account-endpoints)
 
 ## Setup
 
@@ -60,20 +60,21 @@ Parameters:
 |----|----|--------|-----------|
 |active|bool|no|If set to true only retrieve active bikes.|
 
-Response format: 
+Response format:
+
 ```json
 {
     "data": [
-    	{
-        	"id": 1,
-        	"longitude": 0.0,
-        	"latitude": 0.0,
-        	"active": 0,
-        	"speed": 0,
-        	"charging": 0,
-        	"warning": 0
-    	}
-	]
+        {
+            "id": 1,
+            "longitude": 0.0,
+            "latitude": 0.0,
+            "active": 0,
+            "speed": 0,
+            "charging": 0,
+            "warning": 0
+        }
+    ]
 }
 ```
 
@@ -92,14 +93,14 @@ Parameters:
 | longitude | float | yes      | Bike longitude coordinate |
 | latitude  | float | yes      | Bike latitude coordinate  |
 
-Response format: 
+Response format:
 
 ```json
 {
     "data": {
         "longitude": 0.0,
         "latitude": 0.0,
-        id: 1
+        "id": 1
     }
 }
 ```
@@ -116,15 +117,15 @@ Response format:
 
 ```json5
 {
-    "data": {
-        "id": 1, // {id}
-        "longitude": 0.0,
-        "latitude": 0.0,
-        "active": 0,
-        "speed": 0,
-        "charging": 0,
-        "warning": 0
-	}
+    data: {
+        id: 1, // {id}
+        longitude: 0.0,
+        latitude: 0.0,
+        active: 0,
+        speed: 0,
+        charging: 0,
+        warning: 0,
+    },
 }
 ```
 
@@ -137,9 +138,10 @@ DELETE /bike/{id}
 ```
 
 Response format:
+
 ```json5
 {
-    "data": 1
+    data: 1,
 }
 ```
 
@@ -164,21 +166,21 @@ Parameters:
 | charging  | bool  | no       | Set charging status              |
 | warning   | bool  | no       | Set battery level warning status |
 
-Response format: 
+Response format:
+
 ```json5
 {
-    "data": {
-        "id": 1, // {id}
-        "longitude": 0.0,
-        "latitude": 0.0,
-        "active": 0,
-        "speed": 0,
-        "charging": 0,
-        "warning": 0
-	}
+    data: {
+        id: 1, // {id}
+        longitude: 0.0,
+        latitude: 0.0,
+        active: 0,
+        speed: 0,
+        charging: 0,
+        warning: 0,
+    },
 }
 ```
-
 
 ### City endpoints
 
@@ -192,7 +194,7 @@ Response format:
 
 ```json
 {
-	"data": [
+    "data": [
         {
             "id": 1,
             "name": "Karlskrona"
@@ -213,10 +215,10 @@ Response format:
 
 ```json5
 {
-    "data": {
-        "id": 1, // {id}
-        "name": "Karlskrona"
-	}
+    data: {
+        id: 1, // {id}
+        name: "Karlskrona",
+    },
 }
 ```
 
@@ -245,7 +247,6 @@ Response format:
 }
 ```
 
-
 ---
 
 Remove a city:
@@ -255,6 +256,7 @@ DELETE /city/{id}
 ```
 
 Response format:
+
 ```json
 {
     "data": 1
@@ -281,10 +283,10 @@ Response format:
 
 ```json5
 {
-    "data": {
-        "id": 1, // {id}
-        "name": "Kalmar"
-    }
+    data: {
+        id: 1, // {id}
+        name: "Kalmar",
+    },
 }
 ```
 
@@ -306,10 +308,10 @@ Response format:
 
 ```json5
 {
-    "data": {
-        "id": 1, // {id}
-        "name": "Karlskrona"
-    }
+    data: {
+        id: 1, // {id}
+        name: "Karlskrona",
+    },
 }
 ```
 
@@ -345,12 +347,12 @@ Response format:
 
 ```json
 [
-	{
-		"slots": 0,
-		"available": 0,
-		"longitude": 0.0,
-		"latitude": 0.0
-	}
+    {
+        "slots": 0,
+        "available": 0,
+        "longitude": 0.0,
+        "latitude": 0.0
+    }
 ]
 ```
 
@@ -369,12 +371,12 @@ Response format:
     "data": [
         {
             "id": 1,
-        	"slots": 10,
-			"longitude": 59.8594,
-			"latitude": 17.64,
+            "slots": 10,
+            "longitude": 59.8594,
+            "latitude": 17.64,
             "available": 0
-		}
-	]
+        }
+    ]
 }
 ```
 
@@ -420,13 +422,13 @@ Response format:
 
 ```json5
 {
-    "data": {
-        "id": 1, // {id}
-        "longitude": 0.0,
-        "latitude": 0.0,
-        "slots": 0,
-        "available": 0
-    }
+    data: {
+        id: 1, // {id}
+        longitude: 0.0,
+        latitude: 0.0,
+        slots: 0,
+        available: 0,
+    },
 }
 ```
 
@@ -468,12 +470,12 @@ Response format:
 
 ```json5
 {
-    "data": {
-        "id": 1, // {id}
-        "slots": 0,
-        "longitude": 0.0,
-        "latitude": 0.0
-    }
+    data: {
+        id: 1, // {id}
+        slots: 0,
+        longitude: 0.0,
+        latitude: 0.0,
+    },
 }
 ```
 
@@ -497,7 +499,7 @@ Response format:
             "credits": 0.0,
             "api_key": ""
         }
-	]
+    ]
 }
 ```
 
@@ -513,13 +515,13 @@ Response format:
 
 ```json5
 {
-    "data": {
-        "id": 1, // {id}
-        "name": "Test Testingson",
-        "email": "test@test.com",
-        "credits": 0.0,
-        "api_key": ""
-	}
+    data: {
+        id: 1, // {id}
+        name: "Test Testingson",
+        email: "test@test.com",
+        credits: 0.0,
+        api_key: "",
+    },
 }
 ```
 
@@ -543,19 +545,20 @@ Response format:
 
 ```json5
 {
-    "data": {
-        "id": 1, // {id}
-        "name": "Test Testingson",
-        "email": "test@test.com",
-        "credits": 0.0,
-        "api_key": ""
-	}
+    data: {
+        id: 1, // {id}
+        name: "Test Testingson",
+        email: "test@test.com",
+        credits: 0.0,
+        api_key: "",
+    },
 }
 ```
 
 ---
 
 Delete customer account.
+
 ```http
 DELETE /customer/{id}
 ```
@@ -570,7 +573,6 @@ Response format:
 
 Response is 1 if removal was successful, 0 if not.
 
-
 ---
 
 Display customer history:
@@ -583,21 +585,21 @@ Response format:
 
 ```json5
 {
-    "data": [
+    data: [
         {
-            "id": 1,
-            "customer": 1, // {id}
-            "bike": 1,
-            "start_longitude": 0.0,
-            "start_latitude": 0.0,
-            "start_time": "2021-11-24 15:00:00",
-            "end_longitude": 0.0,
-            "end_latitude": 0.0,
-            "end_time": "2021-11-24 14:14:10",
-            "cost": 0.0,
-            "city": 1
-        }
-    ]
+            id: 1,
+            customer: 1, // {id}
+            bike: 1,
+            start_longitude: 0.0,
+            start_latitude: 0.0,
+            start_time: "2021-11-24 15:00:00",
+            end_longitude: 0.0,
+            end_latitude: 0.0,
+            end_time: "2021-11-24 14:14:10",
+            cost: 0.0,
+            city: 1,
+        },
+    ],
 }
 ```
 
@@ -627,19 +629,19 @@ Response format:
 
 ```json5
 {
-    "data": {
-        "id": 1,
-        "customer": 1, // {id}
-        "bike": 1,
-        "start_longitude": 0.0,
-        "start_latitude": 0.0,
-        "start_time": "2021-11-24 15:00:00",
-        "end_longitude": 0.0,
-        "end_latitude": 0.0,
-        "end_time": "2021-11-24 14:14:10",
-        "cost": 0.0,
-        "city": 1
-    }
+    data: {
+        id: 1,
+        customer: 1, // {id}
+        bike: 1,
+        start_longitude: 0.0,
+        start_latitude: 0.0,
+        start_time: "2021-11-24 15:00:00",
+        end_longitude: 0.0,
+        end_latitude: 0.0,
+        end_time: "2021-11-24 14:14:10",
+        cost: 0.0,
+        city: 1,
+    },
 }
 ```
 
@@ -663,7 +665,7 @@ Response format:
             "credits": 0.0,
             "api_key": ""
         }
-	]
+    ]
 }
 ```
 
@@ -705,4 +707,3 @@ Response format:
 ```json
 To be added
 ```
-

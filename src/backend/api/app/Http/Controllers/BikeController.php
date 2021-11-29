@@ -13,8 +13,13 @@ class BikeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse //GET bike
+    public function index(Request $request): JsonResponse //GET bike
     {
+        $onlyActive = $request->boolean("active", false);
+        if ($onlyActive) {
+            return response()->json(["data" => bikes::query()->get()->where("active", "=", true)]);
+        }
+
         return response()->json(["data" => bikes::All()]);
     }
 

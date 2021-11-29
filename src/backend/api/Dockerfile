@@ -10,7 +10,7 @@ WORKDIR /var/www
 COPY . .
 
 RUN composer update
-RUN composer install
+RUN composer install --no-dev
 
 COPY ./public ./html
 RUN mv .env.docker .env

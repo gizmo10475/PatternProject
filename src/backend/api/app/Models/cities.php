@@ -14,12 +14,13 @@ class cities extends Model
 
     public $timestamps = false;
 
+    protected $primaryKey = "id";
     protected $fillable = [
         'name'
     ];
 
     public function bikes(): HasManyThrough
     {
-        return $this->hasManyThrough(bikes::class, Bike2City::class, "bike", "id", "id", "city");
+        return $this->hasManyThrough(bikes::class, Bike2City::class, "city", "id");
     }
 }

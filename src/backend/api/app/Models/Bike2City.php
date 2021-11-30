@@ -12,6 +12,7 @@ class Bike2City extends Model
 
     protected $table = "bike2city";
     public $timestamps = false;
+    protected $primaryKey = "id";
     protected $fillable = [
         "bike",
         "city"

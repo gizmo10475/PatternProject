@@ -11,5 +11,9 @@ class station2city extends Model
 
     public $timestamps = false;
 
-    protected $primaryKey = 'pid';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        "city",
+        "station"
+    ];
 }

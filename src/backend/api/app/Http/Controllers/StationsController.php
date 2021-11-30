@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\stations;
 use App\Models\Bike2Station;
+use App\Models\station2city;
 
 class StationsController extends Controller
 {
@@ -35,11 +36,17 @@ class StationsController extends Controller
         $request->validate([ //this needs to be in 'body' to get posted.
             'slots' => 'required',
             'longitude' => 'required',
-            'latitude' => 'required'
+            'latitude' => 'required',
+            "city" => "required"
         ]);
-        return response()->json([
-            "data" => stations::create($request->all())
+        $newStationData = $request->all(["slots", "longitude", "latitude"]);
+        $station = stations::create($newStationData);
+        station2city::create([
+            "station" => $station->id,
+            "city" => $request->input("city")
         ]);
+
+        return response()->json(["data" => $station]);
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bike2City;
+use App\Models\bikes;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\cities;
@@ -66,5 +68,18 @@ class CityController extends Controller
     public function destroy(int $id): JsonResponse //DELETE city/{id}
     {
         return response()->json(["data" => cities::destroy($id)]);
+    }
+
+    /**
+     * Get bikes in city
+     * 
+     * @param \Illuminate\Http\Request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getBikes(Request $request, int $id): JsonResponse
+    {
+        $city = cities::find($id);
+        return response()->json(["data" => $city->bikes]);
     }
 }

@@ -1,28 +1,20 @@
-/* global mainContainer rootElement */
-"use strict";
-import { menu } from "./menu.js";
-var home = (function () {
-    var showHome = function () {
-        var title = document.createElement("h1");
-        var greetingTime = document.createElement("p");
-        var greeting = document.createElement("p");
-        // var container = document.createElement("img");
-       
+import m from "mithril";
+import bikes from "../models/bikes.js"
 
-        window.mainContainer.innerHTML = "";
-        title.className = "title";
-        title.textContent = "Cykel App Project Pattern";
-        greeting.textContent = "Lite text om cyklar";
-        window.mainContainer.appendChild(title);
-        window.mainContainer.appendChild(greetingTime);
-        mainContainer.appendChild(greeting);
-        rootElement.appendChild(mainContainer);
-        menu.showMenu("home");
-    };
+let home = {
+    oninit: bikes.getAllLocations,
+    view: function() {
+        return m("main.container", [
+            m("h1", "Home"),
+            m("div.deliveries", bikes.mapCords.map(function (bike) {
+                return m("div.orderInfo", [
+                    m("p", bike.id),
+                    m("p", bike.long),
+                    m("p", bike.lat)
+                ]);
+            }))
+        ]);
+    }
+};
 
-    return {
-        showHome: showHome
-    };
-})(home);
-
-export { home };
+export default home;

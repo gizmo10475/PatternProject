@@ -1,11 +1,17 @@
 @import url("https://fonts.googleapis.com/css?family=Merriweather|Source+Sans+Pro");
 @import './normalize.min.css';
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,700;1,300&display=swap");
+
+.mapDiv {
+  height: 200px;
+  width: 200px;
+}
+
 .container {
   padding: 1rem;
   margin-top: 3.2rem;
   font-size: 1.2rem;
-  background-image: url("./img/backround.png");
+  /* background-image: url("./img/backround.png"); */
   min-height: 900px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -178,3 +184,6 @@ p {
   background-color: #830700;
   background-image: none;
 }
+
+
+#map { height: 480px; }

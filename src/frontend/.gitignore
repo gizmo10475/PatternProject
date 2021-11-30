@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 .DS_Store
 /.DS_Store
+=======
+./dist
+./node_modules
+>>>>>>> 6affd4744a4f18b0656d0702fb2e780ec4895174

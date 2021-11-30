@@ -80,6 +80,21 @@ class CityController extends Controller
     public function getBikes(Request $request, int $id): JsonResponse
     {
         $city = cities::find($id);
-        return response()->json(["data" => $city->bikes]);
+        $onlyActive = $request->boolean("active", false);
+        if ($onlyActive) {
+            $bikes = $city->bikes->where("active", "=", true);
+            return response()->json([
+                "data" => [
+                    "id" => $city->id,
+                    "name" => $city->name,
+                    "bikes" => $bikes
+                ]
+            ]);
+        }
+
+        $city->bikes;
+        return response()->json([
+            "data" => $city
+        ]);
     }
 }

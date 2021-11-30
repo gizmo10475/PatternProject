@@ -292,7 +292,7 @@ Response format:
 
 ---
 
-Get all bikes in city: (ROUTE IN DEVELOPMENT)
+Get all bikes in city:
 
 ```http
 GET /city/{id}/bikes
@@ -311,6 +311,17 @@ Response format:
     data: {
         id: 1, // {id}
         name: "Karlskrona",
+        bikes: [
+            {
+                id: 1,
+                longitude: 0.0,
+                latitude: 0.0,
+                active: 0,
+                speed: 0,
+                charging: 0,
+                warning: 0,
+            },
+        ],
     },
 }
 ```

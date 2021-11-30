@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\stations;
-
+use App\Models\Bike2Station;
 
 class StationsController extends Controller
 {
@@ -16,7 +16,12 @@ class StationsController extends Controller
      */
     public function index(): JsonResponse //GET station
     {
-        return response()->json(["data" => stations::All()]);
+        $stations = stations::All();
+        foreach ($stations as $station) {
+            $bikesAtStation = Bike2Station::query()->get()->where("station", "=", $station->id);
+            $station->available = $station->slots - $bikesAtStation->count();
+        }
+        return response()->json(["data" => $stations]);
     }
 
     /**

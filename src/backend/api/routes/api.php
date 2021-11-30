@@ -38,7 +38,7 @@ Route::delete('/city/{id}', [CityController::class, 'destroy']);
 
 
 //stations routes
-// Route::get('/stations', [StationsController::class, 'index']);
+Route::get('/stations', [StationsController::class, 'index']);
 Route::post('/stations', [StationsController::class, 'store']);
 Route::get('/stations/{id}', [StationsController::class, 'show']);
 Route::put('/stations/{id}', [StationsController::class, 'update']);

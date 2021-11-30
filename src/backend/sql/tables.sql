@@ -14,8 +14,8 @@ DROP TABLE IF EXISTS administrators;
 
 CREATE TABLE bikes (
     `id` INT AUTO_INCREMENT NOT NULL,
-    `longitude` FLOAT,
-    `latitude` FLOAT,
+    `longitude` DOUBLE,
+    `latitude` DOUBLE,
     `active` BOOLEAN DEFAULT 0,
     `speed` INT DEFAULT 0,
     `charging` BOOLEAN DEFAULT 0,
@@ -50,8 +50,8 @@ ENGINE INNODB
 CREATE TABLE stations (
     `id` INT AUTO_INCREMENT NOT NULL,
     `slots` INT NOT NULL,
-    `longitude` FLOAT,
-    `latitude` FLOAT,
+    `longitude` DOUBLE,
+    `latitude` DOUBLE,
 
     PRIMARY KEY (`id`)
 )
@@ -107,11 +107,11 @@ CREATE TABLE travel_log (
     `id` INT AUTO_INCREMENT NOT NULL,
     `customer` INT NOT NULL,
     `bike` INT NOT NULL,
-    `start_longitude` FLOAT NOT NULL,
-    `start_latitude` FLOAT NOT NULL,
+    `start_longitude` DOUBLE NOT NULL,
+    `start_latitude` DOUBLE NOT NULL,
     `start_time` TIMESTAMP NOT NULL,
-    `end_longitude` FLOAT NOT NULL,
-    `end_latitude` FLOAT NOT NULL,
+    `end_longitude` DOUBLE NOT NULL,
+    `end_latitude` DOUBLE NOT NULL,
     `end_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `cost` FLOAT NOT NULL,
     `city` INT NOT NULL,

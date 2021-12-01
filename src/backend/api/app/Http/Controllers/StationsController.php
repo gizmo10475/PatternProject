@@ -18,10 +18,7 @@ class StationsController extends Controller
     public function index(): JsonResponse //GET station
     {
         $stations = stations::All();
-        foreach ($stations as $station) {
-            $bikesAtStation = Bike2Station::query()->get()->where("station", "=", $station->id);
-            $station->available = $station->slots - $bikesAtStation->count();
-        }
+        $stations = stations::fillAvailableSlots($stations);
         return response()->json(["data" => $stations]);
     }
 

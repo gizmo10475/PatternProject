@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\cities;
+use App\Models\bikes;
+use App\Models\Bike2City;
 use App\Models\stations;
 
 class CityController extends Controller
@@ -94,6 +96,22 @@ class CityController extends Controller
         $city->bikes;
         return response()->json([
             "data" => $city
+        ]);
+    }
+
+    public function addBike(Request $request, int $id): JsonResponse
+    {
+        $request->validate([
+            "bike" => "required"
+        ]);
+        $bikeID = $request->input("bike");
+        Bike2City::updateOrInsert(["bike" => $bikeID], ["city" => $id]);
+
+        return response()->json([
+            "data" => [
+                "bike" => bikes::find($bikeID),
+                "city" => cities::find($id)
+            ]
         ]);
     }
 

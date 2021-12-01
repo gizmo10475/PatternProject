@@ -328,7 +328,7 @@ Response format:
 
 ---
 
-Add bike to city: (ROUTE IN DEVELOPMENT)
+Add bike to city:
 
 ```http
 POST /city/{id}/bikes
@@ -338,12 +338,28 @@ Parameters:
 
 | Name | Type | Required | Description                        |
 | ---- | ---- | -------- | ---------------------------------- |
-| id   | int  | yes      | ID of the bike to register to city |
+| bike | int  | yes      | ID of the bike to register to city |
 
 Response format:
 
-```json
-To be added
+```json5
+{
+    data: {
+        bike: {
+            id: 1, // {bike}
+            longitude: 0.0,
+            latitude: 0.0,
+            active: 0,
+            speed: 0,
+            charging: 0,
+            warning: 0
+        },
+        city: {
+            id: 1, // {id}
+            name: "Karlskrona"
+        }
+    }
+}
 ```
 
 ---
@@ -357,7 +373,7 @@ GET /city/{id}/stations
 Response format:
 
 ```json5
-[
+{
     data: {
         id: 1, // {id}
         name: "Karlskrona",
@@ -370,7 +386,7 @@ Response format:
             }
         ]
     }
-]
+}
 ```
 
 ### Station endpoints

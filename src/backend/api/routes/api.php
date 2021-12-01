@@ -36,6 +36,7 @@ Route::get('/city/{id}', [CityController::class, 'show']);
 Route::put('/city/{id}', [CityController::class, 'update']);
 Route::delete('/city/{id}', [CityController::class, 'destroy']);
 Route::get("/city/{id}/bikes", [CityController::class, "getBikes"]);
+Route::post("/city/{id}/bikes", [CityController::class, "addBike"]);
 Route::get("/city/{id}/stations", [CityController::class, "getStations"]);
 
 

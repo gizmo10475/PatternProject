@@ -1,7 +1,9 @@
 import m from "mithril";
-import L from "leaflet";
+import * as L from "leaflet";
+import "leaflet.markercluster";
 import bikes from "../models/bikes.js";
 import stations from "../models/stations.js";
+import "leaflet.markercluster.layersupport";
 
 // import "leaflet/dist/leaflet.css";
 // import "leaflet/dist/images/marker-icon-2x.png";
@@ -23,12 +25,13 @@ import stations from "../models/stations.js";
 //     popupAnchor:  [0, 0]
 // });
 
-let map;
+var map;
+var marker;
 /*
 function showMap() {
     // let cor = bikes.mapCords;
 
-    
+
     let map = L.map("map").setView([56.184, 15.6014], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',    {
@@ -58,8 +61,8 @@ function showMap() {
     var places = {
         "BTH": [56.181932, 15.590525]
     };
-    
-    
+
+
     map = L.map('map').setView(places["BTH"], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -72,11 +75,64 @@ function showMap() {
     //     if (Object.prototype.hasOwnProperty.call(places, place)) {
     //         L.marker(places[place]).addTo(map).bindPopup(place);
     //     }
-    // } 
+    // }
 
 }
+var markers = new L.markerClusterGroup.layerSupport({
+  spiderfyOnMaxZoom: true,
+  removeOutsideVisibleBounds: true,
+  animateAddingMarkers: true,
+  iconCreateFunction: function (cluster) {
+    /*var clusterSize = "small";
+    if (cluster.getChildCount() < 10) {
+      clusterSize = "high";
+    }
+    */
+    return new L.DivIcon({
+      html: "<div><span>" + cluster.getChildCount() + "</span></div>",
+      className: "cluster-number",
+      iconSize: new L.Point(40, 40),
+    });
+  },
+});
 
-function renderMarker() {
+
+
+function renderStations() {
+        removeMarkers()
+       /* for (var id in stations.infoStations) {
+        if (Object.prototype.hasOwnProperty.call(stations.infoStations, id)) {
+            L.marker(stations.infoStations[id])
+              .addTo(map)
+              .bindPopup(id)
+              //.openPopup();
+        */for (var id in stations.infoStations) {
+            if (Object.prototype.hasOwnProperty.call(stations.infoStations, id)) {
+            //var markergroup = L.layerGroup().addTo(map);
+            markers.addLayer(L.marker(stations.infoStations[id]))
+              //.addTo(markerGroup)
+              .bindPopup(id);
+              map.addLayer(markers)
+            //L.DomUtil.addClass(marker._icon, "leaflet-marker-bikes");
+
+        //     var circle = L.circle(bikes.infoBikes[id], {
+        //         color: 'red',
+        //         fillColor: '#f03',
+        //         fillOpacity: 0.5,
+        //         radius: 500
+        //     }).addTo(map);
+        }
+    }
+}
+
+
+
+
+function renderBikes() {
+
+    removeMarkers();
+
+
     // // console.log(bikes.mapCords.length);
     // // for (let i = 0; i < bikes.mapCords.length; i++) {
     // //     // console.log(typeof bikes.mapCords[i].long);
@@ -89,15 +145,15 @@ function renderMarker() {
     //     console.log(bikes.mapCords[i].id);
     //     console.log(bikes.mapCords[0]);
     //     L.marker([bikes.mapCords[i].lat, bikes.mapCords[i].long]).addTo(map);
-        
+
     //     // var x = bikes.mapCords[i].lat;
     //     // var y = bikes.mapCords[i].long;
-        
+
     //     // var places = {
     //     //     "karlskrona" : [x, y]
     //     // };
 
-        
+
 
     //     // var marker = L.marker(places["karlskrona"]).addTo(map);
     //         // .bindPopup(bikes.mapCords[i].id);
@@ -107,7 +163,13 @@ function renderMarker() {
 
     for (var id in bikes.infoBikes) {
         if (Object.prototype.hasOwnProperty.call(bikes.infoBikes, id)) {
-            L.marker(bikes.infoBikes[id]).addTo(map).bindPopup(id);
+            //var markergroup = L.layerGroup().addTo(map);
+            markers.addLayer(L.marker(bikes.infoBikes[id]))
+              //.addTo(markerGroup)
+              .bindPopup(id);
+              map.addLayer(markers)
+            //L.DomUtil.addClass(marker._icon, "leaflet-marker-bikes");
+
         //     var circle = L.circle(bikes.infoBikes[id], {
         //         color: 'red',
         //         fillColor: '#f03',
@@ -117,12 +179,20 @@ function renderMarker() {
         }
     }
 
-    for (var id in stations.infoStations) {
-        if (Object.prototype.hasOwnProperty.call(stations.infoStations, id)) {
-            L.marker(stations.infoStations[id]).addTo(map).bindPopup(id);
-        }
-    } 
 }
+
+function removeMarkers() {
+    /*
+    var bikes = document.getElementsByClassName(
+      "leaflet-marker-bikes");
+
+      for (var i= 0; i < bikes.length; i++) {
+          bikes[i].style.display = "none";
+      }
+      */
+     markers.clearLayers();
+}
+
 
 /*
 
@@ -152,12 +222,15 @@ let bikeMap = {
         stations.getAllLocations();
     },
     view: function() {
-        if (bikes.infoBikes && stations.infoStations) {
-            // console.log(stations.infoStations);
+        /*if (bikes.infoBikes && stations.infoStations) {
+            console.log(stations.infoStations);
             renderMarker();
-        }
+        }*/
         return m("main.container", [
-            m("div#map.map", "")
+          m("div#map.map", ""),
+          m("button", { onclick: renderBikes }, "Show available bikes"),
+          m("button", { onclick: renderStations }, "Show all stations"),
+          m("button", { onclick: removeMarkers }, "hide markers"),
         ]);
     },
     oncreate: function() {

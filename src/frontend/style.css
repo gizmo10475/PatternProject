@@ -185,5 +185,10 @@ p {
   background-image: none;
 }
 
-
 #map { height: 480px; }
+
+.cluster-number {
+  font-size: 40px;
+  color: blue;
+}
+

@@ -348,7 +348,7 @@ To be added
 
 ---
 
-Get all stations in city: (ROUTE IN DEVELOPMENT)
+Get all stations in city:
 
 ```http
 GET /city/{id}/stations
@@ -356,13 +356,19 @@ GET /city/{id}/stations
 
 Response format:
 
-```json
+```json5
 [
-    {
-        "slots": 0,
-        "available": 0,
-        "longitude": 0.0,
-        "latitude": 0.0
+    data: {
+        id: 1, // {id}
+        name: "Karlskrona",
+        stations: [
+            {
+                "slots": 0,
+                "available": 0,
+                "longitude": 0.0,
+                "latitude": 0.0
+            }
+        ]
     }
 ]
 ```

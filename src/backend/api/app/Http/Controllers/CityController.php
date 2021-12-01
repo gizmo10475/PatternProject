@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bike2City;
-use App\Models\bikes;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\cities;
+use App\Models\stations;
 
 class CityController extends Controller
 {
@@ -93,6 +92,22 @@ class CityController extends Controller
         }
 
         $city->bikes;
+        return response()->json([
+            "data" => $city
+        ]);
+    }
+
+    /**
+     * Get stations in city
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getStations(Request $request, int $id): JsonResponse
+    {
+        $city = cities::find($id);
+        $city->stations = stations::fillAvailableSlots($city->stations);
         return response()->json([
             "data" => $city
         ]);

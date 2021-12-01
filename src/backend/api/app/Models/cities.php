@@ -23,4 +23,9 @@ class cities extends Model
     {
         return $this->hasManyThrough(bikes::class, Bike2City::class, "city", "id");
     }
+
+    public function stations(): HasManyThrough
+    {
+        return $this->hasManyThrough(stations::class, station2city::class, "city", "id");
+    }
 }

@@ -25,6 +25,8 @@ import "leaflet.markercluster.layersupport";
 //     popupAnchor:  [0, 0]
 // });
 
+
+
 var map;
 var marker;
 /*
@@ -78,6 +80,9 @@ function showMap() {
     // }
 
 }
+
+// en global marker som läggs till i MarkerClusterGroup, detta visas på kartan som en stor siffra när man zoomar ut, och ju närmare man zoomar in så delar de upp sig, inte färdiginställd, använder sig utav LayerSupport som gör att vi kan köra removeMarkers() funktion direkt som tar bort alla markers som skapat i den layer vi lagt de i.
+
 var markers = new L.markerClusterGroup.layerSupport({
   spiderfyOnMaxZoom: true,
   removeOutsideVisibleBounds: true,
@@ -97,6 +102,7 @@ var markers = new L.markerClusterGroup.layerSupport({
 });
 
 
+//gjorde om renderStations och renderBikes så dessa lägga till i en layer som sedan läggs till maps,  marker -> lägga i layers -> läggs på map.
 
 function renderStations() {
         removeMarkers()
@@ -214,7 +220,7 @@ map.on('click', onMapClick);
 */
 
 
-
+//la till knappar för testa funktioneliteten.
 
 let bikeMap = {
     oninit: function() {

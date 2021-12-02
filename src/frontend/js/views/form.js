@@ -8,6 +8,7 @@ let form = {
     },
     view: function() {
         let options = Object.keys(bikes.infoBikes);
+        options.unshift(" ");
         return m("main.container", [
             m("h1", "Form"),
             m("form", {
@@ -20,8 +21,6 @@ let form = {
                 m("select.input", {
                     onchange: function (event) {
                         bikes.currentId = event.target.value;
-
-                        // console.log(event.target.value)
                     }
                 }, [
                     options.map(o => m('option', { value: o }, o.toLocaleString()))

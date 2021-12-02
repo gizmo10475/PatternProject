@@ -112,12 +112,13 @@ function renderStations() {
               .addTo(map)
               .bindPopup(id)
               //.openPopup();
-        */for (var id in stations.infoStations) {
+        */
+        for (var id in stations.infoStations) {
             if (Object.prototype.hasOwnProperty.call(stations.infoStations, id)) {
             //var markergroup = L.layerGroup().addTo(map);
-            markers.addLayer(L.marker(stations.infoStations[id]))
+            markers.addLayer(L.marker(stations.infoStations[id]).bindPopup(id));
               //.addTo(markerGroup)
-              .bindPopup(id);
+            //   markers.bindPopup(id);
               map.addLayer(markers)
             //L.DomUtil.addClass(marker._icon, "leaflet-marker-bikes");
 
@@ -170,10 +171,10 @@ function renderBikes() {
     for (var id in bikes.infoBikes) {
         if (Object.prototype.hasOwnProperty.call(bikes.infoBikes, id)) {
             //var markergroup = L.layerGroup().addTo(map);
-            markers.addLayer(L.marker(bikes.infoBikes[id]))
+            markers.addLayer(L.marker(bikes.infoBikes[id]).bindPopup(id));
               //.addTo(markerGroup)
-              .bindPopup(id);
-              map.addLayer(markers)
+            //   .bindPopup("test"+id);
+              map.addLayer(markers);
             //L.DomUtil.addClass(marker._icon, "leaflet-marker-bikes");
 
         //     var circle = L.circle(bikes.infoBikes[id], {

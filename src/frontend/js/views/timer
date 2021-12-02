@@ -1,0 +1,43 @@
+import m from "mithril";
+
+let rideInfo = {
+    oninit: function() {
+        let hour = 0;
+        let minute = 0;
+        let second = 0;
+        let millisecond = 0;
+
+        let cron;
+
+        setInterval(() => { timer(); }, 10);
+    },
+    view: function() {
+        let options = Object.keys(bikes.infoBikes);
+        return m("main.container", [
+            m("h1", "Form"),
+            m("form", {
+                onsubmit: function(event) {
+                    event.preventDefault();
+                    bikes.rentBike(bikes.currentId);
+                }
+            }, [
+                m("label.input-label", "Välj cykel"),
+                m("select.input", {
+                    onchange: function (event) {
+                        bikes.currentId = event.target.value;
+
+                        // console.log(event.target.value)
+                    }
+                }, [
+                    options.map(o => m('option', { value: o }, o.toLocaleString()))
+                ]),
+                m("input[type=submit][value=Hyr].rentBtn", "Hyr")
+
+              
+            ]
+            )
+        ]);
+    }
+};
+
+export default rideInfo;

@@ -4,6 +4,7 @@ let bikes = {
     // allActiveBikes: [],
     mapCords: [],
     infoBikes: {},
+    currentId: "",
     // getAllActiveBikes: function() {
     //     return m.request({
     //         method: "GET",
@@ -24,6 +25,21 @@ let bikes = {
         for (var i = 0; i < info.data.length; i++) {
             bikes.infoBikes[info.data[i].id] = [info.data[i].longitude, info.data[i].latitude]
         }
+    },
+    rentBike: function(id) {
+        var bikeInfo = {
+            active: 1
+        };
+    
+        return m.request({
+            method: "PUT",
+            url: `http://localhost:8080/api/bike/${id}`,
+            body: bikeInfo,
+            // Accept: "application/json"
+        }).then(function(result) {
+            console.log(result);
+            // bikes.locations(result);
+        });
     },
     // locations: function(info) {
     //     for (var i = 0; i < info.data.length; i++) {

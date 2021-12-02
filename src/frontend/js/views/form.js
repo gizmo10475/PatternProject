@@ -1,7 +1,6 @@
 import m from "mithril";
 import bikes from "../models/bikes.js";
 
-
 let form = {
     oninit: function() {
         bikes.getAllLocations();
@@ -14,21 +13,23 @@ let form = {
             m("form", {
                 onsubmit: function(event) {
                     event.preventDefault();
+                    bikes.rentBike(bikes.currentId);
                 }
             }, [
                 m("label.input-label", "Välj cykel"),
                 m("select.input", {
                     onchange: function (event) {
-                        //console.log(Object.keys(bikes.infoBikes));
-                        options = parseInt
-                        (event.target.value);
+                        bikes.currentId = event.target.value;
+
+                        // console.log(event.target.value)
                     }
                 }, [
                     options.map(o => m('option', { value: o }, o.toLocaleString()))
-                ])
+                ]),
+                m("input[type=submit][value=Hyr].rentBtn", "Hyr")
 
+              
             ]
-            
             )
         ]);
     }

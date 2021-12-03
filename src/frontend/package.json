@@ -28,6 +28,7 @@
     "leaflet-map": "^0.2.1",
     "leaflet.markercluster": "^1.5.3",
     "leaflet.markercluster.layersupport": "^2.0.1",
-    "mithril": "^2.0.4"
+    "mithril": "^2.0.4",
+    "mithril-component": "^1.0.2"
   }
 }

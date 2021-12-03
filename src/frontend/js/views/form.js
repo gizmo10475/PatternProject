@@ -25,32 +25,60 @@ let form = {
                 }, [
                     options.map(o => m('option', { value: o }, o.toLocaleString()))
                 ]),
-                m("input[type=submit][value=Hyr].rentBtn", "Hyr")
-
-              
+                // m("input[type=submit][value=Hyr].rentBtn", "Hyr")
+                m("button", {onclick: test}, "Hyr")   
             ]
             )
         ]);
     }
 };
 
-// const ctrl = {
-//     minReach: 50000,
-//     updateStuff: () => { console.log('value selected: ' + ctrl.minReach)},
-//     opts: [0, 1000, 5000, 10000, 50000, 100000, 250000, 1000000]
-//   }
 
-  
-// m('select[name=min_reach]', {
-//
-//     onchange: e => {
-//       ctrl.minReach = ctrl.opts[e.target.selectedIndex]
-//       ctrl.updateStuff()
-//     }
-//   }, [
-//     ctrl.opts.map(o => m('option', { value: o }, o.toLocaleString()))
-//   ])
+var second = 0;
+var minute = 0;
+var hour = 0;
+var sum = 10; //voi har en upplåsningsavgift på 10:- och sedan 3:-/min
 
+var Counter = {
+    view: function() {
+        return m('main.container', [
+            m('h1', (returnData(hour) + ':' + returnData(minute) + ':' + returnData(second))),
+            m('h1', "Kostnad: " + sum + ":-"),
+            m("button", {onclick: goHome}, "Avsluta resan")
+            
+        ])
+    }
+}
+
+function test() {
+    m.render(document.body, m(Counter));
+
+    timer = setInterval(function () {
+        second++;
+        if (second == 60) {
+            second = 0;
+            minute++;
+            sum += 3;
+        }
+        if (minute == 60) {
+            minute = 0;
+            hour++;
+        }
+        m.render(document.body, m(Counter));
+    }, 1000);
+}
+
+
+function returnData(input) {
+    return input > 10 ? input : `0${input}`
+}
+
+
+function goHome() {
+    m.route.set("/");
+    window.location.reload();
+    alert("Din resa är nu avslutad!");
+}
 
 
 

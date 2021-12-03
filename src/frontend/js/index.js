@@ -5,6 +5,10 @@ import { layout } from "./views/layout.js";
 import home from "./views/home.js";
 import form from "./views/form.js";
 import bikeMap from "./views/bikeMap.js";
+import rideInfo from "./views/rideInfo";
+// import TimerComponent from "./views/timer";
+
+// import timer from "./views/timer";
 
 
 m.route(document.body, "/", {
@@ -29,4 +33,19 @@ m.route(document.body, "/", {
             }, m(bikeMap));
         }
     },
+    "/rideInfo": {
+        render: function() {
+            return m(layout, {
+                bottomNav: "#!/rideInfo"
+            }, m(rideInfo));
+        }
+    },
+    // "/timer": {
+    //     render: function() {
+    //         return m(layout, {
+    //             bottomNav: "#!/timer"
+    //         }, m(TimerComponent));
+    //     }
+    // }
+    
 });

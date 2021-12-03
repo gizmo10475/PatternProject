@@ -35,10 +35,9 @@ let bikes = {
             method: "PUT",
             url: `http://localhost:8080/api/bike/${id}`,
             body: bikeInfo,
-            // Accept: "application/json"
         }).then(function(result) {
             console.log(result);
-            // bikes.locations(result);
+            return m.route.set("/timer");
         });
     },
     // locations: function(info) {

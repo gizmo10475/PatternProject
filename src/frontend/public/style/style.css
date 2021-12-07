@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+
+body {
+    margin: 8px auto;
+    padding: 10px;
+    background: #dac292;
+    width: 800px;
+    font-family: 'PT Serif';
+}
+
+html {
+    background-color: #ffffff;
+    background-image: url("../img/backround.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+header {
+    padding: 10px;
+    text-align: center;
+}
+
+header a {
+    font-size: 18px;
+    color: #3e4444;
+}
+
+.logo {
+    font-size: 60px;
+    color: #404040;
+}
+
+h1 {
+    margin: 20px;
+}
+
+p {
+    font-size: 14px;
+    margin: 20px;
+}
+
+tr {
+    font-size: 14px;
+}
+
+th {
+    font-size: 16px;
+    background-color: #dac292;
+    border-top: 1px solid #404040;
+    border-bottom: 1px solid #404040;
+    padding: 10px;
+}
+
+td {
+    padding: 5px 10px;
+    text-align: center;
+    border-bottom: 1px solid #404040;
+}
+
+table {
+    margin: 5px;
+    padding: 15px;
+}
+
+a {
+    color: #3e4444;
+}

@@ -11,7 +11,7 @@ const routeAdmin = require("./route/admin.js");
 const middleware = require("./middleware/index.js");
 
 app.set("view engine", "ejs");
- 
+
 app.use(middleware.logIncomingToConsole);
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/", routeIndex);
@@ -20,7 +20,7 @@ app.use("/customer", routeCustomer);
 // ADMIN
 app.use("/admin", routeAdmin);
 app.listen(port, logStartUpDetailsToConsole);
- 
+
  
  
 /**

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Models\bikes;
+use App\Models\Bike;
 
 class BikeController extends Controller
 {
@@ -17,10 +17,10 @@ class BikeController extends Controller
     {
         $onlyActive = $request->boolean("active", false);
         if ($onlyActive) {
-            return response()->json(["data" => bikes::query()->get()->where("active", "=", true)]);
+            return response()->json(["data" => Bike::query()->get()->where("active", "=", true)]);
         }
 
-        return response()->json(["data" => bikes::All()]);
+        return response()->json(["data" => Bike::All()]);
     }
 
     /**
@@ -35,9 +35,7 @@ class BikeController extends Controller
             'longitude' => 'required',
             'latitude' => 'required'
         ]);
-        return response()->json(
-            ["data" => bikes::create($request->all())
-        ]);
+        return response()->json(["data" => Bike::create($request->all())]);
     }
 
     /**
@@ -48,7 +46,7 @@ class BikeController extends Controller
      */
     public function show(int $id): JsonResponse //GET bike/{id}
     {
-        return response()->json(["data" => bikes::find($id)]);
+        return response()->json(["data" => Bike::find($id)]);
     }
 
     /**
@@ -60,7 +58,7 @@ class BikeController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse //PUT bike/{id}
     {
-        $bike = bikes::find($id);
+        $bike = Bike::find($id);
         $bike->update($request->all());
         return response()->json(["data" => $bike]);
     }
@@ -73,6 +71,6 @@ class BikeController extends Controller
      */
     public function destroy(int $id): JsonResponse //DELETE bike/{id}
     {
-        return response()->json(["data" => bikes::destroy($id)]);
+        return response()->json(["data" => Bike::destroy($id)]);
     }
 }

@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Models\cities;
-use App\Models\bikes;
+use App\Models\City;
+use App\Models\Bike;
 use App\Models\Bike2City;
-use App\Models\stations;
+use App\Models\Station;
 
 class CityController extends Controller
 {
@@ -18,7 +18,7 @@ class CityController extends Controller
      */
     public function index(): JsonResponse //GET city
     {
-        return response()->json(["data" => cities::All()]);
+        return response()->json(["data" => City::All()]);
     }
 
     /**
@@ -32,7 +32,7 @@ class CityController extends Controller
         $request->validate([ //this needs to be in 'body' to get posted.
             'name' => 'required'
         ]);
-        return response()->json(["data" => cities::create($request->all())]);
+        return response()->json(["data" => City::create($request->all())]);
     }
 
     /**
@@ -43,7 +43,7 @@ class CityController extends Controller
      */
     public function show(int $id): JsonResponse //GET city/{id}
     {
-        return response()->json(["data" => cities::find($id)]);
+        return response()->json(["data" => City::find($id)]);
     }
 
     /**
@@ -55,7 +55,7 @@ class CityController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse //PUT city/{id}
     {
-        $city = cities::find($id);
+        $city = City::find($id);
         $city->update($request->all());
         return response()->json(["data" => $city]);
     }
@@ -68,19 +68,19 @@ class CityController extends Controller
      */
     public function destroy(int $id): JsonResponse //DELETE city/{id}
     {
-        return response()->json(["data" => cities::destroy($id)]);
+        return response()->json(["data" => City::destroy($id)]);
     }
 
     /**
      * Get bikes in city
-     * 
+     *
      * @param \Illuminate\Http\Request
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function getBikes(Request $request, int $id): JsonResponse
     {
-        $city = cities::find($id);
+        $city = City::find($id);
         $onlyActive = $request->boolean("active", false);
         if ($onlyActive) {
             $bikes = $city->bikes->where("active", "=", true);
@@ -109,23 +109,22 @@ class CityController extends Controller
 
         return response()->json([
             "data" => [
-                "bike" => bikes::find($bikeID),
-                "city" => cities::find($id)
+                "bike" => Bike::find($bikeID),
+                "city" => City::find($id)
             ]
         ]);
     }
 
     /**
      * Get stations in city
-     * 
-     * @param \Illuminate\Http\Request $request
+     *
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getStations(Request $request, int $id): JsonResponse
+    public function getStations(int $id): JsonResponse
     {
-        $city = cities::find($id);
-        $city->stations = stations::fillAvailableSlots($city->stations);
+        $city = City::find($id);
+        $city->stations = Station::fillAvailableSlots($city->stations);
         return response()->json([
             "data" => $city
         ]);

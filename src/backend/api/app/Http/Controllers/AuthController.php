@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(Request $request): JsonResponse {
+    public function register(Request $request): JsonResponse
+    {
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:customers,email'

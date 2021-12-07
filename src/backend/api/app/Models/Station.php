@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class stations extends Model
+class Station extends Model
 {
     protected $table = 'stations';
 
@@ -18,7 +18,7 @@ class stations extends Model
         'latitude'
     ];
 
-    public static function fillAvailableSlots(Collection $stations): Collection
+    public static function calculateAvailableSlots(Collection $stations): Collection
     {
         foreach ($stations as $station) {
             $bikesAtStation = Bike2Station::query()->get()->where("station", "=", $station->id);

@@ -17,6 +17,7 @@
     <exclude-pattern>tests/Feature/ExampleTest.php</exclude-pattern>
     <exclude-pattern>tests/Unit/ExampleTest.php</exclude-pattern>
     <exclude-pattern>app/Http/Controllers/Controller.php</exclude-pattern>
+    <exclude-pattern>_ide_helper*.php</exclude-pattern>
 
     <arg name="encoding" value="utf-8"/>
     <arg name="warning-severity" value="0"/>

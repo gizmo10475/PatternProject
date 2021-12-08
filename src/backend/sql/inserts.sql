@@ -48,3 +48,18 @@ VALUES
     (5, 2)
 ;
 
+INSERT INTO
+    parking_zones (`center_long`, `center_lat`, `radius`)
+VALUES
+    (56.18046291525948, 15.590613515182943, 5),
+    (56.16699990068946, 15.586665592184954, 15),
+    (59.85897634569878, 17.644801749380044, 15)
+;
+
+INSERT INTO
+    parking_zone2city (`city`, `zone`)
+VALUES
+    (1, 1),
+    (1, 2),
+    (2, 3)
+;

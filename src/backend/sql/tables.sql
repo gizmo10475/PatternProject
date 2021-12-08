@@ -157,9 +157,11 @@ ENGINE INNODB
 ;
 
 CREATE TABLE parking_zone2city (
+    `id` INT NOT NULL AUTO_INCREMENT,
     `zone` INT NOT NULL,
     `city` INT NOT NULL,
 
+    PRIMARY KEY (`id`),
     FOREIGN KEY (`zone`) REFERENCES parking_zones (`id`),
     FOREIGN KEY (`city`) REFERENCES cities (`id`)
 )
@@ -167,9 +169,11 @@ ENGINE INNODB
 ;
 
 CREATE TABLE bike2parking_zone (
+    `id` INT NOT NULL AUTO_INCREMENT,
     `bike` INT NOT NULL,
     `zone` INT NOT NULL,
 
+    PRIMARY KEY (`id`),
     FOREIGN KEY (`bike`) REFERENCES bikes (`id`),
     FOREIGN KEY (`zone`) REFERENCES parking_zones (`id`)
 )

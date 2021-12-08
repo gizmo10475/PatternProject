@@ -3,11 +3,14 @@ USE pattern; -- database name subject to change
 DROP TABLE IF EXISTS travel_log;
 DROP TABLE IF EXISTS bike2city;
 DROP TABLE IF EXISTS bike2station;
+DROP TABLE IF EXISTS bike2parking_zone;
 DROP TABLE IF EXISTS bikes;
 
 DROP TABLE IF EXISTS station2city;
 DROP TABLE IF EXISTS stations;
+DROP TABLE IF EXISTS parking_zone2city;
 DROP TABLE IF EXISTS cities;
+DROP TABLE IF EXISTS parking_zones;
 
 DROP TABLE IF EXISTS customers;
 DROP TABLE IF EXISTS administrators;
@@ -139,5 +142,36 @@ CREATE TABLE personal_access_tokens (
     UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
     KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
 )
-ENGINE=InnoDB
+ENGINE INNODB
+;
+
+CREATE TABLE parking_zones (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `center_long` DOUBLE NOT NULL,
+    `center_lat` DOUBLE NOT NULL,
+    `radius` INT NOT NULL,
+
+    PRIMARY KEY (`id`)
+)
+ENGINE INNODB
+;
+
+CREATE TABLE parking_zone2city (
+    `zone` INT NOT NULL,
+    `city` INT NOT NULL,
+
+    FOREIGN KEY (`zone`) REFERENCES parking_zones (`id`),
+    FOREIGN KEY (`city`) REFERENCES cities (`id`)
+)
+ENGINE INNODB
+;
+
+CREATE TABLE bike2parking_zone (
+    `bike` INT NOT NULL,
+    `zone` INT NOT NULL,
+
+    FOREIGN KEY (`bike`) REFERENCES bikes (`id`),
+    FOREIGN KEY (`zone`) REFERENCES parking_zones (`id`)
+)
+ENGINE INNODB
 ;

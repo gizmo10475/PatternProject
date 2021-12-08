@@ -28,4 +28,9 @@ class City extends Model
     {
         return $this->hasManyThrough(Station::class, Station2City::class, "city", "id");
     }
+
+    public function parkingZones(): HasManyThrough
+    {
+        return $this->hasManyThrough(ParkingZone::class, ParkingZone2City::class, "city", "id");
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\BikeController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\StationsController;
+use App\Http\Controllers\ParkingZoneController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,7 @@ Route::delete('/city/{id}', [CityController::class, 'destroy']);
 Route::get("/city/{id}/bikes", [CityController::class, "getBikes"]);
 Route::post("/city/{id}/bikes", [CityController::class, "addBike"]);
 Route::get("/city/{id}/stations", [CityController::class, "getStations"]);
-
+Route::get("/city/{id}/parking", [CityController::class, "getParking"]);
 
 //stations routes
 Route::get('/stations', [StationsController::class, 'index']);
@@ -45,6 +46,8 @@ Route::get('/stations/{id}', [StationsController::class, 'show']);
 Route::put('/stations/{id}', [StationsController::class, 'update']);
 Route::delete('/stations/{id}', [StationsController::class, 'destroy']);
 
+
+Route::get("/parking", [ParkingZoneController::class, "index"]);
 
 ///////////////////////////////// Auth in progress
 

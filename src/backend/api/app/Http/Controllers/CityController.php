@@ -129,4 +129,18 @@ class CityController extends Controller
             "data" => $city
         ]);
     }
+
+    /**
+     * Get parking zones in city
+     */
+    public function getParking(int $id): JsonResponse
+    {
+        $city = City::find($id);
+        $city->parkingZones;
+        return response()->json([
+            "data" => [
+                "city" => $city,
+            ]
+            ]);
+    }
 }

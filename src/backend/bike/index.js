@@ -10,7 +10,7 @@ const routeIndex = require("./route/index.js");
 app.set("view engine", "ejs");
 
 // app.use(middleware.logIncomingToConsole);
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "views")));
 app.use("/", routeIndex);
 // KUND
 // app.use("/customer", routeCustomer);

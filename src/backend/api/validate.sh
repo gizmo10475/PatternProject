@@ -2,12 +2,12 @@
 
 function cmd-phpcs
 {
-    .bin/phpcs . | tee validate/phpcs
+    .bin/phpcs . | tee validation-out/phpcs
 }
 
 function cmd-phpmd
 {
-    .bin/phpmd . text .phpmd.xml | tee validate/phpmd
+    .bin/phpmd . text .phpmd.xml | tee validation-out/phpmd
 }
 
 function main

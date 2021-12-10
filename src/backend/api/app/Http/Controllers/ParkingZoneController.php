@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bike;
+use App\Models\Bike2ParkingZone;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\ParkingZone;
 use App\Models\ParkingZone2City;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ParkingZoneController extends Controller
 {
@@ -36,5 +39,32 @@ class ParkingZoneController extends Controller
         }
 
         return response()->json(["data" => $newZone]);
+    }
+
+    public function parkBike(Request $request): JsonResponse
+    {
+        $request->validate([
+            "bike" => "required",
+            "zone" => "required"
+        ]);
+
+        $bike = $request->post("bike");
+        $zone = $request->post("zone");
+
+        try {
+            Bike::findOrFail($bike);
+            ParkingZone::findOrFail($zone);
+        } catch (ModelNotFoundException $e) {
+            error_log($e->getMessage());
+            return response()->json(["error" => "Either bike or the parking zone doesn't exist"], 404);
+        }
+
+        Bike2ParkingZone::updateOrInsert(["bike" => $bike], ["zone" => $zone]);
+        return response()->json([
+            "data" => [
+                "bike" => Bike::find($bike),
+                "zone" => ParkingZone::find($zone)
+            ]
+        ]);
     }
 }

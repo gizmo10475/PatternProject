@@ -4,3 +4,5 @@ services:
     build: ./src/backend/sql
     ports:
       - "3306:3306"
+    environment:
+      - TZ=Europe/Stockholm

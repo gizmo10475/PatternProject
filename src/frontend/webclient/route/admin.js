@@ -7,10 +7,10 @@ const express = require("express");
 const router = express.Router();
 const clientfunc = require("../src/clientfunc.js");
 
-router.get("/history", async (req, res) => {
+router.get("/clients", async (req, res) => {
   var data = await clientfunc.getUserHistory();
 
-  res.render("admin/history", { data });
+  res.render("admin/clients", { data });
 });
 
 router.get("/extra", async (req, res) => {

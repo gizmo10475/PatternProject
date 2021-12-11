@@ -74,6 +74,17 @@ class ParkingZoneController extends Controller
         ]);
     }
 
+    public function unparkBike(Request $request): JsonResponse
+    {
+        $request->validate([
+            "bike" => "required"
+        ]);
+
+        return response()->json([
+            "data" => Bike2ParkingZone::destroy($request->post("bike"))
+        ]);
+    }
+
     public function getBikes(int $id): JsonResponse
     {
         $zone = null;

@@ -12,7 +12,7 @@ let users = {
         });
     },
     saveToHistory: function(bikeId, currLoc, sum, startTime) {
-        var id = 2;
+        var id = 1;
         var today = new Date();
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -42,16 +42,16 @@ let users = {
         });
     },
     pay: function(sum) {
-        console.log(users.infoUser);
+        // console.log(users.infoUser);
         var money = parseInt(users.infoUser.credits) - parseInt(sum);
-        console.log(money);
+        // console.log(money);
         var paymentInfo = {
             credits: money
         };
 
         return m.request({
             method: "PUT",
-            url: `http://localhost:8080/api/customer/2`,
+            url: `http://localhost:8080/api/customer/1`,
             body: paymentInfo,
         }).then(function(result) {
             console.log("pay");

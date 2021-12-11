@@ -6,9 +6,16 @@ const router  = express.Router();
 const clientfunc = require("../src/clientfunc");
 
 router.get("/", async (req, res) => {
-    res.render("indexCustomer");
+    res.render("index.ejs");
 });
 
+router.get("/admin", async (req, res) => {
+  res.render("admin/index.ejs");
+});
+
+router.get("/customer", async (req, res) => {
+  res.render("customer/index.ejs");
+});
 
 
 

@@ -9,6 +9,9 @@ router.get("/history", (req, res) => {
     let data = {
         title: "Historik"
     };
+    
+    const fetch_response = await fetch(`http://localhost:8080/api/customer/1`);
+    const json = await fetch_response.json();
 
     res.render("customer/history", data);
 });

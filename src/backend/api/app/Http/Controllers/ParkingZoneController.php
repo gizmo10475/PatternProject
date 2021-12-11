@@ -67,4 +67,18 @@ class ParkingZoneController extends Controller
             ]
         ]);
     }
+
+    public function getBikes(int $id): JsonResponse
+    {
+        $zone = null;
+        try {
+            $zone = ParkingZone::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            error_log($e->getMessage());
+            return response()->json(["error" => "Parking zone with id $id doesn't exist"], 404);
+        }
+
+        $zone->bikes;
+        return response()->json(["data" => ["zone" => $zone]]);
+    }
 }

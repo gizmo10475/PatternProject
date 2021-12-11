@@ -50,6 +50,7 @@ Route::delete('/stations/{id}', [StationsController::class, 'destroy']);
 Route::get("/parking", [ParkingZoneController::class, "index"]);
 Route::post("/parking", [ParkingZoneController::class, "create"]);
 Route::post("/parking/bike", [ParkingZoneController::class, "parkBike"]);
+Route::get("/parking/{id}/bikes", [ParkingZoneController::class, "getBikes"]);
 
 ///////////////////////////////// Auth in progress
 

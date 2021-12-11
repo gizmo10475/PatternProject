@@ -48,22 +48,28 @@ class ParkingZoneController extends Controller
             "zone" => "required"
         ]);
 
-        $bike = $request->post("bike");
-        $zone = $request->post("zone");
+        $bikeID = $request->post("bike");
+        $zoneID = $request->post("zone");
+        $bike = null;
+        $zone = null;
 
         try {
-            Bike::findOrFail($bike);
-            ParkingZone::findOrFail($zone);
+            $bike = Bike::findOrFail($bikeID);
+            $zone = ParkingZone::findOrFail($zoneID);
         } catch (ModelNotFoundException $e) {
             error_log($e->getMessage());
             return response()->json(["error" => "Either bike or the parking zone doesn't exist"], 404);
         }
 
-        Bike2ParkingZone::updateOrInsert(["bike" => $bike], ["zone" => $zone]);
+        Bike2ParkingZone::updateOrInsert(["bike" => $bikeID], ["zone" => $zoneID]);
+        $bike->longitude = $zone->center_long;
+        $bike->latitude = $zone->center_lat;
+        $bike->save();
+
         return response()->json([
             "data" => [
-                "bike" => Bike::find($bike),
-                "zone" => ParkingZone::find($zone)
+                "bike" => $bike,
+                "zone" => $zone
             ]
         ]);
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\customers;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +16,7 @@ class AuthController extends Controller
             'email' => 'required|string|unique:customers,email'
         ]);
 
-        $user = customers::create([
+        $user = Customer::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
         ]);

@@ -11,15 +11,18 @@ let form = {
         let options = Object.keys(bikes.infoBikes);
         options.unshift(" ");
         return m("main.container", [
-            m("p", "Du har " + users.infoUser.credits + ":- kvar på ditt konto."),
-            m("h1", "Form"),
+            m("h1", "Hyr en cykel"),
+            m("p.infoText", "Du har " + users.infoUser.credits + ":- kvar på ditt konto." +
+            " Det betyder att du kan åka i ca xx minuter. Vill du åka längre än så" +
+            " kan du logga in och fylla på ditt saldo här."),
             m("form", {
                 // onsubmit: function(event) {
                 //     event.preventDefault();
                 //     bikes.rentBike(bikes.currentId);
                 // }
             }, [
-                m("label.input-label", "Välj cykel"),
+                m("label.input-label", "Välj en cykel"),
+                m("br"),
                 m("select.input", {
                     onchange: function (event) {
                         bikes.currentId = event.target.value;
@@ -28,6 +31,7 @@ let form = {
                     options.map(o => m('option', { value: o }, o.toLocaleString()))
                 ]),
                 // m("input[type=submit][value=Hyr].rentBtn", "Hyr")
+                m("br"),
                 m("button", {onclick: test}, "Hyr")   
             ]
             )

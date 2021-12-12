@@ -1,0 +1,35 @@
+<%- include("header", {title: "Karta"}); %>
+
+    <h1>Karta</h1>
+
+    <div id="map"></div>
+</body>
+
+<script>
+    map = L.map('map').setView([56.181932, 15.590525], 8);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: `&copy;
+        <a href="https://www.openstreetmap.org/copyright">
+        OpenStreetMap</a> contributors`
+    }).addTo(map);
+
+    // var data = "<%=data%>";
+
+    var places = {
+        '1': [ 56.184011692770454, 15.601425980319892 ],
+        '2': [ 56.1777331622716, 15.595328794560684 ],
+        '3': [ 56.22437946616326, 15.632131155357266 ],
+        '4': [ 59.859409798520964, 17.640017319857975 ],
+        '5': [ 56.182415374817296, 15.601140152894768 ]
+    };
+
+    for (var place in places) {
+        if (Object.prototype.hasOwnProperty.call(places, place)) {
+            L.marker(places[place]).addTo(map).bindPopup(place);
+        }
+    }
+</script>
+
+
+<%- include("footer"); %>

@@ -1,14 +1,14 @@
-<%- include("header", {title: "Historik"}); %>
+<%- include("header", {title: "Kunder"}); %>
 
-<h1>Visar upp kunder i systemet för admin och kan tex ta bort eller redigera uppgifter</h1>
+<h1>Alla kunder</h1>
 
 <% for(var i=0; i < data.length; i++) { %>
     <div class="history">
-    <p>Cykelns ID: <%= data[i].bike %></p>
-    <p>Startplats: <%= data[i].start_longitude %>, <%= data[i].start_latitude %></p>
-    <p>Starttid: <%= data[i].start_time %></p>
-    <p>Sluttid: <%= data[i].end_time %></p>
-    <p>Summa: <%= data[i].cost %>:-</p>
+    <p>Användarens ID: <%= data[i].id %></p>
+    <p>Namn: <%= data[i].name %></p>
+    <p>Mejladress: <%= data[i].email %></p>
+    <p>Saldo: <%= data[i].credits %>:-</p>
+    <a href="clients/<%= data[i].id %>">Redigera</a>
 </div>
 <% } %>
 

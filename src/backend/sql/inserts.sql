@@ -11,10 +11,10 @@ VALUES
 ;
 
 INSERT INTO
-    cities (`name`)
+    cities (`name`, `center_long`, `center_lat`, `radius`)
 VALUES
-    ("Karlskrona"),
-    ("Uppsala")
+    ("Karlskrona", 56.18136536195939, 15.606879366699312, 4),
+    ("Uppsala", 59.86043455303328, 17.65091957215461, 5)
 ;
 
 INSERT INTO

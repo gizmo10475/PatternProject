@@ -184,6 +184,8 @@ Response format:
 
 ### City endpoints
 
+The radius for cities is an integer value in kilometers.
+
 Display all cities:
 
 ```http
@@ -197,7 +199,10 @@ Response format:
     "data": [
         {
             "id": 1,
-            "name": "Karlskrona"
+            "name": "Karlskrona",
+            "center_long": 56.18136536195939,
+            "center_lat": 15.606879366699312,
+            "radius": 4,
         }
     ]
 }
@@ -218,6 +223,9 @@ Response format:
     data: {
         id: 1, // {id}
         name: "Karlskrona",
+        "center_long": 56.18136536195939,
+        "center_lat": 15.606879366699312,
+        "radius": 4,
     },
 }
 ```
@@ -232,9 +240,12 @@ POST /city/
 
 Parameters:
 
-| Name | Type   | Required | Description |
-| ---- | ------ | -------- | ----------- |
-| name | string | yes      | City name   |
+| Name        | Type   | Required | Description              |
+| ----------- | ------ | -------- | ------------------------ |
+| name        | string | yes      | City name                |
+| center_long | float  | no       | City center longitude    |
+| center_lat  | float  | no       | City center latitude     |
+| radius      | int    | no       | City radius (kilometers) |
 
 Response format:
 
@@ -242,7 +253,10 @@ Response format:
 {
     "data": {
         "name": "Karlskrona",
-        "id": 1
+        "id": 1,
+        "center_long": 56.18136536195939,
+        "center_lat": 15.606879366699312,
+        "radius": 4,
     }
 }
 ```
@@ -275,9 +289,12 @@ PUT /city/{id}
 
 Parameters:
 
-| Name | Type   | Required | Description   |
-| ---- | ------ | -------- | ------------- |
-| name | string | no       | New city name |
+| Name        | Type   | Required | Description                  |
+| ----------- | ------ | -------- | ---------------------------- |
+| name        | string | no       | New city name                |
+| center_long | float  | no       | New city center longitude    |
+| center_lat  | float  | no       | New city center latitude     |
+| radius      | int    | no       | New city radius (kilometers) |
 
 Response format:
 
@@ -286,6 +303,9 @@ Response format:
     data: {
         id: 1, // {id}
         name: "Kalmar",
+        "center_long": 56.18136536195939,
+        "center_lat": 15.606879366699312,
+        "radius": 4
     },
 }
 ```
@@ -311,6 +331,9 @@ Response format:
     data: {
         id: 1, // {id}
         name: "Karlskrona",
+        "center_long": 56.18136536195939,
+        "center_lat": 15.606879366699312,
+        "radius": 4,
         bikes: [
             {
                 id: 1,
@@ -355,8 +378,11 @@ Response format:
             warning: 0
         },
         city: {
-            id: 1, // {id}
-            name: "Karlskrona"
+            "id": 1, // {id}
+            "name": "Karlskrona",
+            "center_long": 56.18136536195939,
+            "center_lat": 15.606879366699312,
+            "radius": 4,
         }
     }
 }
@@ -388,6 +414,40 @@ Response format:
     }
 }
 ```
+
+----
+
+Get all parking zones in city:
+
+```http
+GET /city/{id}/parking
+```
+
+Response format:
+
+```json5
+{
+    "data": {
+        "city": {
+            "id": 1, // {id}
+            "name": "Karlskrona",
+            "center_long": 56.18136536195939,
+            "center_lat": 15.606879366699312,
+            "radius": 4, // kilometers
+            "parking_zones": [
+                {
+                    "id": 1,
+                    "center_long": 56.18046291525948,
+                    "center_lat": 15.590613515182943,
+                    "radius": 5 // meters
+                }
+            ]
+        }
+    }
+}
+```
+
+
 
 ### Station endpoints
 
@@ -511,6 +571,160 @@ Response format:
     },
 }
 ```
+
+### Parking zone endpoints
+
+The radius of a parking zone is an integer in meters.
+
+Get all parking zones:
+
+```http
+GET /parking
+```
+
+Response format:
+
+```json
+{
+    "data": [
+        {
+            "id": 1,
+            "center_long": 56.18046291525948,
+            "center_lat": 15.590613515182943,
+            "radius": 5
+        }
+    ]
+}
+```
+
+-------
+
+Add a parking zone to the database:
+
+```http
+POST /parking
+```
+
+Parameters: 
+
+| Name      | Type  | Required | Description                                    |
+| --------- | ----- | -------- | ---------------------------------------------- |
+| longitude | float | yes      | Longitude position of center of parking zone   |
+| latitude  | float | yes      | Latitude position of center of parking zone    |
+| radius    | int   | yes      | Radius of parking zone (meters)                |
+| city      | int   | no       | Id of the city to register the parking zone to |
+
+Response format:
+
+```json
+{
+    "data": {
+        "center_long": 56.18632724143855,
+        "center_lat": 15.604243898583626,
+        "radius": 4,
+        "id": 1
+    }
+}
+```
+
+----
+
+Register a bike as parked at a parking zone:
+
+```http
+POST /parking/bike
+```
+
+When a bike is parked its position is automatically updated to be the same as the center of the parking zone.
+
+Parameters:
+
+| Name | Type | Required | Description                 |
+| ---- | ---- | -------- | --------------------------- |
+| bike | int  | yes      | Id of the bike being parked |
+| zone | int  | yes      | Id of the parking zone      |
+
+Response format:
+
+```json
+{
+    "data": {
+        "bike": {
+            "id": 1,
+            "longitude": 56.22437946616326,
+            "latitude": 15.632131155357266,
+            "active": 0,
+            "speed": 0,
+            "charging": 0,
+            "warning": 0
+        },
+        "zone": {
+            "id": 1,
+            "center_long": 56.18046291525948,
+            "center_lat": 15.590613515182943,
+            "radius": 5
+        }
+    }
+}
+```
+
+-----
+
+Get all bikes parked in a parking zone
+
+```http
+GET /parking/{id}/bikes
+```
+
+Response format:
+
+```json
+{
+    "data": {
+        "zone": {
+            "id": 1,
+            "center_long": 56.18046291525948,
+            "center_lat": 15.590613515182943,
+            "radius": 5,
+            "bikes": [
+                {
+                    "id": 1,
+                    "longitude": 56.22437946616326,
+                    "latitude": 15.632131155357266,
+                    "active": 0,
+                    "speed": 0,
+                    "charging": 0,
+                    "warning": 0
+                }
+            ]
+        }
+    }
+}
+```
+
+----
+
+Register a bike as having left a parking zone:
+
+```http
+DELETE /parking/bike
+```
+
+Parameters:
+
+| Name | Type | Required | Description                             |
+| ---- | ---- | -------- | --------------------------------------- |
+| bike | int  | yes      | Id of the bike leaving the parking zone |
+
+Response format:
+
+```json
+{
+    "data": 1
+}
+```
+
+Response is 1 if the removal is successful, 0 if not.
 
 ### Customer endpoints
 
@@ -738,5 +952,14 @@ Parameters:
 Response format:
 
 ```json
-To be added
+{
+    "data": {
+        "user": {
+            "name": "Test Testsson",
+            "email": "test@example.com",
+            "id": 1
+        },
+        "token": ""
+    }
+}
 ```

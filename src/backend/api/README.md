@@ -8,6 +8,7 @@
     -   [Bike endpoints](#Bike-endpoints)
     -   [City endpoints](#City-endpoints)
     -   [Station endpoints](#Station-endpoints)
+    -   [Parking zone endpoints](#Parking-zone-endpoints)
     -   [Customer endpoints](#Customer-endpoints)
     -   [Admin endpoints](#Admin-endpoints)
     -   [Account endpoints](#Account-endpoints)

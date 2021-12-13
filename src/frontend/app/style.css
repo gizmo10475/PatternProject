@@ -1,72 +1,13 @@
-/* @import url("https://fonts.googleapis.com/css?family=Merriweather|Source+Sans+Pro"); */
-/* @import './normalize.min.css'; */
-/* @import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,700;1,300&display=swap"); */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
-.mapDiv {
-  height: 200px;
-  width: 200px;
-}
-
-.container {
-  padding: 1rem;
-  margin-top: 3.2rem;
-  font-size: 1.2rem;
-  /* background-image: url("./img/backround.png"); */
-  min-height: 900px;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-}
 
 .container p {
   line-height: 1.4;
   font-size: 1.2rem;
 }
 
-.container img {
-  width: 100%;
-}
-
-.formdiv {
-    align-content: center;
-}
-
 html {
   font-size: 100%;
   scrollbar-width: none;
-}
-
-.container {
-  height: 60%;
-  width: 90%;
-  margin: 0 auto;
-  padding-bottom: 0;
-  margin-bottom: 20%;
-  z-index: 1;
-  box-sizing: border-box;
-  border-bottom: 1px solid #ccc;
-}
-
-.bottom-nav {
-  background-color: white;
-  position: fixed;
-  bottom: 0;
-  overflow: hidden;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-  border-top: 1px solid #ccc;
-  padding-top: 0.8rem;
-  padding-bottom: 0.8rem;
-  z-index: 2;
-}
-
-.bottom-nav a {
-  width: 40px;
-  color: #3d3c3c;
-  text-decoration: none;
 }
 
 .material-icons {
@@ -79,15 +20,14 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-main {
-  padding: 1.4rem 0.6rem;
-}
 
-
+/* 
+  MAP
+*/
 #map { 
-  height: 480px; 
-  /* z-index: -1;
-  position: relative; */
+  height: 500px; 
+  /* z-index: -1; */
+  position: relative;
 }
 
 .cluster-number {
@@ -95,18 +35,42 @@ main {
   color: blue;
 }
 
-/* FORM */
-.infoText {
-  background-color: #8ca1d8;
-  border-radius: 24px 24px 24px 0;
-  padding: 25px;
+button {
+  width: 100%;
+  background-color: white;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: 2px solid grey;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.renderBikes, 
+.renderStations, 
+.removeMarkers {
+  width: 120px;
+  margin-right: 10px;
+  margin-top: 40px;
+}
+
+.buttons {
   text-align: center;
-  color: white;
+}
+
+/* 
+  FORM 
+*/
+.scooterImg {
+  width: 100%;
+  margin-top: 50px;
   margin-bottom: 50px;
 }
 
 .input-label {
-  margin-left: 25%;
+  display: block;
+  text-align: center;
+  font-size: 1.5em;
 }
 
 .input {
@@ -119,23 +83,28 @@ main {
   box-sizing: border-box;
 }
 
-button {
-  width: 100%;
-  background-color: #8ca1d8;
+.rent {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  background-color: black;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
-  border: none;
   border-radius: 4px;
-  cursor: pointer;
 }
 
-
-/* body, .container {
-  padding: 0;
-  margin: 0;
+.back {
+  text-decoration: none;
 }
-html, body, .container, .container #map {
-  height: 100%;
-  width: 100%;
-} */
+
+.back:visited {
+  color: black;
+}
+
+/* 
+  RIDE INFO
+*/
+.info {
+  text-align: center;
+}

@@ -6,7 +6,7 @@ let users = {
     getInfoUser: function() {
         return m.request({
             method: "GET",
-            url: `http://localhost:8080/api/customer/2`
+            url: `http://localhost:8080/api/customer/1`
         }).then(function(result) {
             users.infoUser = result.data;
         });

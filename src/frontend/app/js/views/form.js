@@ -11,15 +11,9 @@ let form = {
         let options = Object.keys(bikes.infoBikes);
         options.unshift(" ");
         return m("main.container", [
-            m("h1", "Hyr en cykel"),
-            m("p.infoText", "Du har " + users.infoUser.credits + ":- kvar på ditt konto." +
-            " Det betyder att du kan åka i ca xx minuter. Vill du åka längre än så" +
-            " kan du logga in och fylla på ditt saldo här."),
+            m(m.route.Link, { href: "/", className: "back" }, "Tillbaka"),
+            m("img.scooterImg", {src: "./img/scooter.png"}),
             m("form", {
-                // onsubmit: function(event) {
-                //     event.preventDefault();
-                //     bikes.rentBike(bikes.currentId);
-                // }
             }, [
                 m("label.input-label", "Välj en cykel"),
                 m("br"),
@@ -30,9 +24,8 @@ let form = {
                 }, [
                     options.map(o => m('option', { value: o }, o.toLocaleString()))
                 ]),
-                // m("input[type=submit][value=Hyr].rentBtn", "Hyr")
                 m("br"),
-                m("button", {onclick: test}, "Hyr")   
+                m("button.rent", {onclick: test}, "Hyr")   
             ]
             )
         ]);
@@ -48,16 +41,16 @@ var sum = 10; //voi har en upplåsningsavgift på 10:- och sedan 3:-/min
 var Counter = {
     view: function() {
         return m('main.container', [
-            m('h1', (returnData(hour) + ':' + returnData(minute) + ':' + returnData(second))),
-            m('h1', "Kostnad: " + sum + ":-"),
-            m("button", {onclick: goHome}, "Avsluta resan")
+            m('h1.info', (returnData(hour) + ':' + returnData(minute) + ':' + returnData(second))),
+            m('h1.info', "Kostnad: " + sum + ":-"),
+            m("button.rent", {onclick: goHome}, "Avsluta resan")
         ])
     }
 }
 
 function test() {
     bikes.getBikeLocation();
-    console.log(bikes.currentLocation);
+    // console.log(bikes.currentLocation);
     bikes.rentBike();
     m.render(document.body, m(Counter));
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\StationsController;
 use App\Http\Controllers\ParkingZoneController;
+use Illuminate\Routing\Router;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,24 +54,24 @@ Route::post("/parking/bike", [ParkingZoneController::class, "parkBike"]);
 Route::get("/parking/{id}/bikes", [ParkingZoneController::class, "getBikes"]);
 Route::delete("/parking/bike", [ParkingZoneController::class, "unparkBike"]);
 
-///////////////////////////////// Auth in progress
-
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/bike', [BikeController::class, 'store']);
 });
 
-/////////////////////////////////
-
-
 //customer routes
 Route::get('/customer', [CustomerController::class, 'index']);
-// Route::post('/customer', [CustomerController::class, 'store']);
-Route::get('/customer/{id}', [CustomerController::class, 'show']);
-Route::put('/customer/{id}', [CustomerController::class, 'update']);
-Route::delete('/customer/{id}', [CustomerController::class, 'destroy']);
-//customer history
-Route::get('/customer/{id}/history', [CustomerController::class, 'showHistory']);
-Route::post('/customer/{id}/history', [CustomerController::class, 'storeHistory']);
+Route::prefix("/customer/{id}")
+    ->middleware(["auth:sanctum", "ability:customer"])
+    ->middleware(["verifyCustomerId"])
+    ->group(function () {
+        $controller = CustomerController::class;
+
+        Route::get("/", [$controller, "show"]);
+        Route::put("/", [$controller, "update"]);
+        Route::delete("/", [$controller, "destroy"]);
+        Route::get("/history", [$controller, "showHistory"]);
+        Route::post("/history", [$controller, "storeHistory"]);
+    });
 
 //register
 Route::post('/register', [AuthController::class, 'register']);

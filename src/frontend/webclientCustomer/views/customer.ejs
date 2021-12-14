@@ -1,0 +1,29 @@
+<%- include("header", {title: title}); %>
+
+<h1>Våra kunder</h1>
+
+
+
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Namn</th>
+        <th>Adress</th>
+        <th>E-post</th>
+        <th>Mobilnummer +46</th>
+        <th>Skapa order</th>
+    </tr>
+<% for (const row of res) { %>
+    <tr>
+        <td><%= row.kundid %></td>
+        <td><%= row.namn %></td>
+        <td><%= row.adress %></td>
+        <td><%= row.epost %></td>
+        <td><%= row.mobilnummer %></td>
+        <td><a href="updateorder/<%= row.kundid %>">Skapa order</a>
+    </tr>
+<% }; %>
+</table>
+
+<%- include("footer"); %>

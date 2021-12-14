@@ -1,3 +1,4 @@
+/* 
 import m from "mithril";
 import users from "../models/users.js"
 
@@ -20,3 +21,4 @@ let home = {
 };
 
 export default home;
+ */

@@ -1,40 +1,80 @@
 import m from "mithril";
-// import m from "mithril";
-import "mithril-component";
+import bikes from "../models/bikes.js";
+import users from "../models/users.js";
 
+var timer;
 
+var second = 0;
+var minute = 0;
+var hour = 0;
+var sum = 10; //voi har en upplåsningsavgift på 10:- och sedan 3:-/min
 
-
-var TimerComponent = m.createComponent({
-  controller: function () {
-    return this.startClock()
+var Counter = {
+  view: function () {
+    return m("main.container", [
+      m(
+        "h1.info",
+        returnData(hour) + ":" + returnData(minute) + ":" + returnData(second)
+      ),
+      m("h1.info", "Kostnad: " + sum + ":-"),
+      m("button.rent", { onclick: goHome }, "Avsluta resan"),
+    ]);
   },
+};
 
-  startClock: function () {
-    var component = this
-    this.state.seconds = 0
-    this.state.clock = setInterval(function () {
-      component.state.seconds++
-      component.setState(component.state)
-    }, 1000)
+function test() {
+  bikes.getBikeLocation();
+  // console.log(bikes.currentLocation);
+  bikes.rentBike();
+  //m.render(document.body, m(Counter));
 
-    return this.state
+  timer = setInterval(function () {
+    second++;
+    if (second == 60) {
+      second = 0;
+      minute++;
+      sum += 3;
+    }
+    if (minute == 60) {
+      minute = 0;
+      hour++;
+    }
+    m.render(document.body, m(Counter));
+  }, 1000);
+}
+
+function returnData(input) {
+  return input > 9 ? input : `0${input}`;
+}
+
+function goHome() {
+  users.saveToHistory(
+    bikes.currentId,
+    bikes.currentLocation,
+    sum,
+    bikes.currentTime
+  );
+  users.pay(sum);
+  bikes.returnBike();
+  m.route.set("/");
+  window.location.reload();
+  alert("Din resa är nu avslutad!");
+}
+
+let counter = {
+  oninit: function () {
+    test();
   },
-
-  stopClock: function () {
-    clearInterval(this.state.clock)
+  view: function () {
+    return m("main.container", [
+      m(
+        "h1.info",
+        returnData(hour) + ":" + returnData(minute) + ":" + returnData(second)
+      ),
+      m("h1.info", "Kostnad: " + sum + ":-"),
+      m("button.rent", { onclick: goHome }, "Avsluta resan"),
+    ]);
   },
+};
 
-  onUnload: function () {
-    this.stopClock()
-  },
-
-  view: function (ctrl) {
-    return m('div.timer-component', this.state.seconds);
-  }
-})
-
-m.mount(document.body, TimerComponent())
-
-export default TimerComponent;
-
+export default counter;

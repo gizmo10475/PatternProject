@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -21,7 +20,7 @@ class AuthController extends Controller
             'email' => $fields['email'],
         ]);
 
-        $token = $user->createToken("pattern")->plainTextToken;
+        $token = $user->createToken("pattern", ["customer"])->plainTextToken;
 
         $response = [
             'user' => $user,

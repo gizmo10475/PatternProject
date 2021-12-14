@@ -45,7 +45,7 @@ class CreateAdmin extends Command
             return;
         }
         $account = Admin::create(["email" => $email]);
-        $token = $account->createToken("pattern", ["pattern:admin"])->plainTextToken;
+        $token = $account->createToken("pattern", ["admin"])->plainTextToken;
         echo "Administrator account for $email created. Your access token is $token\n";
         return Command::SUCCESS;
     }

@@ -14,19 +14,35 @@
         OpenStreetMap</a> contributors`
     }).addTo(map);
 
-    // var data = "<%=data%>";
 
-    var places = {
-        '1': [ 56.184011692770454, 15.601425980319892 ],
-        '2': [ 56.1777331622716, 15.595328794560684 ],
-        '3': [ 56.22437946616326, 15.632131155357266 ],
-        '4': [ 59.859409798520964, 17.640017319857975 ],
-        '5': [ 56.182415374817296, 15.601140152894768 ]
-    };
+    var bikeIcon = L.icon({
+        iconUrl: '/img/bikeIcon.png',
 
-    for (var place in places) {
-        if (Object.prototype.hasOwnProperty.call(places, place)) {
-            L.marker(places[place]).addTo(map).bindPopup(place);
+        iconSize:     [38, 55], // size of the icon
+    });
+
+    let bikes = <%-JSON.stringify(data1)%>;
+    console.log(bikes);
+
+    for (var place in bikes) {
+        if (Object.prototype.hasOwnProperty.call(bikes, place)) {
+            L.marker(bikes[place], {icon: bikeIcon}).addTo(map).bindPopup(place);
+        }
+    }
+
+    var stationIcon = L.icon({
+        iconUrl: '/img/stationIcon.png',
+
+        iconSize:     [38, 55], // size of the icon
+    });
+
+
+    let stations = <%-JSON.stringify(data2)%>;
+    console.log(stations);
+
+    for (var place in stations) {
+        if (Object.prototype.hasOwnProperty.call(stations, place)) {
+            L.marker(stations[place], {icon: stationIcon}).addTo(map).bindPopup(place);
         }
     }
 </script>

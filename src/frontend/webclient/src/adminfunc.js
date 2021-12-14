@@ -4,7 +4,8 @@ const fetch = require("node-fetch");
 module.exports = {
     getAllUsers: getAllUsers,
     getUser: getUser,
-    getAllBikes: getAllBikes
+    getAllBikes: getAllBikes,
+    getAllStations: getAllStations
 };
 
 
@@ -33,4 +34,18 @@ async function getAllBikes() {
     }
 
     return infoBikes;
+}
+
+
+async function getAllStations() {
+    let response = await fetch("http://localhost:8080/api/stations");
+    let {data} = await response.json();
+    
+    let infoStations = {};
+
+    for (var i = 0; i < data.length; i++) {
+        infoStations[data[i].id] = [data[i].longitude, data[i].latitude]
+    }
+
+    return infoStations;
 }

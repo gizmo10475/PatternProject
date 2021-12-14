@@ -4,7 +4,7 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const routeIndex = require("./route/index.js");
-const routeCustomer = require("./route/customer.js");
+// const routeCustomer = require("./route/customer.js");
 const routeAdmin = require("./route/admin.js");
 const middleware = require("./middleware/index.js");
 // const config = require("./config/config.json");
@@ -78,7 +78,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", routeIndex);
 // KUND
-app.use("/customer", routeCustomer);
+// app.use("/customer", routeCustomer);
 // ADMIN
 app.use("/admin", routeAdmin);
 app.listen(port, logStartUpDetailsToConsole);

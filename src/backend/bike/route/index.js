@@ -29,42 +29,6 @@ router.get("/put/:bikeid", async (req, res) => {
     let bikeid = req.params.bikeid;
     const request = require("request");
 
-    let t = await fetch("http://localhost:8000/api/bike/" + bikeid);
-    let { data } = await t.json();
-    let oldLongitude = data.longitude.toString();
-    let oldLatitude = data.latitude.toString();
-
-    let long1 = Math.floor(Math.random() * 8);
-    let long2 = Math.floor(Math.random() * 8);
-
-    let lat1 = Math.floor(Math.random() * 8);
-    let lat2 = Math.floor(Math.random() * 8);
-
-    let newLongitude = oldLongitude.slice(0, -2) + long1 + long2;
-    let newLatitude = oldLatitude.slice(0, -2) + lat1 + lat2;
-
-    const options = {
-        url: "http://localhost:8000/api/bike/" + bikeid,
-        json: true,
-        body: {
-            longitude: parseFloat(newLongitude),
-            latitude: parseFloat(newLatitude),
-        },
-    };
-
-    request.put(options, (err, res, body) => {
-        if (err) {
-            return console.log(err);
-        }
-        console.log(`Status: ${res.statusCode}`);
-        console.log(body);
-    });
-});
-
-router.get("/test/:bikeid", async (req, res) => {
-    let bikeid = req.params.bikeid;
-    const request = require("request");
-
     activeBike(bikeid);
 
     let t = await fetch("http://localhost:8000/api/bike/" + bikeid);
@@ -83,14 +47,14 @@ router.get("/test/:bikeid", async (req, res) => {
     let newLongitude = oldLongitude.slice(0, -2) + long1 + long2;
     let newLatitude = oldLatitude.slice(0, -2) + lat1 + lat2;
 
-
-
-    var intervalId;
+    let intervalId;
+    let newLat = parseFloat(newLatitude);
+    let newLong = parseFloat(newLongitude);
 
     intervalId = setInterval(function () {
         if (
-            oldLat2.toFixed(3) == newLatitude &&
-            oldLong2.toFixed(3) == newLongitude
+            oldLat2.toFixed(3) == newLat.toFixed(3) &&
+            oldLong2.toFixed(3) == newLong.toFixed(3)
         ) {
             console.log("Done.");
             deactiveBike(bikeid);
@@ -98,20 +62,20 @@ router.get("/test/:bikeid", async (req, res) => {
             return;
         }
 
-        if (oldLat2.toFixed(3) > newLatitude) {
+        if (oldLat2.toFixed(3) > newLat.toFixed(3)) {
             oldLat2 -= 0.001;
-        } else if (oldLat2.toFixed(3) < newLatitude) {
+        } else if (oldLat2.toFixed(3) < newLat.toFixed(3)) {
             oldLat2 += 0.001;
         }
 
-        if (oldLong2.toFixed(3) > newLongitude) {
+        if (oldLong2.toFixed(3) > newLong.toFixed(3)) {
             oldLong2 -= 0.001;
-        } else if (oldLong2.toFixed(3) < newLongitude) {
+        } else if (oldLong2.toFixed(3) < newLong.toFixed(3)) {
             oldLong2 += 0.001;
         }
 
         putLocation(bikeid, oldLat2.toFixed(3), oldLong2.toFixed(3));
-    }, 3000);
+    }, 500);
 
     console.log(oldLongitude);
     console.log(oldLatitude);
@@ -136,7 +100,7 @@ const putLocation = (bikeid, newLat, newLong) => {
         if (err) {
             return console.log(err);
         }
-        // console.log(`Status: ${res.statusCode}`);
+        console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };

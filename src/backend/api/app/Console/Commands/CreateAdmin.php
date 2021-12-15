@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Account;
 use Illuminate\Console\Command;
-use App\Models\Admin;
 
 class CreateAdmin extends Command
 {
@@ -39,12 +39,12 @@ class CreateAdmin extends Command
     public function handle()
     {
         $email = $this->argument("email");
-        $mightExist = Admin::query()->firstWhere("email", "=", $email);
+        $mightExist = Account::query()->firstWhere("email", "=", $email);
         if ($mightExist) {
             $this->error("Email already registered.");
             return;
         }
-        $account = Admin::create(["email" => $email]);
+        $account = Account::create(["email" => $email, "admin" => true]);
         $token = $account->createToken("pattern", ["admin"])->plainTextToken;
         echo "Administrator account for $email created. Your access token is $token\n";
         return Command::SUCCESS;

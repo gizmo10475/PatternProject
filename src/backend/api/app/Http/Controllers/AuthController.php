@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -12,18 +13,24 @@ class AuthController extends Controller
     {
         $fields = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|unique:customers,email'
+            'email' => 'required|string|unique:accounts,email'
         ]);
 
+        $account = Account::create([
+            "email" => $fields["email"]
+        ]);
         $user = Customer::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
+            "name" => $fields["name"],
+            "account" => $account->id
         ]);
 
-        $token = $user->createToken("pattern", ["customer"])->plainTextToken;
-
+        $token = $account->createToken("pattern", ["customer"])->plainTextToken;
         $response = [
-            'user' => $user,
+            'user' => [
+                "name" => $user->name,
+                "email" => $account->email,
+                "credits" => $user->credits
+            ],
             'token' => $token
         ];
 

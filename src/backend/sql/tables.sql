@@ -12,8 +12,8 @@ DROP TABLE IF EXISTS parking_zone2city;
 DROP TABLE IF EXISTS cities;
 DROP TABLE IF EXISTS parking_zones;
 
+DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS administrators;
 
 CREATE TABLE bikes (
     `id` INT AUTO_INCREMENT NOT NULL,
@@ -88,9 +88,10 @@ CREATE TABLE station2city (
 ENGINE INNODB
 ;
 
-CREATE TABLE administrators (
+CREATE TABLE accounts (
     `id` INT AUTO_INCREMENT NOT NULL,
-    `email` VARCHAR(100) NOT NULL UNIQUE,
+    `email` VARCHAR(100) NOT NULL,
+    `admin` BOOLEAN NOT NULL DEFAULT 0,
 
     PRIMARY KEY (`id`)
 )
@@ -100,10 +101,11 @@ ENGINE INNODB
 CREATE TABLE customers (
     `id` INT AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(50) NOT NULL,
-    `email` VARCHAR(100) NOT NULL UNIQUE,
+    `account` INT NOT NULL,
     `credits` FLOAT DEFAULT 0 NOT NULL,
 
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`account`) REFERENCES accounts (`id`)
 )
 ENGINE INNODB
 ;

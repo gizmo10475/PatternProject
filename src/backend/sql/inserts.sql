@@ -63,3 +63,25 @@ VALUES
     (1, 2),
     (2, 3)
 ;
+
+INSERT INTO
+    personal_access_tokens (`tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`)
+VALUES
+    ('App\\Models\\Account', 1, 'client', '7afea22a6b0bda87889379f16ed170d3c589302c0d5fecec9950be1ac02bd8bf', '["client","admin"]'),
+    ('App\\Models\\Account', 2, 'client', '1292be05e22dc23a27fa5c84a32f7747054b97ead2108129c0be8a46b04c6c5f', '["client","customer"]'),
+    ('App\\Models\\Account', 3, 'client', '1ca6a539cc1b417df56d4c9611881e40afbe66f1e90b2d490a5e95d31e9debd3', '["client","bike"]')
+;
+
+INSERT INTO 
+    accounts (`email`, `admin`)
+VALUES
+    ('admin@client.com', 1),
+    ('customer@client.com', 0),
+    ('bike@client.com', 0)
+;
+
+INSERT INTO
+    customers (`name`, `account`, `credits`)
+VALUES
+    ("Customer App", 2, 0)
+;

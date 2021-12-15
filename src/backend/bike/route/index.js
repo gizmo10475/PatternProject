@@ -2,11 +2,9 @@
 const { response } = require("express");
 const express = require("express");
 const router = express.Router();
-// import fetch from "node-fetch";
 const fetch = require("node-fetch");
-const https = require("https");
-const http = require("http");
 const request = require("request");
+let clearingInterval = 0;
 
 router.get("/", async (req, res) => {
     const request = require("request");
@@ -25,9 +23,10 @@ router.get("/", async (req, res) => {
     });
 });
 
-router.get("/put/:bikeid", async (req, res) => {
+router.get("/simulate/:bikeid", async (req, res) => {
     let bikeid = req.params.bikeid;
     const request = require("request");
+    clearingInterval = 0;
 
     activeBike(bikeid);
 
@@ -37,6 +36,8 @@ router.get("/put/:bikeid", async (req, res) => {
     let oldLatitude = data.latitude.toString();
     let oldLong2 = data.longitude;
     let oldLat2 = data.latitude;
+    let charging = data.charging;
+    let warning = data.warning;
 
     let long1 = Math.floor(Math.random() * 8);
     let long2 = Math.floor(Math.random() * 8);
@@ -47,11 +48,16 @@ router.get("/put/:bikeid", async (req, res) => {
     let newLongitude = oldLongitude.slice(0, -2) + long1 + long2;
     let newLatitude = oldLatitude.slice(0, -2) + lat1 + lat2;
 
-    let intervalId;
     let newLat = parseFloat(newLatitude);
     let newLong = parseFloat(newLongitude);
 
-    intervalId = setInterval(function () {
+    let intervalId = setInterval(function () {
+        if (charging != 0 || warning != 0 || clearingInterval != 0) {
+            console.log("ERROR. Bike charging or other warning.");
+            deactiveBike(bikeid);
+            clearInterval(intervalId);
+            return;
+        }
         if (
             oldLat2.toFixed(3) == newLat.toFixed(3) &&
             oldLong2.toFixed(3) == newLong.toFixed(3)
@@ -77,11 +83,32 @@ router.get("/put/:bikeid", async (req, res) => {
         putLocation(bikeid, oldLat2.toFixed(3), oldLong2.toFixed(3));
     }, 500);
 
-    console.log(oldLongitude);
-    console.log(oldLatitude);
-    console.log(newLongitude);
-    console.log(newLatitude);
-    console.log("-------");
+    res.status(200).send("ok");
+});
+
+router.get("/charge/:bikeid", async (req, res) => {
+    let bikeid = req.params.bikeid;
+
+    chargeBike(bikeid);
+
+    res.status(200).send("ok");
+});
+
+router.get("/uncharge/:bikeid", async (req, res) => {
+    let bikeid = req.params.bikeid;
+
+    unchargeBike(bikeid);
+
+    res.status(200).send("ok");
+});
+
+router.get("/resetbike/:bikeid/:longitude/:latitude", async (req, res) => {
+    let bikeid = req.params.bikeid;
+    let longitude = req.params.longitude;
+    let latitude = req.params.latitude;
+
+    clearingInterval = 1;
+    resetBike(bikeid, longitude, latitude);
 
     res.status(200).send("ok");
 });
@@ -131,6 +158,67 @@ const deactiveBike = (bikeid) => {
         body: {
             active: 0,
             speed: 0,
+        },
+    };
+
+    request.put(options, (err, res, body) => {
+        if (err) {
+            return console.log(err);
+        }
+        // console.log(`Status: ${res.statusCode}`);
+        // console.log(body);
+    });
+};
+
+const chargeBike = (bikeid) => {
+    const options = {
+        url: "http://localhost:8000/api/bike/" + bikeid,
+        json: true,
+        body: {
+            charging: 1,
+            warning: 1,
+        },
+    };
+
+    request.put(options, (err, res, body) => {
+        if (err) {
+            return console.log(err);
+        }
+        // console.log(`Status: ${res.statusCode}`);
+        // console.log(body);
+    });
+};
+
+const unchargeBike = (bikeid) => {
+    const options = {
+        url: "http://localhost:8000/api/bike/" + bikeid,
+        json: true,
+        body: {
+            charging: 0,
+            warning: 0,
+        },
+    };
+
+    request.put(options, (err, res, body) => {
+        if (err) {
+            return console.log(err);
+        }
+        // console.log(`Status: ${res.statusCode}`);
+        // console.log(body);
+    });
+};
+
+const resetBike = (bikeid, long, lat) => {
+    const options = {
+        url: "http://localhost:8000/api/bike/" + bikeid,
+        json: true,
+        body: {
+            longitude: long,
+            latitude: lat,
+            active: 0,
+            speed: 0,
+            charging: 0,
+            warning: 0,
         },
     };
 

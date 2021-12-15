@@ -5,7 +5,8 @@ module.exports = {
     getAllUsers: getAllUsers,
     getUser: getUser,
     getAllBikes: getAllBikes,
-    getAllStations: getAllStations
+    getAllStations: getAllStations,
+    getAllParking: getAllParking
 };
 
 
@@ -48,4 +49,18 @@ async function getAllStations() {
     }
 
     return infoStations;
+}
+
+
+async function getAllParking() {
+    let response = await fetch("http://localhost:8080/api/parking");
+    let {data} = await response.json();
+    
+    let infoParking = {};
+
+    for (var i = 0; i < data.length; i++) {
+        infoParking[data[i].radius] = [data[i].center_long, data[i].center_lat]
+    }
+
+    return infoParking;
 }

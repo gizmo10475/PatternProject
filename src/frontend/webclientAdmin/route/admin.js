@@ -45,9 +45,10 @@ router.post("/clients/:id", urlencodedParser, async (req, res) => {
 router.get("/map", async (req, res) => {
   var data1 = await adminfunc.getAllBikes();
   var data2 = await adminfunc.getAllStations();
+  var data3 = await adminfunc.getAllParking();
   
 
-  res.render("admin/map", {data1: data1, data2: data2});
+  res.render("admin/map", {data1: data1, data2: data2, data3: data3});
 });
 
 

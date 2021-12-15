@@ -22,7 +22,7 @@
     });
 
     let bikes = <%-JSON.stringify(data1)%>;
-    console.log(bikes);
+    // console.log(bikes);
 
     for (var place in bikes) {
         if (Object.prototype.hasOwnProperty.call(bikes, place)) {
@@ -38,11 +38,26 @@
 
 
     let stations = <%-JSON.stringify(data2)%>;
-    console.log(stations);
+    // console.log(stations);
 
     for (var place in stations) {
         if (Object.prototype.hasOwnProperty.call(stations, place)) {
             L.marker(stations[place], {icon: stationIcon}).addTo(map).bindPopup(place);
+        }
+    }
+
+
+    let parking = <%-JSON.stringify(data3)%>;
+    console.log(parking);
+
+    for (var place in parking) {
+        if (Object.prototype.hasOwnProperty.call(parking, place)) {
+            var circle = L.circle(parking[place], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5,
+                radius: place
+            }).addTo(map);
         }
     }
 </script>

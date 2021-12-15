@@ -10,11 +10,16 @@ function cmd-phpmd
     .bin/phpmd . text .phpmd.xml | tee validation-out/phpmd
 }
 
+function cmd-phpunit
+{
+    XDEBUG_MODE=coverage .bin/phpunit --configuration phpunit.xml | tee validation-out/phpunit
+}
+
 function main
 {
     while (( $# )) ; do 
         case $1 in
-            "phpcs" | "phpmd")
+            "phpcs" | "phpmd" | "phpunit")
                 cmd-"$1"
                 exit 0
             ;;

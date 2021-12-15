@@ -24,7 +24,7 @@ class AuthController extends Controller
             "account" => $account->id
         ]);
 
-        $token = $account->createToken("pattern", ["customer"])->plainTextToken;
+        $token = $account->createToken("customer", ["customer"])->plainTextToken;
         $response = [
             'user' => [
                 "name" => $user->name,

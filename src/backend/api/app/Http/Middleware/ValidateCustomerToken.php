@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
+use App\Models\Account;
+use App\Models\Customer;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -15,14 +17,30 @@ class ValidateCustomerToken
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next): Closure | JsonResponse
+    public function handle(Request $request, \Closure $next): \Closure | JsonResponse
     {
         $requestingCustomerId = $request->route("id");
+        $customer = null;
+        try {
+            $customer = Customer::findOrFail($requestingCustomerId);
+        } catch (ModelNotFoundException $e) {
+            error_log($e->getMessage());
+            return response()->json(["error" => "Customer not found"], 404);
+        }
+        $account = $customer->ownedBy;
         $tokenHolderId = auth("sanctum")->user()->id;
-        if ($requestingCustomerId != $tokenHolderId) {
-            return response()->json(["error" => "You're not allowed to access someone elses data"], 403);
+        $tokenHolder = null;
+
+        try {
+            $tokenHolder = Account::findOrFail($tokenHolderId);
+        } catch (ModelNotFoundException $e) {
+            error_log($e->getMessage());
+            return response()->json(["error" => "No account associated with your token"], 404);
         }
 
-        return $next($request);
+        if ($tokenHolder->admin || $account->id == $tokenHolderId) {
+            return $next($request);
+        }
+        return response()->json(["error" => "You're not allowed to access someone elses data"], 403);
     }
 }

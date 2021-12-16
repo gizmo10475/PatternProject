@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 const fetch = require("node-fetch");
 const request = require("request");
+const intervalIds = {};
 let clearingInterval = 0;
 
 router.get("/", async (req, res) => {
@@ -47,19 +48,17 @@ router.get("/simulate/:bikeid", async (req, res) => {
     let stringLat = oldLatitude.toString();
     let stringLong = oldLongitude.toString();
 
-    let long1 = Math.floor(Math.random() * 8) + 1;
-    // let long2 = Math.floor(Math.random() * 8) + 1;
+    let long2 = Math.floor(Math.random() * 8) + 1;
 
-    let lat1 = Math.floor(Math.random() * 8) + 1;
-    // let lat2 = Math.floor(Math.random() * 8) + 1;
+    let lat2 = Math.floor(Math.random() * 8) + 1;
 
-    let newLongitude = parseFloat(stringLong.slice(0, -1) + long1);
-    let newLatitude = parseFloat(stringLat.slice(0, -1) + lat1);
+    let newLongitude = parseFloat(stringLong.slice(0, -1) + long2);
+    let newLatitude = parseFloat(stringLat.slice(0, -1) + lat2);
 
     let newLat = parseFloat(newLatitude);
     let newLong = parseFloat(newLongitude);
 
-    let intervalId = setInterval(function () {
+    let intervalId = setInterval(async function () {
         if (charging != 0 || warning != 0 || clearingInterval != 0) {
             console.log("ERROR. Bike charging or other warning.");
             deactiveBike(bikeid);
@@ -89,12 +88,17 @@ router.get("/simulate/:bikeid", async (req, res) => {
         }
 
         putLocation(bikeid, oldLat2.toFixed(3), oldLong2.toFixed(3));
-    }, 8000);
+    }, 2500);
+    intervalIds.bikeid = intervalId;
 
-    // console.log(oldLong2);
-    // console.log(oldLat2);
-    // console.log(newLong);
-    // console.log(newLat);
+    res.status(200).send("ok");
+});
+
+router.get("/stop/:bikeid", (req, res) => {
+    let bikeid = req.params.bikeid;
+
+    deactiveBike(bikeid);
+    clearInterval(intervalIds.bikeid);
 
     res.status(200).send("ok");
 });
@@ -120,7 +124,8 @@ router.get("/resetbike/:bikeid/:longitude/:latitude", async (req, res) => {
     let longitude = req.params.longitude;
     let latitude = req.params.latitude;
 
-    clearingInterval = 1;
+    clearInterval(intervalIds.bikeid);
+
     resetBike(bikeid, longitude, latitude);
 
     res.status(200).send("ok");

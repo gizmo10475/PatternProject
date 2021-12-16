@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Models\customers;
+use App\Models\Customer;
 
 class AdminController extends Controller
 {
@@ -15,7 +15,7 @@ class AdminController extends Controller
      */
     public function index(): JsonResponse //GET admin/customers
     {
-        return response()->json(["data" => customers::All()]);
+        return response()->json(["data" => Customer::All()]);
     }
 
     /**
@@ -26,6 +26,6 @@ class AdminController extends Controller
      */
     public function destroy(int $id): JsonResponse //DELETE admin/customers/{id}
     {
-        return response()->json(["data" => customers::destroy($id)]);
+        return response()->json(["data" => Customer::destroy($id)]);
     }
 }

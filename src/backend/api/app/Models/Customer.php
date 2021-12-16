@@ -3,19 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Customer extends Model
 {
-    use HasApiTokens;
-
-    protected $table = 'customers';
+    protected $table = "customers";
 
     public $timestamps = false;
-
-    protected $fillable = [
-        'name',
-        'email',
-        "credits"
+    protected $hidden = [
+        "account"
     ];
+    protected $fillable = [
+        "name",
+        "credits",
+        "account"
+    ];
+
+    public function ownedBy(): BelongsTo
+    {
+        return $this->belongsTo(Account::class, "account", "id");
+    }
 }

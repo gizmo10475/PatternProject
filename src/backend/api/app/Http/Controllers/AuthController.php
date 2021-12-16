@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\customers;
+use App\Models\Customer;
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -13,18 +13,24 @@ class AuthController extends Controller
     {
         $fields = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|unique:customers,email'
+            'email' => 'required|string|unique:accounts,email'
         ]);
 
-        $user = customers::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
+        $account = Account::create([
+            "email" => $fields["email"]
+        ]);
+        $user = Customer::create([
+            "name" => $fields["name"],
+            "account" => $account->id
         ]);
 
-        $token = $user->createToken("pattern")->plainTextToken;
-
+        $token = $account->createToken("customer", ["customer"])->plainTextToken;
         $response = [
-            'user' => $user,
+            'user' => [
+                "name" => $user->name,
+                "email" => $account->email,
+                "credits" => $user->credits
+            ],
             'token' => $token
         ];
 

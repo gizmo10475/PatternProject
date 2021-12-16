@@ -2,19 +2,28 @@
 
 function cmd-phpcs
 {
-    .bin/phpcs . | tee validate/phpcs
+    .bin/phpcs . | tee validation-out/phpcs
 }
 
 function cmd-phpmd
 {
-    .bin/phpmd . text .phpmd.xml | tee validate/phpmd
+    .bin/phpmd . text .phpmd.xml | tee validation-out/phpmd
+}
+
+function cmd-phpunit
+{
+    mv .env .env.bak
+    mv .env.testing .env
+    XDEBUG_MODE=coverage .bin/phpunit --configuration phpunit.xml | tee validation-out/phpunit
+    mv .env .env.testing
+    mv .env.bak .env
 }
 
 function main
 {
     while (( $# )) ; do 
         case $1 in
-            "phpcs" | "phpmd")
+            "phpcs" | "phpmd" | "phpunit")
                 cmd-"$1"
                 exit 0
             ;;

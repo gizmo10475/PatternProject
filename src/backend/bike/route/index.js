@@ -143,7 +143,7 @@ const putLocation = (bikeid, newLat, newLong) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };
@@ -165,7 +165,7 @@ const activeBike = (bikeid) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };
@@ -187,7 +187,7 @@ const deactiveBike = (bikeid) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };
@@ -209,7 +209,7 @@ const chargeBike = (bikeid) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };
@@ -231,7 +231,7 @@ const unchargeBike = (bikeid) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };
@@ -257,7 +257,7 @@ const resetBike = (bikeid, long, lat) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };

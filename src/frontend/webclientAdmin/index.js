@@ -15,9 +15,6 @@ app.set("view engine", "ejs");
 app.use(middleware.logIncomingToConsole);
 app.use(express.static(path.join(__dirname, "public")));
 
-// const clientId = config.clientId;
-// const clientSecret = config.clientSecret;
-
 // app.get('/', (req, res) => {
 //   res.redirect(`https://github.com/login/oauth/authorize?client_id=${clientId}&scope=user:email`);
 // });
@@ -64,7 +61,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //   const apiKey = res_["data"]["token"];
 
 //   res.cookie("apiKey", apiKey);
-//   res.redirect("/customer/history");
+//   res.redirect("/admin/clients");
 // });
 
 

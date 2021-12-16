@@ -53,8 +53,8 @@ router.get("/simulate/:bikeid", async (req, res) => {
     let lat1 = Math.floor(Math.random() * 8) + 1;
     let lat2 = Math.floor(Math.random() * 8) + 1;
 
-    let newLongitude = parseFloat(stringLong.slice(0, -2) + long1 + long2);
-    let newLatitude = parseFloat(stringLat.slice(0, -2) + lat1 + lat2);
+    let newLongitude = parseFloat(stringLong.slice(0, -1) + long1);
+    let newLatitude = parseFloat(stringLat.slice(0, -1) + lat1);
 
     let newLat = parseFloat(newLatitude);
     let newLong = parseFloat(newLongitude);

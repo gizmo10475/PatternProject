@@ -1,24 +1,17 @@
 import m from "mithril";
+import {apiKey} from "../vars.js";
 
 let bikes = {
-    // allActiveBikes: [],
     mapCords: [],
     infoBikes: {},
     currentId: "",
     currentTime: "",
     currentLocation: {},
-    // getAllActiveBikes: function() {
-    //     return m.request({
-    //         method: "GET",
-    //         url: `http://localhost:8080/api/bike`
-    //     }).then(function(result) {
-    //         bikes.allActiveBikes = result.data;
-    //     });
-    // },
     getAllLocations: function() {
         return m.request({
             method: "GET",
-            url: `http://localhost:8080/api/bike`
+            url: `http://localhost:8080/api/bike`,
+            headers: {"Authorization": `Bearer ${apiKey}`}
         }).then(function(result) {
             bikes.locations(result);
         });
@@ -26,7 +19,8 @@ let bikes = {
     getBikeLocation: function() {
         return m.request({
             method: "GET",
-            url: `http://localhost:8080/api/bike/${bikes.currentId}`
+            url: `http://localhost:8080/api/bike/${bikes.currentId}`,
+            headers: {"Authorization": `Bearer ${apiKey}`}
         }).then(function(result) {
             bikes.currentLocation[0] = result.data.longitude;
             bikes.currentLocation[1] = result.data.latitude;
@@ -50,9 +44,9 @@ let bikes = {
         return m.request({
             method: "PUT",
             url: `http://localhost:8080/api/bike/${bikes.currentId}`,
+            headers: {"Authorization": `Bearer ${apiKey}`},
             body: bikeInfo,
         }).then(function(result) {
-            // console.log(result);
             return m.route.set("/timer");
         });
     },
@@ -64,18 +58,12 @@ let bikes = {
         return m.request({
             method: "PUT",
             url: `http://localhost:8080/api/bike/${bikes.currentId}`,
+            headers: {"Authorization": `Bearer ${apiKey}`},
             body: bikeInfo,
         }).then(function(result) {
-            // console.log(result);
-            // return m.route.set("/timer");
+
         });
     },
-    // locations: function(info) {
-    //     for (var i = 0; i < info.data.length; i++) {
-    //         bikes.mapCords.push({ id: info.data[i].id, lat: info.data[i].latitude,
-    //             long: info.data[i].longitude});
-    //     }
-    // }
 };
 
 export default bikes;

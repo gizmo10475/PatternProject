@@ -48,10 +48,10 @@ router.get("/simulate/:bikeid", async (req, res) => {
     let stringLong = oldLongitude.toString();
 
     let long1 = Math.floor(Math.random() * 8) + 1;
-    let long2 = Math.floor(Math.random() * 8) + 1;
+    // let long2 = Math.floor(Math.random() * 8) + 1;
 
     let lat1 = Math.floor(Math.random() * 8) + 1;
-    let lat2 = Math.floor(Math.random() * 8) + 1;
+    // let lat2 = Math.floor(Math.random() * 8) + 1;
 
     let newLongitude = parseFloat(stringLong.slice(0, -1) + long1);
     let newLatitude = parseFloat(stringLat.slice(0, -1) + lat1);
@@ -89,7 +89,7 @@ router.get("/simulate/:bikeid", async (req, res) => {
         }
 
         putLocation(bikeid, oldLat2.toFixed(3), oldLong2.toFixed(3));
-    }, 2000);
+    }, 8000);
 
     // console.log(oldLong2);
     // console.log(oldLat2);

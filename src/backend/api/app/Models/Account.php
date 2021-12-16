@@ -24,4 +24,8 @@ class Account extends Model
     public function customer(): HasOne {
         return $this->hasOne(Customer::class, "account", "id");
     }
+
+    public function token(): HasOne {
+        return $this->hasOne(ApiToken::class, "tokenable_id", "id");
+    }
 }

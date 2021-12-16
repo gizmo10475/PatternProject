@@ -1,15 +1,18 @@
-<%- include("header", {title: "Historik"}); %>
+<%- include("header", {title: "Historik | " + username}); %>
 
 <h1>Historik</h1>
 
-<% for(var i=0; i < data.length; i++) { %>
-    <div class="history">
-    <p>Cykelns ID: <%= data[i].bike %></p>
-    <p>Startplats: <%= data[i].start_longitude %>, <%= data[i].start_latitude %></p>
-    <p>Starttid: <%= data[i].start_time %></p>
-    <p>Sluttid: <%= data[i].end_time %></p>
-    <p>Summa: <%= data[i].cost %>:-</p>
-</div>
-<% } %>
-
+<% if(data == undefined){ %>
+    <p style="text-align: center;">Ingen historik än</p>
+  <% } else{ %>  
+    <% for(var i=0; i < data.length; i++) { %>
+        <div class="history">
+        <p>Cykelns ID: <%= data[i].bike %></p>
+        <p>Startplats: <%= data[i].start_longitude %>, <%= data[i].start_latitude %></p>
+        <p>Starttid: <%= data[i].start_time %></p>
+        <p>Sluttid: <%= data[i].end_time %></p>
+        <p>Summa: <%= data[i].cost %>:-</p>
+    </div>
+    <% } %>
+ <% } %>
 <%- include("footer"); %>

@@ -63,23 +63,20 @@ app.get('/oauth-callback', async (req, res) => {
     }
   });
   res_ = await response.json();
-  // console.log(res_);
-  // console.log(res_["data"]["token"]);
   const apiKey = res_["data"]["token"];
   const userId = res_["data"]["user"]["id"];
+  const userName = res_["data"]["user"]["name"];
 
 
   res.cookie("apiKey", apiKey);
   res.cookie("userId", userId);
-  // console.log(req.cookies["apiKey"]);
-  // req.cookies("apiKey")
+  res.cookie("userName", userName);
   res.redirect("/customer/history");
 });
 
 
 
 app.use("/", routeIndex);
-// KUND
 app.use("/customer", routeCustomer);
 
 app.listen(port, logStartUpDetailsToConsole);

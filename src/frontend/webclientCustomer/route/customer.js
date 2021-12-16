@@ -8,7 +8,7 @@ const router  = express.Router();
 const clientfunc    = require("../src/clientfunc.js");
 
 router.get("/history", async (req, res) => {
-    var data = await clientfunc.getUserHistory();
+    var data = await clientfunc.getUserHistory(req.cookies["apiKey"]);
 
     res.render("customer/history", { data });
 });
@@ -16,7 +16,7 @@ router.get("/history", async (req, res) => {
 
 
 router.get("/payment", async (req, res) => {
-    var data = await clientfunc.getUserBalance();
+    var data = await clientfunc.getUserBalance(req.cookies["apiKey"]);
 
     res.render("customer/payment", { data });
 });
@@ -28,10 +28,10 @@ router.post("/payment", urlencodedParser, async (req, res) => {
 
     const body = {credits: add};
 
-    const response = await fetch('http://localhost:8080/api/customer/1', {
+    const response = await fetch('http://localhost:8080/api/customer/2', {
         method: 'put',
         body: JSON.stringify(body),
-        headers: {'Content-Type': 'application/json'}
+        headers: {'Content-Type': 'application/json', "Authorization": `Bearer ${req.cookies["apiKey"]}`}
     });
     const data = await response.json();
 

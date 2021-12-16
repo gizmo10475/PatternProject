@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class cities extends Model
+class City extends Model
 {
     use HasFactory;
 
@@ -21,11 +21,16 @@ class cities extends Model
 
     public function bikes(): HasManyThrough
     {
-        return $this->hasManyThrough(bikes::class, Bike2City::class, "city", "id");
+        return $this->hasManyThrough(Bike::class, Bike2City::class, "city", "id");
     }
 
     public function stations(): HasManyThrough
     {
-        return $this->hasManyThrough(stations::class, station2city::class, "city", "id");
+        return $this->hasManyThrough(Station::class, Station2City::class, "city", "id");
+    }
+
+    public function parkingZones(): HasManyThrough
+    {
+        return $this->hasManyThrough(ParkingZone::class, ParkingZone2City::class, "city", "id");
     }
 }

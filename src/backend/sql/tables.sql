@@ -3,14 +3,17 @@ USE pattern; -- database name subject to change
 DROP TABLE IF EXISTS travel_log;
 DROP TABLE IF EXISTS bike2city;
 DROP TABLE IF EXISTS bike2station;
+DROP TABLE IF EXISTS bike2parking_zone;
 DROP TABLE IF EXISTS bikes;
 
 DROP TABLE IF EXISTS station2city;
 DROP TABLE IF EXISTS stations;
+DROP TABLE IF EXISTS parking_zone2city;
 DROP TABLE IF EXISTS cities;
+DROP TABLE IF EXISTS parking_zones;
 
+DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS administrators;
 
 CREATE TABLE bikes (
     `id` INT AUTO_INCREMENT NOT NULL,
@@ -29,6 +32,9 @@ ENGINE INNODB
 CREATE TABLE cities (
     `id` INT AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(50) NOT NULL,
+    `center_long` DOUBLE,
+    `center_lat` DOUBLE,
+    `radius` INT,
 
     PRIMARY KEY (`id`)
 )
@@ -82,10 +88,10 @@ CREATE TABLE station2city (
 ENGINE INNODB
 ;
 
-CREATE TABLE administrators (
+CREATE TABLE accounts (
     `id` INT AUTO_INCREMENT NOT NULL,
     `email` VARCHAR(100) NOT NULL,
-    `api_key` VARCHAR(100),
+    `admin` BOOLEAN NOT NULL DEFAULT 0,
 
     PRIMARY KEY (`id`)
 )
@@ -95,10 +101,11 @@ ENGINE INNODB
 CREATE TABLE customers (
     `id` INT AUTO_INCREMENT NOT NULL,
     `name` VARCHAR(50) NOT NULL,
-    `email` VARCHAR(100) NOT NULL,
+    `account` INT NOT NULL,
     `credits` FLOAT DEFAULT 0 NOT NULL,
 
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`account`) REFERENCES accounts (`id`)
 )
 ENGINE INNODB
 ;
@@ -139,5 +146,40 @@ CREATE TABLE personal_access_tokens (
     UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
     KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
 )
-ENGINE=InnoDB
+ENGINE INNODB
+;
+
+CREATE TABLE parking_zones (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `center_long` DOUBLE NOT NULL,
+    `center_lat` DOUBLE NOT NULL,
+    `radius` INT NOT NULL,
+
+    PRIMARY KEY (`id`)
+)
+ENGINE INNODB
+;
+
+CREATE TABLE parking_zone2city (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `zone` INT NOT NULL,
+    `city` INT NOT NULL,
+
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`zone`) REFERENCES parking_zones (`id`),
+    FOREIGN KEY (`city`) REFERENCES cities (`id`)
+)
+ENGINE INNODB
+;
+
+CREATE TABLE bike2parking_zone (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `bike` INT NOT NULL,
+    `zone` INT NOT NULL,
+
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`bike`) REFERENCES bikes (`id`),
+    FOREIGN KEY (`zone`) REFERENCES parking_zones (`id`)
+)
+ENGINE INNODB
 ;

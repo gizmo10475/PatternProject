@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Models\customers;
-use App\Models\customerHistory;
-use App\Models\accounts;
-
+use App\Models\Customer;
+use App\Models\History;
 
 class CustomerController extends Controller
 {
@@ -18,7 +16,7 @@ class CustomerController extends Controller
      */
     public function index(): JsonResponse //GET customer
     {
-        return response()->json(["data" => customers::All()]);
+        return response()->json(["data" => Customer::All()]);
     }
 
     /**
@@ -29,7 +27,7 @@ class CustomerController extends Controller
      */
     public function show(int $id): JsonResponse //GET customer/{id}
     {
-        return response()->json(["data" => customers::find($id)]);
+        return response()->json(["data" => Customer::find($id)]);
     }
 
     /**
@@ -41,7 +39,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse //PUT customer/id
     {
-        $customer = customers::find($id);
+        $customer = Customer::find($id);
         $customer->update($request->all());
         return response()->json(["data" => $customer]);
     }
@@ -54,7 +52,7 @@ class CustomerController extends Controller
      */
     public function showHistory(int $id): JsonResponse //GET customer/{id}/history
     {
-        $history = customerHistory::where('customer', $id)->get();
+        $history = History::where('customer', $id)->get();
         return response()->json(["data" => $history]);
     }
 
@@ -79,7 +77,7 @@ class CustomerController extends Controller
             'city' => 'required',
         ]);
         return response()->json([
-            "data" => customerHistory::create($request->all())
+            "data" => History::create($request->all())
         ]);
     }
 
@@ -96,8 +94,8 @@ class CustomerController extends Controller
             'email' => 'required',
         ]);
         return response()->json([
-            "data" => customers::create($request->all())
-        ]);;
+            "data" => Customer::create($request->all())
+        ]);
     }
 
 
@@ -109,24 +107,6 @@ class CustomerController extends Controller
      */
     public function destroy(int $id): JsonResponse //DELETE customer/{id}
     {
-        return response()->json(["data" => customers::destroy($id)]);
+        return response()->json(["data" => Customer::destroy($id)]);
     }
-
-
-
-    // /**
-    //  * Store a new customer.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function storeCustomer(Request $request) //POST customer/{id}/history
-    // {
-    //     $request->validate([ //this needs to be in 'body' to get posted.
-    //         'name' => 'required',
-    //         'account' => 'required' //this should not be here /Eddie.
-    //     ]);
-    //     return customers::create($request->all());
-    // }
-
 }

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Models\stations;
+use App\Models\Station;
 use App\Models\Bike2Station;
-use App\Models\station2city;
+use App\Models\Station2City;
 
 class StationsController extends Controller
 {
@@ -17,8 +17,8 @@ class StationsController extends Controller
      */
     public function index(): JsonResponse //GET station
     {
-        $stations = stations::All();
-        $stations = stations::fillAvailableSlots($stations);
+        $stations = Station::All();
+        $stations = Station::calculateAvailableSlots($stations);
         return response()->json(["data" => $stations]);
     }
 
@@ -37,8 +37,8 @@ class StationsController extends Controller
             "city" => "required"
         ]);
         $newStationData = $request->all(["slots", "longitude", "latitude"]);
-        $station = stations::create($newStationData);
-        station2city::create([
+        $station = Station::create($newStationData);
+        Station2City::create([
             "station" => $station->id,
             "city" => $request->input("city")
         ]);
@@ -54,7 +54,7 @@ class StationsController extends Controller
      */
     public function show(int $id): JsonResponse //GET station/{id}
     {
-        return response()->json(["data" => stations::find($id)]);
+        return response()->json(["data" => Station::find($id)]);
     }
 
     /**
@@ -66,7 +66,7 @@ class StationsController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse //PUT station{id}
     {
-        $station = stations::find($id);
+        $station = Station::find($id);
         $station->update($request->all());
         return response()->json(["data" => $station]);
     }
@@ -79,6 +79,6 @@ class StationsController extends Controller
      */
     public function destroy(int $id): JsonResponse //DELETE station/{id}
     {
-        return response()->json(["data" => stations::destroy($id)]);
+        return response()->json(["data" => Station::destroy($id)]);
     }
 }

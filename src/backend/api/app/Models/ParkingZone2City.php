@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class accounts extends Model
+class ParkingZone2City extends Model
 {
-    protected $table = 'accounts';
-
+    protected $table = "parking_zone2city";
     public $timestamps = false;
-
     protected $fillable = [
-        'email'
+        "zone",
+        "city"
     ];
 }

@@ -6,7 +6,7 @@ body {
 
 h1 {
     text-align: center;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 
@@ -39,23 +39,22 @@ footer {
     clear: left;
 }
 
-
-
-/* HISTORY */
-.history {
-    border: 1px solid #8ca1d8;
-    margin: auto;
-    width: 40%;
-    padding: 10px;
-    margin-bottom: 20px;
+/* INDEX */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    margin-top: 50px;
 }
 
-.history p {
+.greeting {
     text-align: center;
+    width: 600px;
+    font-size: 1.2em;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-
-
 
 /* CUSTOMERS */
 .client {
@@ -110,5 +109,4 @@ form {
 /* MAP */
 #map { 
     height: 500px; 
-    margin-top: -60px;
 }

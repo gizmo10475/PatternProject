@@ -32,6 +32,13 @@ let bikes = {
         }
     },
     rentBike: function() {
+        // m.request({
+        //     method: "GET",
+        //     url: `http://localhost:1338/simulate/${bikes.currentId}`
+        // }).then(function(result) {
+        //     // return m.route.set("/timer");
+        // });
+
         var today = new Date();
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();

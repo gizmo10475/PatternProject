@@ -110,6 +110,8 @@ CREATE TABLE customers (
 ENGINE INNODB
 ;
 
+ALTER TABLE customers AUTO_INCREMENT=2;
+
 CREATE TABLE travel_log (
     `id` INT AUTO_INCREMENT NOT NULL,
     `customer` INT NOT NULL,

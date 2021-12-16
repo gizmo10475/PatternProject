@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Account;
-use Auth;
+use App\Models\ApiToken;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -29,14 +29,16 @@ class AuthController extends Controller
             $account = Account::query()->select(["*"])->where("email", "=", $fields["email"])->get()->first();
             $id = $account->id;
             $customer = Account::find($id)->customer;
-            $token = $account->token;
+            ApiToken::query()->where("tokenable_id", "=", $id)->delete();
+            $token = $account->createToken("customer", ["customer"])->plainTextToken;
+
             return response()->json(["data" => [
                 "user" => [
                         "email" => $account->email,
                         "name" => $customer->name,
                         "id" => $customer->id
                     ],
-                    "token" => $token->token
+                    "token" => $token
                 ]
             ], 200);
         }

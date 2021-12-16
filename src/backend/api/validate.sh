@@ -17,7 +17,7 @@ function cmd-phpunit
 
 function main
 {
-    while (( $# )) ; do 
+    while (( $# )) ; do
         case $1 in
             "phpcs" | "phpmd" | "phpunit")
                 cmd-"$1"
@@ -28,6 +28,7 @@ function main
     done
     cmd-phpcs
     cmd-phpmd
+    cmd-phpunit
     exit 0
 }
 

@@ -53,7 +53,10 @@ class CustomerController extends Controller
         $account = Account::find($customer->account);
 
         $account->update(["email" => $request->input("email", $account->email)]);
-        $customer->update(["name" => $request->input("name", $customer->name)]);
+        $customer->update([
+            "name" => $request->input("name", $customer->name),
+            "credits" => $request->input("credits", $customer->credits)
+        ]);
         $customer->save();
         $account->save();
 

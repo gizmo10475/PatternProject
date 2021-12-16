@@ -12,11 +12,7 @@ function cmd-phpmd
 
 function cmd-phpunit
 {
-    mv .env .env.bak
-    mv .env.testing .env
     XDEBUG_MODE=coverage .bin/phpunit --configuration phpunit.xml | tee validation-out/phpunit
-    mv .env .env.testing
-    mv .env.bak .env
 }
 
 function main

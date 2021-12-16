@@ -39,7 +39,7 @@ class BikeController extends Controller
             'longitude' => 'required',
             'latitude' => 'required'
         ]);
-        return response()->json(["data" => Bike::create($request->all())]);
+        return response()->json(["data" => Bike::create($request->all())], 201);
     }
 
     /**

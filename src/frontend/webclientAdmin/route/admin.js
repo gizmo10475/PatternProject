@@ -5,6 +5,7 @@ const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const adminfunc = require("../src/adminfunc.js");
+const config = require("./../config/config.json");
 
 router.get("/clients", async (req, res) => {
   var data = await adminfunc.getAllUsers();
@@ -32,7 +33,7 @@ router.post("/clients/:id", urlencodedParser, async (req, res) => {
   const response = await fetch(`http://localhost:8080/api/customer/${id}`, {
       method: 'put',
       body: JSON.stringify(body),
-      headers: {'Content-Type': 'application/json'}
+      headers: {'Content-Type': 'application/json', "Authorization": `Bearer ${config.apiKey}`}
   });
   const data = await response.json();
 

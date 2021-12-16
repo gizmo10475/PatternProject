@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     const request = require("request");
 
     const options = {
-        url: "http://localhost:8000/api/bike",
+        url: "http://localhost:8080/api/bike",
         json: true,
         body: {},
     };
@@ -33,7 +33,7 @@ router.get("/simulate/:bikeid", async (req, res) => {
         Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
     };
 
-    let t = await fetch("http://localhost:8000/api/bike/" + bikeid, {
+    let t = await fetch("http://localhost:8080/api/bike/" + bikeid, {
         headers: headers,
     });
     let { data } = await t.json();
@@ -48,13 +48,13 @@ router.get("/simulate/:bikeid", async (req, res) => {
     let stringLong = oldLongitude.toString();
 
     let long1 = Math.floor(Math.random() * 8) + 1;
-    let long2 = Math.floor(Math.random() * 8) + 1;
+    // let long2 = Math.floor(Math.random() * 8) + 1;
 
     let lat1 = Math.floor(Math.random() * 8) + 1;
-    let lat2 = Math.floor(Math.random() * 8) + 1;
+    // let lat2 = Math.floor(Math.random() * 8) + 1;
 
-    let newLongitude = parseFloat(stringLong.slice(0, -2) + long1 + long2);
-    let newLatitude = parseFloat(stringLat.slice(0, -2) + lat1 + lat2);
+    let newLongitude = parseFloat(stringLong.slice(0, -1) + long1);
+    let newLatitude = parseFloat(stringLat.slice(0, -1) + lat1);
 
     let newLat = parseFloat(newLatitude);
     let newLong = parseFloat(newLongitude);
@@ -89,7 +89,7 @@ router.get("/simulate/:bikeid", async (req, res) => {
         }
 
         putLocation(bikeid, oldLat2.toFixed(3), oldLong2.toFixed(3));
-    }, 2000);
+    }, 8000);
 
     // console.log(oldLong2);
     // console.log(oldLat2);
@@ -128,7 +128,7 @@ router.get("/resetbike/:bikeid/:longitude/:latitude", async (req, res) => {
 
 const putLocation = (bikeid, newLat, newLong) => {
     const options = {
-        url: "http://localhost:8000/api/bike/" + bikeid,
+        url: "http://localhost:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -143,14 +143,14 @@ const putLocation = (bikeid, newLat, newLong) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };
 
 const activeBike = (bikeid) => {
     const options = {
-        url: "http://localhost:8000/api/bike/" + bikeid,
+        url: "http://localhost:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -165,14 +165,14 @@ const activeBike = (bikeid) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };
 
 const deactiveBike = (bikeid) => {
     const options = {
-        url: "http://localhost:8000/api/bike/" + bikeid,
+        url: "http://localhost:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -187,14 +187,14 @@ const deactiveBike = (bikeid) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };
 
 const chargeBike = (bikeid) => {
     const options = {
-        url: "http://localhost:8000/api/bike/" + bikeid,
+        url: "http://localhost:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -209,14 +209,14 @@ const chargeBike = (bikeid) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };
 
 const unchargeBike = (bikeid) => {
     const options = {
-        url: "http://localhost:8000/api/bike/" + bikeid,
+        url: "http://localhost:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -231,14 +231,14 @@ const unchargeBike = (bikeid) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };
 
 const resetBike = (bikeid, long, lat) => {
     const options = {
-        url: "http://localhost:8000/api/bike/" + bikeid,
+        url: "http://localhost:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -257,7 +257,7 @@ const resetBike = (bikeid, long, lat) => {
         if (err) {
             return console.log(err);
         }
-        console.log(`Status: ${res.statusCode}`);
+        // console.log(`Status: ${res.statusCode}`);
         // console.log(body);
     });
 };

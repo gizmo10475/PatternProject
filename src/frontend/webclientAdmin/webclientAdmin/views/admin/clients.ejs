@@ -1,0 +1,15 @@
+<%- include("header", {title: "Kunder"}); %>
+
+<h1>Alla kunder</h1>
+
+<% for(var i=0; i < data.length; i++) { %>
+    <div class="client">
+    <p>Användarens ID: <%= data[i].id %></p>
+    <p>Namn: <%= data[i].name %></p>
+    <p>Mejladress: <%= data[i].email %></p>
+    <p>Saldo: <%= data[i].credits %>:-</p>
+    <a class="edit" href="clients/<%= data[i].id %>">Redigera</a>
+</div>
+<% } %>
+
+<%- include("footer"); %>

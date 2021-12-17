@@ -23,3 +23,12 @@ services:
       - db
     networks:
       - pattern
+  bike:
+    build: ./src/backend/bike
+    container_name: bike
+    ports:
+      - "1338:1338"
+    depends_on:
+      - api
+    networks:
+      - pattern

@@ -7,6 +7,11 @@ To simulate a bike:
   .../simulate/{bikeid}
 ```
 
+To stop simulation of a bike:
+```
+  .../stop/{bikeid}
+```
+
 To charge a bike:
 ```
   .../charge/{bikeid}

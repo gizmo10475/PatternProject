@@ -24,9 +24,7 @@ var Counter = {
 
 function test() {
   bikes.getBikeLocation();
-  // console.log(bikes.currentLocation);
   bikes.rentBike();
-  //m.render(document.body, m(Counter));
 
   timer = setInterval(function () {
     second++;

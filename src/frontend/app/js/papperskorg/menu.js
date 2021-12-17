@@ -1,8 +1,10 @@
 /* global navigation */
+/*
 "use strict";
 import { home } from "./home.js";
 import { form } from "./form.js";
 import { map } from "./bikeMap.js";
+
 
 
 var menu = (function () {
@@ -12,17 +14,17 @@ var menu = (function () {
             {
                 name: "Hem",
                 nav: home.showHome
-                
+
             },
             {
                 name: "Form",
                 nav: form.showForm
-                
+
             },
             {
                 name: "Map",
                 nav: map.showMap
-                
+
             }
         ];
 
@@ -59,3 +61,4 @@ var menu = (function () {
 })(menu);
 export { menu };
 
+*/

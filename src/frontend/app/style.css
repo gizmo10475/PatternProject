@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.container p {
+  line-height: 1.4;
+  font-size: 1.2rem;
+}
+
+html {
+  font-size: 100%;
+  scrollbar-width: none;
+}
+
+.material-icons {
+  display: inline-flex;
+  vertical-align: top;
+}
+
+body {
+  line-height: 1.4;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+/* 
+  MAP
+*/
+#map { 
+  height: 500px; 
+  /* z-index: -1; */
+  position: relative;
+}
+
+.cluster-number {
+  font-size: 40px;
+  color: blue;
+}
+
+button {
+  width: 100%;
+  background-color: white;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: 2px solid grey;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.renderBikes, 
+.renderStations, 
+.removeMarkers {
+  width: 120px;
+  margin-right: 10px;
+  margin-top: 40px;
+}
+
+.buttons {
+  text-align: center;
+}
+
+/* 
+  FORM 
+*/
+.scooterImg {
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.input-label {
+  display: block;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.rent {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  background-color: black;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border-radius: 4px;
+}
+
+.back {
+  text-decoration: none;
+}
+
+.back:visited {
+  color: black;
+}
+
+/* 
+  RIDE INFO
+*/
+.info {
+  text-align: center;
+}

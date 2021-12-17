@@ -1,8 +1,11 @@
+/* 
 import m from "mithril";
-import bikes from "../models/bikes.js"
+import users from "../models/users.js"
 
 let home = {
-    oninit: bikes.getAllLocations,
+    oninit: function() {
+        users.getInfoUser();
+    },
     view: function() {
         return m("main.container", [
             m("h1", "Home"),
@@ -18,3 +21,4 @@ let home = {
 };
 
 export default home;
+ */

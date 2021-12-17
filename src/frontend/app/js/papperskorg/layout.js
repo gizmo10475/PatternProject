@@ -6,7 +6,7 @@ var layout = {
     links: [
         { name: "Hem", route: "#!/" },
         { name: "Form", route: "#!/form" },
-        { name: "Map", route: "#!/bikeMap" },
+        { name: "Map", route: "#!/bikeMap" }
     ],
     view: function(vnode) {
         var bottomNav = vnode.attrs.bottomNav;

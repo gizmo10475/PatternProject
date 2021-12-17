@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     const request = require("request");
 
     const options = {
-        url: "http://localhost:8080/api/bike",
+        url: "http://api:8080/api/bike",
         json: true,
         body: {},
     };
@@ -34,7 +34,7 @@ router.get("/simulate/:bikeid", async (req, res) => {
         Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
     };
 
-    let t = await fetch("http://localhost:8080/api/bike/" + bikeid, {
+    let t = await fetch("http://api:8080/api/bike/" + bikeid, {
         headers: headers,
     });
     let { data } = await t.json();
@@ -133,7 +133,7 @@ router.get("/resetbike/:bikeid/:longitude/:latitude", async (req, res) => {
 
 const putLocation = (bikeid, newLat, newLong) => {
     const options = {
-        url: "http://localhost:8080/api/bike/" + bikeid,
+        url: "http://api:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -155,7 +155,7 @@ const putLocation = (bikeid, newLat, newLong) => {
 
 const activeBike = (bikeid) => {
     const options = {
-        url: "http://localhost:8080/api/bike/" + bikeid,
+        url: "http://api:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -177,7 +177,7 @@ const activeBike = (bikeid) => {
 
 const deactiveBike = (bikeid) => {
     const options = {
-        url: "http://localhost:8080/api/bike/" + bikeid,
+        url: "http://api:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -199,7 +199,7 @@ const deactiveBike = (bikeid) => {
 
 const chargeBike = (bikeid) => {
     const options = {
-        url: "http://localhost:8080/api/bike/" + bikeid,
+        url: "http://api:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -221,7 +221,7 @@ const chargeBike = (bikeid) => {
 
 const unchargeBike = (bikeid) => {
     const options = {
-        url: "http://localhost:8080/api/bike/" + bikeid,
+        url: "http://api:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
@@ -243,7 +243,7 @@ const unchargeBike = (bikeid) => {
 
 const resetBike = (bikeid, long, lat) => {
     const options = {
-        url: "http://localhost:8080/api/bike/" + bikeid,
+        url: "http://api:8080/api/bike/" + bikeid,
         json: true,
         headers: {
             Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",

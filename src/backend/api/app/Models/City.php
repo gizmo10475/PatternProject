@@ -21,16 +21,16 @@ class City extends Model
 
     public function bikes(): HasManyThrough
     {
-        return $this->hasManyThrough(Bike::class, Bike2City::class, "city", "id");
+        return $this->hasManyThrough(Bike::class, Bike2City::class, "city", "id", "id", "bike");
     }
 
     public function stations(): HasManyThrough
     {
-        return $this->hasManyThrough(Station::class, Station2City::class, "city", "id");
+        return $this->hasManyThrough(Station::class, Station2City::class, "city", "id", "id", "station");
     }
 
     public function parkingZones(): HasManyThrough
     {
-        return $this->hasManyThrough(ParkingZone::class, ParkingZone2City::class, "city", "id");
+        return $this->hasManyThrough(ParkingZone::class, ParkingZone2City::class, "city", "id", "id", "zone");
     }
 }

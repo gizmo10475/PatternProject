@@ -32,7 +32,7 @@ class CityController extends Controller
         $request->validate([ //this needs to be in 'body' to get posted.
             'name' => 'required'
         ]);
-        return response()->json(["data" => City::create($request->all())]);
+        return response()->json(["data" => City::create($request->all())], 201);
     }
 
     /**
@@ -124,7 +124,7 @@ class CityController extends Controller
     public function getStations(int $id): JsonResponse
     {
         $city = City::find($id);
-        $city->stations = Station::fillAvailableSlots($city->stations);
+        $city->stations = Station::calculateAvailableSlots($city->stations);
         return response()->json([
             "data" => $city
         ]);
@@ -138,9 +138,7 @@ class CityController extends Controller
         $city = City::find($id);
         $city->parkingZones;
         return response()->json([
-            "data" => [
-                "city" => $city,
-            ]
+            "data" => $city,
             ]);
     }
 }

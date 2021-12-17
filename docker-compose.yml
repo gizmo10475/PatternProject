@@ -32,7 +32,7 @@ services:
       - api
     networks:
       - pattern
-   app:
+  app:
     build: ./src/frontend
     container_name: app
     ports:

@@ -7,14 +7,14 @@ use App\Models\Customer;
 
 class Help
 {
-    public static function createCustomerAccount(string $email): string
+    public static function createCustomerAccount(string $email, string $name = "Tester McTests"): string
     {
         $account = Account::create([
-            "email" => $email
+            "email" => $email,
         ]);
         
         Customer::create([
-            "name" => "Tester McTests",
+            "name" => $name,
             "account" => $account->id
         ]);
         

@@ -97,6 +97,28 @@ class BikeTest extends TestCase
             );
     }
 
+    public function testGetBike()
+    {
+        $response = $this->withToken($this->token)->get("/api/bike/3");
+
+        $response->assertStatus(200)
+            ->assertJson(fn (AssertableJson $json) =>
+                $json
+                ->whereAllType([
+                    "data.longitude" => "double",
+                    "data.latitude" => "double"
+                ])
+                ->whereAll([
+                    "data.id" => 3,
+                    "data.charging" => 0,
+                    "data.warning" => 0,
+                    "data.speed" => 0,
+                    "data.active" => 0
+                ])
+                ->etc()
+        );
+    }
+
     public function testCreateBike()
     {
         $response = $this->withToken($this->adminToken)->postJson("/api/bike", [

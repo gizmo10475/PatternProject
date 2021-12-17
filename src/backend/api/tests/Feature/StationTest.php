@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Station;
+use App\Models\Station2City;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\Help;
@@ -63,5 +66,63 @@ class StationTest extends TestCase
                 "data.id" => 11
             ])
         );
+
+        try {
+            $cityConnection = Station2City::findOrFail(1);
+        } catch (ModelNotFoundException $e) {
+            $this->fail($e->getMessage());
+        }
+
+        $this->assertEquals(1, $cityConnection->city);
+        $this->assertEquals(11, $cityConnection->station);
+    }
+
+    public function testGetStation()
+    {
+        $response = $this->withToken($this->token)->get("/api/stations/1");
+
+        $response->assertStatus(200)
+            ->assertJson(fn (AssertableJson $json) =>
+                $json
+                ->where("data.id", 1)
+                ->whereAllType([
+                    "data.longitude" => "double",
+                    "data.latitude" => "double",
+                    "data.slots" => "integer"
+                ])
+        );
+    }
+
+    public function testUpdateStation()
+    {
+        $response = $this->withToken($this->adminToken)->putJson("/api/stations/1", [
+            "slots" => 116
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson(fn (AssertableJson $json) =>
+                $json
+                ->where("data.slots", 116)
+        );
+        try {
+            $station = Station::findOrFail(1);
+        } catch (ModelNotFoundException $e) {
+            $this->fail($e->getMessage());
+        }
+
+        $this->assertEquals($station->slots, 116);
+    }
+
+    public function testDeleteStation()
+    {
+        $response = $this->withToken($this->adminToken)->delete("/api/stations/8");
+
+        $response->assertStatus(200)
+            ->assertJson(fn (AssertableJson $json) =>
+                $json->where("data", 1)
+        );
+
+        $this->expectException(ModelNotFoundException::class);
+        Station::findOrFail(8);
     }
 }

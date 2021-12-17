@@ -64,6 +64,19 @@ Route::middleware(["auth:sanctum", "ability:admin"])
 
 // Personliga routes
 Route::prefix("/customer/{id}")
+    ->middleware(["auth:sanctum", "ability:customer,admin"]) // should have verifyCustomerId as well
+    ->group(function () {
+        $controller = CustomerController::class;
+
+        Route::get("/", [$controller, "show"]);
+        Route::put("/", [$controller, "update"]);
+        Route::delete("/", [$controller, "destroy"]);
+        Route::get("/history", [$controller, "showHistory"]);
+        Route::post("/history", [$controller, "storeHistory"]);
+    });
+
+// Demo personliga routes middleware
+Route::prefix("/perm_demo/customer/{id}")
     ->middleware(["auth:sanctum", "ability:customer,admin", "verifyCustomerId"])
     ->group(function () {
         $controller = CustomerController::class;

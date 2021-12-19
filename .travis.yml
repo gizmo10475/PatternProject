@@ -1,0 +1,15 @@
+language: php
+php:
+    - "8.0"
+services:
+    - mysql
+before_install:
+    - mysql -e "CREATE DATABASE pattern_test;"
+    - mysql -e "CREATE USER 'tester'@'localhost' IDENTIFIED BY 'grubber';"
+    - mysql -e "GRANT ALL PRIVILEGES ON pattern_test.* TO 'tester'@'localhost';"
+    - mysql -e "FLUSH PRIVILEGES;"
+before_script:
+    - ./setup.sh
+    - cd src/backend/api && php artisan migrate --force --database=testing
+script:
+    - ./validate.sh

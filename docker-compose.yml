@@ -39,18 +39,19 @@ services:
       - "8081:80"
     depends_on:
       - api
+      - bike
     networks:
       - pattern
-  webclientCustomer:
+  webclient_customer:
       build: ./src/frontend/webclientCustomer
-      container_name: webclientCustomer
+      container_name: webclient_customer
       ports:
         - "1337:1337"
       depends_on:
         - api
       networks:
         - pattern
-  webclientAdmin:
+  webclient_admin:
         build: ./src/frontend/webclientAdmin
         container_name: webclientAdmin
         ports:

@@ -30,7 +30,7 @@ router.post("/clients/:id", urlencodedParser, async (req, res) => {
       email: req.body.email
     };
 
-  const response = await fetch(`http://api/api/customer/${id}`, {
+  const response = await fetch(`http://localhost:8080/api/customer/${id}`, {
       method: 'put',
       body: JSON.stringify(body),
       headers: {'Content-Type': 'application/json', "Authorization": `Bearer ${config.apiKey}`}

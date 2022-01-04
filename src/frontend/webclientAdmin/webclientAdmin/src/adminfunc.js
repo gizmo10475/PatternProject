@@ -13,7 +13,7 @@ module.exports = {
 
 
 async function getAllUsers() {
-    let response = await fetch("http://api/api/customer", {
+    let response = await fetch("http://localhost:8080/api/customer", {
         headers: {"Authorization": `Bearer ${config.apiKey}`}
     });
     let {data} = await response.json();
@@ -21,7 +21,7 @@ async function getAllUsers() {
 }
 
 async function getUser(id) {
-    let response = await fetch(`http://api/api/customer/${id}`, {
+    let response = await fetch(`http://localhost:8080/api/customer/${id}`, {
         headers: {"Authorization": `Bearer ${config.apiKey}`}
     });
     let {data} = await response.json();
@@ -30,7 +30,7 @@ async function getUser(id) {
 
 
 async function getAllBikes() {
-    let response = await fetch("http://api/api/bike", {
+    let response = await fetch("http://localhost:8080/api/bike", {
         headers: {"Authorization": `Bearer ${config.apiKey}`}
     });
     let {data} = await response.json();
@@ -46,7 +46,7 @@ async function getAllBikes() {
 
 
 async function getAllStations() {
-    let response = await fetch("http://api/api/stations", {
+    let response = await fetch("http://localhost:8080/api/stations", {
         headers: {"Authorization": `Bearer ${config.apiKey}`}
     });
     let {data} = await response.json();
@@ -62,7 +62,7 @@ async function getAllStations() {
 
 
 async function getAllParking() {
-    let response = await fetch("http://api/api/parking", {
+    let response = await fetch("http://localhost:8080/api/parking", {
         headers: {"Authorization": `Bearer ${config.apiKey}`}
     });
     let {data} = await response.json();

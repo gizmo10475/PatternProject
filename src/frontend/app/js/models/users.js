@@ -4,14 +4,16 @@ import { apiKey } from "../vars.js";
 let users = {
     infoUsers: {},
     infoBikes: {},
-    getInfoUser: function() {
-        return m.request({
-            method: "GET",
-            url: `http://api/api/customer/3`,
-            headers: {"Authorization": `Bearer ${apiKey}`}
-        }).then(function(result) {
-            users.infoUser = result.data;
-        });
+    getInfoUser: function () {
+        return m
+            .request({
+                method: "GET",
+                url: `http://localhost:8080/api/customer/3`,
+                headers: { Authorization: `Bearer ${apiKey}` },
+            })
+            .then(function (result) {
+                users.infoUser = result.data;
+            });
     },
     saveToHistory: function (bikeId, currLoc, sum, startTime) {
         var tripInfo = {
@@ -26,15 +28,17 @@ let users = {
             city: 1,
         };
 
-        return m.request({
-            method: "POST",
-            url: `http://api/api/customer/3/history`,
-            headers: {"Authorization": `Bearer ${apiKey}`},
-            body: tripInfo,
-        }).then(function(result) {
-            // console.log(result);
-            // return m.route.set("/timer");
-        });
+        return m
+            .request({
+                method: "POST",
+                url: `http://localhost:8080/api/customer/3/history`,
+                headers: { Authorization: `Bearer ${apiKey}` },
+                body: tripInfo,
+            })
+            .then(function (result) {
+                // console.log(result);
+                // return m.route.set("/timer");
+            });
     },
     pay: function (sum) {
         // console.log(users.infoUser);
@@ -44,16 +48,18 @@ let users = {
             credits: money,
         };
 
-        return m.request({
-            method: "PUT",
-            url: `http://api/api/customer/3`,
-            headers: {"Authorization": `Bearer ${apiKey}`},
-            body: paymentInfo,
-        }).then(function(result) {
-            // console.log("pay");
-            // return m.route.set("/timer");
-        });
-    }
+        return m
+            .request({
+                method: "PUT",
+                url: `http://localhost:8080/api/customer/3`,
+                headers: { Authorization: `Bearer ${apiKey}` },
+                body: paymentInfo,
+            })
+            .then(function (result) {
+                // console.log("pay");
+                // return m.route.set("/timer");
+            });
+    },
 };
 
 export default users;

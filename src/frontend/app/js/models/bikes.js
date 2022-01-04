@@ -7,28 +7,24 @@ let bikes = {
     currentId: "",
     currentTime: "",
     currentLocation: {},
-    getAllLocations: function () {
-        return m
-            .request({
-                method: "GET",
-                url: `http://localhost:8080/api/bike`,
-                headers: { Authorization: `Bearer ${apiKey}` },
-            })
-            .then(function (result) {
-                bikes.locations(result);
-            });
+    getAllLocations: function() {
+        return m.request({
+            method: "GET",
+            url: `http://api/api/bike`,
+            headers: {"Authorization": `Bearer ${apiKey}`}
+        }).then(function(result) {
+            bikes.locations(result);
+        });
     },
-    getBikeLocation: function () {
-        return m
-            .request({
-                method: "GET",
-                url: `http://localhost:8080/api/bike/${bikes.currentId}`,
-                headers: { Authorization: `Bearer ${apiKey}` },
-            })
-            .then(function (result) {
-                bikes.currentLocation[0] = result.data.longitude;
-                bikes.currentLocation[1] = result.data.latitude;
-            });
+    getBikeLocation: function() {
+        return m.request({
+            method: "GET",
+            url: `http://api/api/bike/${bikes.currentId}`,
+            headers: {"Authorization": `Bearer ${apiKey}`}
+        }).then(function(result) {
+            bikes.currentLocation[0] = result.data.longitude;
+            bikes.currentLocation[1] = result.data.latitude;
+        });
     },
     locations: function (info) {
         for (var i = 0; i < info.data.length; i++) {
@@ -38,8 +34,8 @@ let bikes = {
     rentBike: function () {
         m.request({
             method: "GET",
-            url: `http://localhost:1338/simulate/${bikes.currentId}`,
-        }).then(function (result) {
+            url: `http://bike:1338/simulate/${bikes.currentId}`
+        }).then(function(result) {
             // return m.route.set("/timer");
         });
 
@@ -52,28 +48,33 @@ let bikes = {
             active: 1,
         };
 
-        return m
-            .request({
-                method: "PUT",
-                url: `http://localhost:8080/api/bike/${bikes.currentId}`,
-                headers: { Authorization: `Bearer ${apiKey}` },
-                body: bikeInfo,
-            })
-            .then(function (result) {
-                return m.route.set("/timer");
-            });
+        return m.request({
+            method: "PUT",
+            url: `http://api/api/bike/${bikes.currentId}`,
+            headers: {"Authorization": `Bearer ${apiKey}`},
+            body: bikeInfo,
+        }).then(function(result) {
+            return m.route.set("/timer");
+        });
     },
     returnBike: function () {
         m.request({
             method: "GET",
-            url: `http://localhost:1338/stop/${bikes.currentId}`,
-        }).then(function (result) {
+            url: `http://bike:1338/stop/${bikes.currentId}`
+        }).then(function(result) {
             // return m.route.set("/timer");
         });
 
         var bikeInfo = {
             active: 0,
         };
+    
+        return m.request({
+            method: "PUT",
+            url: `http://api/api/bike/${bikes.currentId}`,
+            headers: {"Authorization": `Bearer ${apiKey}`},
+            body: bikeInfo,
+        }).then(function(result) {
 
         return m
             .request({

@@ -9,14 +9,14 @@ module.exports = {
 
 
 async function getUserHistory() {
-    let response = await fetch("http://localhost:8080/api/customer/1/history");
+    let response = await fetch("http://api/api/customer/1/history");
     let {data} = await response.json();
     return data;
 }
 
 
 async function getUserBalance() {
-    let response = await fetch("http://localhost:8080/api/customer/1/");
+    let response = await fetch("http://api/api/customer/1/");
     let {data} = await response.json();
     return data;
 }

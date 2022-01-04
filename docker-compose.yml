@@ -32,3 +32,31 @@ services:
       - api
     networks:
       - pattern
+  app:
+    build: ./src/frontend
+    container_name: app
+    ports:
+      - "8081:80"
+    depends_on:
+      - api
+      - bike
+    networks:
+      - pattern
+  webclient_customer:
+      build: ./src/frontend/webclientCustomer
+      container_name: webclient_customer
+      ports:
+        - "1337:1337"
+      depends_on:
+        - api
+      networks:
+        - pattern
+  webclient_admin:
+        build: ./src/frontend/webclientAdmin
+        container_name: webclientAdmin
+        ports:
+          - "1336:1336"
+        depends_on:
+          - api
+        networks:
+          - pattern

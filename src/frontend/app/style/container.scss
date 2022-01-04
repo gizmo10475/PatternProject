@@ -1,0 +1,38 @@
+.container {
+    padding: 1rem;
+    margin-top: 3.2rem;
+    font-size: 1.2rem;
+}
+
+.container p {
+    line-height: 1.4;
+    font-size: 1.2rem;
+}
+
+.container img {
+    width: 100%;
+}
+
+html {
+    font-size: 100%;
+    scrollbar-width: none;
+}
+
+.container {
+    height: 60%;
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 0;
+    margin-bottom: 20%;
+    z-index: 1;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ccc;
+}
+
+.hypertext {
+    text-decoration: underline;
+}
+
+.active{color: darkgreen;}
+.inactive{color: black;}
+.stopped{color: red;}

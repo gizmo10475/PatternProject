@@ -43,7 +43,7 @@ class StationsController extends Controller
             "city" => $request->input("city")
         ]);
 
-        return response()->json(["data" => $station]);
+        return response()->json(["data" => $station], 201);
     }
 
     /**

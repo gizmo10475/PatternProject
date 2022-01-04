@@ -1,5 +1,5 @@
 import m from "mithril";
-import {apiKey} from "../vars.js";
+import { apiKey } from "../vars.js";
 
 let stations = {
     mapCords: [],
@@ -13,11 +13,14 @@ let stations = {
             stations.locations(result);
         });
     },
-    locations: function(info) {
+    locations: function (info) {
         for (var i = 0; i < info.data.length; i++) {
-            stations.infoStations[info.data[i].id] = [info.data[i].longitude, info.data[i].latitude]
+            stations.infoStations[info.data[i].id] = [
+                info.data[i].longitude,
+                info.data[i].latitude,
+            ];
         }
-    }
+    },
 };
 
 export default stations;

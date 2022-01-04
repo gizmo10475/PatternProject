@@ -1,5 +1,5 @@
 import m from "mithril";
-import {apiKey} from "../vars.js";
+import { apiKey } from "../vars.js";
 
 let users = {
     infoUsers: {},
@@ -13,7 +13,7 @@ let users = {
             users.infoUser = result.data;
         });
     },
-    saveToHistory: function(bikeId, currLoc, sum, startTime) {
+    saveToHistory: function (bikeId, currLoc, sum, startTime) {
         var tripInfo = {
             customer: 3,
             bike: bikeId,
@@ -23,9 +23,9 @@ let users = {
             end_longitude: 0,
             end_latitude: 0,
             cost: sum,
-            city: 1
+            city: 1,
         };
-        
+
         return m.request({
             method: "POST",
             url: `http://api/api/customer/3/history`,
@@ -36,12 +36,12 @@ let users = {
             // return m.route.set("/timer");
         });
     },
-    pay: function(sum) {
+    pay: function (sum) {
         // console.log(users.infoUser);
         var money = parseInt(users.infoUser.credits) - parseInt(sum);
         // console.log(money);
         var paymentInfo = {
-            credits: money
+            credits: money,
         };
 
         return m.request({

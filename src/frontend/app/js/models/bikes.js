@@ -1,5 +1,5 @@
 import m from "mithril";
-import {apiKey} from "../vars.js";
+import { apiKey } from "../vars.js";
 
 let bikes = {
     mapCords: [],
@@ -26,12 +26,12 @@ let bikes = {
             bikes.currentLocation[1] = result.data.latitude;
         });
     },
-    locations: function(info) {
+    locations: function (info) {
         for (var i = 0; i < info.data.length; i++) {
-            bikes.infoBikes[info.data[i].id] = [info.data[i].longitude, info.data[i].latitude]
+            bikes.infoBikes[info.data[i].id] = [info.data[i].longitude, info.data[i].latitude];
         }
     },
-    rentBike: function() {
+    rentBike: function () {
         m.request({
             method: "GET",
             url: `http://bike:1338/simulate/${bikes.currentId}`
@@ -40,14 +40,14 @@ let bikes = {
         });
 
         var today = new Date();
-        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         bikes.currentTime = date + " " + time;
 
         var bikeInfo = {
-            active: 1
+            active: 1,
         };
-    
+
         return m.request({
             method: "PUT",
             url: `http://api/api/bike/${bikes.currentId}`,
@@ -57,7 +57,7 @@ let bikes = {
             return m.route.set("/timer");
         });
     },
-    returnBike: function() {
+    returnBike: function () {
         m.request({
             method: "GET",
             url: `http://bike:1338/stop/${bikes.currentId}`
@@ -66,7 +66,7 @@ let bikes = {
         });
 
         var bikeInfo = {
-            active: 0
+            active: 0,
         };
     
         return m.request({
@@ -76,7 +76,14 @@ let bikes = {
             body: bikeInfo,
         }).then(function(result) {
 
-        });
+        return m
+            .request({
+                method: "PUT",
+                url: `http://localhost:8080/api/bike/${bikes.currentId}`,
+                headers: { Authorization: `Bearer ${apiKey}` },
+                body: bikeInfo,
+            })
+            .then(function (result) {});
     },
 };
 

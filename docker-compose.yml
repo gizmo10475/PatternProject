@@ -1,0 +1,62 @@
+version: "3"
+networks:
+  pattern:
+    ipam:
+      driver: default
+
+services:
+  db:
+    build: ./src/backend/sql
+    container_name: db
+    ports:
+      - "3306:3306"
+    environment:
+      - TZ=Europe/Stockholm
+    networks:
+      - pattern
+  api:
+    build: ./src/backend/api
+    container_name: api
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - pattern
+  bike:
+    build: ./src/backend/bike
+    container_name: bike
+    ports:
+      - "1338:1338"
+    depends_on:
+      - api
+    networks:
+      - pattern
+  app:
+    build: ./src/frontend
+    container_name: app
+    ports:
+      - "8081:80"
+    depends_on:
+      - api
+      - bike
+    networks:
+      - pattern
+  webclient_customer:
+      build: ./src/frontend/webclientCustomer
+      container_name: webclient_customer
+      ports:
+        - "1337:1337"
+      depends_on:
+        - api
+      networks:
+        - pattern
+  webclient_admin:
+        build: ./src/frontend/webclientAdmin
+        container_name: webclientAdmin
+        ports:
+          - "1336:1336"
+        depends_on:
+          - api
+        networks:
+          - pattern

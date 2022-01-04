@@ -10,7 +10,7 @@ module.exports = {
 
 async function getUserHistory(userId, apiKey) {
     console.log(apiKey);
-    let response = await fetch(`http://localhost:8080/api/customer/${userId}/history`, {
+    let response = await fetch(`http://api/api/customer/${userId}/history`, {
         headers: {"Authorization": `Bearer ${apiKey}`}
     });
     let {data} = await response.json();
@@ -19,7 +19,7 @@ async function getUserHistory(userId, apiKey) {
 
 
 async function getUserBalance(userId, apiKey) {
-    let response = await fetch(`http://localhost:8080/api/customer/${userId}/`, {
+    let response = await fetch(`http://api/api/customer/${userId}/`, {
         headers: {"Authorization": `Bearer ${apiKey}`}
     });
     let {data} = await response.json();

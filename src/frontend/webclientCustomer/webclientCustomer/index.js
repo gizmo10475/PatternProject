@@ -51,7 +51,7 @@ app.get('/oauth-callback', async (req, res) => {
   });
   let [ email ] = await response.json();
   
-  response = await fetch("http://api/api/register", {
+  response = await fetch("http://localhost:8080/api/register", {
     method: "POST",
     body: JSON.stringify({
       "name": login,

@@ -30,7 +30,7 @@ router.post("/payment", urlencodedParser, async (req, res) => {
     const body = {credits: add};
     console.log(add);
 
-    const response = await fetch(`http://api/api/customer/${req.cookies["userId"]}`, {
+    const response = await fetch(`http://localhost:8080/api/customer/${req.cookies["userId"]}`, {
         method: 'put',
         body: JSON.stringify(body),
         headers: {'Content-Type': 'application/json', "Authorization": `Bearer ${req.cookies["apiKey"]}`}

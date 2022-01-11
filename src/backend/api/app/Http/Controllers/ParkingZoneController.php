@@ -38,7 +38,7 @@ class ParkingZoneController extends Controller
             ]);
         }
 
-        return response()->json(["data" => $newZone]);
+        return response()->json(["data" => $newZone], 201);
     }
 
     public function parkBike(Request $request): JsonResponse
@@ -80,8 +80,10 @@ class ParkingZoneController extends Controller
             "bike" => "required"
         ]);
 
+        $b2pz = Bike2ParkingZone::query()->select(["*"])->where("bike", "=", $request->post("bike"))->get()->first();
+
         return response()->json([
-            "data" => Bike2ParkingZone::destroy($request->post("bike"))
+            "data" => Bike2ParkingZone::destroy($b2pz->id)
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\Customer;
@@ -16,7 +17,13 @@ class CustomerController extends Controller
      */
     public function index(): JsonResponse //GET customer
     {
-        return response()->json(["data" => Customer::All()]);
+        $customers = Customer::All();
+        foreach ($customers as $customer) {
+            $customer->email = $customer->ownedBy->email;
+            $customer->unsetRelation("ownedBy");
+        }
+
+        return response()->json(["data" => $customers]);
     }
 
     /**
@@ -27,7 +34,10 @@ class CustomerController extends Controller
      */
     public function show(int $id): JsonResponse //GET customer/{id}
     {
-        return response()->json(["data" => Customer::find($id)]);
+        $customer = Customer::find($id);
+        $customer->email = $customer->ownedBy->email;
+        $customer->unsetRelation("ownedBy");
+        return response()->json(["data" => $customer]);
     }
 
     /**
@@ -40,7 +50,17 @@ class CustomerController extends Controller
     public function update(Request $request, int $id): JsonResponse //PUT customer/id
     {
         $customer = Customer::find($id);
-        $customer->update($request->all());
+        $account = Account::find($customer->account);
+
+        $account->update(["email" => $request->input("email", $account->email)]);
+        $customer->update([
+            "name" => $request->input("name", $customer->name),
+            "credits" => $request->input("credits", $customer->credits)
+        ]);
+        $customer->save();
+        $account->save();
+
+        $customer->email = $account->email;
         return response()->json(["data" => $customer]);
     }
 
@@ -78,26 +98,8 @@ class CustomerController extends Controller
         ]);
         return response()->json([
             "data" => History::create($request->all())
-        ]);
+        ], 201);
     }
-
-    /**
-     * Store a new customer.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeCustomer(Request $request): JsonResponse //POST customer/{id}/history
-    {
-        $request->validate([ //this needs to be in 'body' to get posted.
-            'name' => 'required',
-            'email' => 'required',
-        ]);
-        return response()->json([
-            "data" => Customer::create($request->all())
-        ]);
-    }
-
 
     /**
      * Remove a specific customer account.

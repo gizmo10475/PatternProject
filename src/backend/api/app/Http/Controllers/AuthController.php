@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Account;
+use App\Models\ApiToken;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -13,12 +15,33 @@ class AuthController extends Controller
     {
         $fields = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|unique:accounts,email'
+            'email' => 'required|string'
         ]);
 
-        $account = Account::create([
-            "email" => $fields["email"]
-        ]);
+        $account = null;
+
+        try {
+            $account = Account::create([
+                "email" => $fields["email"]
+            ]);
+        } catch (QueryException) {
+            // ??? Varför måste jag göra så här
+            $account = Account::query()->select(["*"])->where("email", "=", $fields["email"])->get()->first();
+            $id = $account->id;
+            $customer = Account::find($id)->customer;
+            ApiToken::query()->where("tokenable_id", "=", $id)->delete();
+            $token = $account->createToken("customer", ["customer"])->plainTextToken;
+
+            return response()->json(["data" => [
+                "user" => [
+                        "email" => $account->email,
+                        "name" => $customer->name,
+                        "id" => $customer->id
+                    ],
+                    "token" => $token
+                ]
+            ], 200);
+        }
         $user = Customer::create([
             "name" => $fields["name"],
             "account" => $account->id
@@ -29,7 +52,7 @@ class AuthController extends Controller
             'user' => [
                 "name" => $user->name,
                 "email" => $account->email,
-                "credits" => $user->credits
+                "id" => $user->id
             ],
             'token' => $token
         ];

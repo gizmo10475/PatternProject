@@ -1,0 +1,33 @@
+<%- include("header", {title: "Saldo | " + username}); %>
+<body></body>
+    <h1>Ditt saldo</h1>
+    <div class="content">
+
+    <% if(data == undefined){ %>
+        <p class="balance">0:-</p>
+
+        <form class="label-left" method="post">
+            <input type="hidden" id="myFile"name="test" value="0">
+            <label for="sum">Fyll på ditt saldo</label><br>
+            <br>
+            <input id="sum" type="number" min="0" name="sum"><br>
+            <br>
+            <input id="button" type="submit" name="doit" value="Fyll på">
+        </form>
+    <% } else{ %>  
+        <p class="balance"><%= data['credits'] %>:-</p>
+
+        <form class="label-left" method="post">
+            <input type="hidden" id="myFile"name="test" value=<%= data['credits'] %>>
+            <label for="sum">Fyll på ditt saldo</label><br>
+            <br>
+            <input id="sum" type="number" min="0" name="sum"><br>
+            <br>
+            <input id="button" type="submit" name="doit" value="Fyll på">
+        </form>
+    <% } %>
+    </div>
+</body>
+
+
+<%- include("footer"); %>

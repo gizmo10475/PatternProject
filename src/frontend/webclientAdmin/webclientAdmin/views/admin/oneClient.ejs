@@ -1,0 +1,19 @@
+<%- include("header", {title: "Kunder"}); %>
+
+<h1>Kund <%= data.id %></h1>
+
+<div class="form">
+    <form method="post">
+        <p>ID: <%= data.id %></p>
+        <label for="name">Namn</label><br>
+        <input id="name" type="text" name="name" value="<%= data.name %>"><br>
+        <br>
+        <label for="name">Mejladress</label><br>
+        <input id="email" type="email" name="email" value="<%= data.email %>"><br>
+        <br>
+        <p>Saldo: <%= data.credits %>:-</p>
+        <input id="button" type="submit" name="doit" value="Spara">
+    </form>
+</div>
+
+<%- include("footer"); %>

@@ -7,7 +7,7 @@ let users = {
     getInfoUser: function() {
         return m.request({
             method: "GET",
-            url: `http://api/api/customer/3`,
+            url: `http://localhost:8080/api/customer/3`,
             headers: {"Authorization": `Bearer ${apiKey}`}
         }).then(function(result) {
             users.infoUser = result.data;
@@ -28,7 +28,7 @@ let users = {
         
         return m.request({
             method: "POST",
-            url: `http://api/api/customer/3/history`,
+            url: `http://localhost:8080/api/customer/3/history`,
             headers: {"Authorization": `Bearer ${apiKey}`},
             body: tripInfo,
         }).then(function(result) {
@@ -46,7 +46,7 @@ let users = {
 
         return m.request({
             method: "PUT",
-            url: `http://api/api/customer/3`,
+            url: `http://localhost:8080/api/customer/3`,
             headers: {"Authorization": `Bearer ${apiKey}`},
             body: paymentInfo,
         }).then(function(result) {

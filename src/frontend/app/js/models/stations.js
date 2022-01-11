@@ -7,7 +7,7 @@ let stations = {
     getAllLocations: function() {
         return m.request({
             method: "GET",
-            url: `http://api/api/stations`,
+            url: `http://localhost:8080/api/stations`,
             headers: {"Authorization": `Bearer ${apiKey}`}
         }).then(function(result) {
             stations.locations(result);

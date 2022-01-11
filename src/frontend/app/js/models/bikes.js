@@ -10,7 +10,7 @@ let bikes = {
     getAllLocations: function() {
         return m.request({
             method: "GET",
-            url: `http://api/api/bike`,
+            url: `http://localhost:8080/api/bike`,
             headers: {"Authorization": `Bearer ${apiKey}`}
         }).then(function(result) {
             bikes.locations(result);
@@ -19,7 +19,7 @@ let bikes = {
     getBikeLocation: function() {
         return m.request({
             method: "GET",
-            url: `http://api/api/bike/${bikes.currentId}`,
+            url: `http://localhost:8080/api/bike/${bikes.currentId}`,
             headers: {"Authorization": `Bearer ${apiKey}`}
         }).then(function(result) {
             bikes.currentLocation[0] = result.data.longitude;
@@ -34,7 +34,7 @@ let bikes = {
     rentBike: function() {
         m.request({
             method: "GET",
-            url: `http://bike:1338/simulate/${bikes.currentId}`
+            url: `http://localhost:1338/simulate/${bikes.currentId}`
         }).then(function(result) {
             // return m.route.set("/timer");
         });
@@ -50,7 +50,7 @@ let bikes = {
     
         return m.request({
             method: "PUT",
-            url: `http://api/api/bike/${bikes.currentId}`,
+            url: `http://localhost:8080/api/bike/${bikes.currentId}`,
             headers: {"Authorization": `Bearer ${apiKey}`},
             body: bikeInfo,
         }).then(function(result) {
@@ -60,7 +60,7 @@ let bikes = {
     returnBike: function() {
         m.request({
             method: "GET",
-            url: `http://bike:1338/stop/${bikes.currentId}`
+            url: `http://localhost:1338/stop/${bikes.currentId}`
         }).then(function(result) {
             // return m.route.set("/timer");
         });
@@ -71,7 +71,7 @@ let bikes = {
     
         return m.request({
             method: "PUT",
-            url: `http://api/api/bike/${bikes.currentId}`,
+            url: `http://localhost:8080/api/bike/${bikes.currentId}`,
             headers: {"Authorization": `Bearer ${apiKey}`},
             body: bikeInfo,
         }).then(function(result) {

@@ -19,7 +19,14 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        "http://localhost:8081",
+        "http://localhost:1337",
+        "http://localhost:1336",
+        "http://localhost:1338",
+        "http://app",
+        "http://app:1337"
+    ],
 
     'allowed_origins_patterns' => [],
 
@@ -29,6 +36,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];

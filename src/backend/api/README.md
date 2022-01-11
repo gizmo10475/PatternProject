@@ -1,5 +1,7 @@
 # API
 
+[![Build Status](https://app.travis-ci.com/gizmo10475/PatternProject.svg?branch=api)](https://app.travis-ci.com/gizmo10475/PatternProject) 
+
 ## Table of Contents
 
 -   [Setup](#Setup)

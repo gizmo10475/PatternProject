@@ -52,5 +52,18 @@ router.get("/map", async (req, res) => {
   res.render("admin/map", {data1: data1, data2: data2, data3: data3});
 });
 
+router.get("/bikes", async (req, res) => {
+  let bikes;
+  if (req.query["city"]) {
+    bikes = await adminfunc.getBikesInCity(Number(req.query["city"]));
+  } else {
+    bikes = await adminfunc.getAllBikeInfo();
+  }
+
+  const cities = await adminfunc.getAllCities();
+
+  res.render("admin/bikes", {bikes, cities});
+});
+
 
 module.exports = router;

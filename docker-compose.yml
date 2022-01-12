@@ -41,7 +41,7 @@ services:
       - api
     networks:
       - pattern
-  webclientCustomer:
+  webclient_customer:
       build: ./src/frontend/webclientCustomer
       container_name: webclientCustomer
       ports:
@@ -50,11 +50,11 @@ services:
         - api
       networks:
         - pattern
-  webclientAdmin:
+  webclient_admin:
         build: ./src/frontend/webclientAdmin
         container_name: webclientAdmin
         ports:
-          - "1336:1336"
+          - "1336:1337"
         depends_on:
           - api
         networks:

@@ -10,7 +10,7 @@ let bikes = {
     getAllLocations: function() {
         return m.request({
             method: "GET",
-            url: `http://localhost:8080/api/bike`,
+            url: `http://localhost:8080/api/bike?active=false`,
             headers: {"Authorization": `Bearer ${apiKey}`}
         }).then(function(result) {
             bikes.locations(result);

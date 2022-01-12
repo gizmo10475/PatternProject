@@ -27,5 +27,3 @@ When this is completed you can find the webclient in your browser on ``localhost
 
 ## Built with
 * [Express](https://expressjs.com) - The framework used
-
-* [Leaflet](https://leafletjs.com) - Open-source JavaScript library used to display the map

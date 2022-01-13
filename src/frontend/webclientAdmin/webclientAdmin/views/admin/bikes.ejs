@@ -1,0 +1,41 @@
+<%- include("../shared/header.ejs", {title: "Hantera cyklar"}) %>
+<h1>Cyklar</h1>
+<form method="GET" id="bikeForm">
+    <select name="city">
+        <option value="no_select">Filtrera på stad</option>
+        <% for (const city of cities) { %>
+        <option value="<%= city["id"] %>"><%= city["name"] %></option>
+        <% } %>
+    </select>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Id-nummer</th>
+            <th>Position</th>
+            <th>Hyrd</th>
+            <th>Nuvarande hastighet</th>
+            <th>Tillgänglig</th>
+            <th>Handlingar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (const bike of bikes) { %>
+        <tr>
+            <td><%= bike["id"] %></td>
+            <td><%= bike["longitude"] %>, <%= bike["latitude"] %></td>
+            <td><%= Boolean(bike["active"]) ? "Ja" : "Nej" %></td>
+            <td><%= bike["speed"] === 0 ? "N/A" : `${bike["speed"]} km/h` %></td>
+            <td><%= bike["warning"] ? "Nej" : "Ja" %></td>
+            <td>
+                <% if (bike["warning"]) { %>
+                <button class="no-maintenance" data-bike="<%= bike["id"] %>">Åter i tjänst</button>
+                <% } else { %>
+                <button class="maintenance" data-bike="<%= bike["id"] %>">Ta in på service</button>
+                <% } %>
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+<%- include("../shared/footer.ejs") %>

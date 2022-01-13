@@ -1,5 +1,3 @@
-views/timer
-
 import m from "mithril";
 import bikes from "../models/bikes.js";
 import users from "../models/users.js";
@@ -25,7 +23,6 @@ var Counter = {
 };
 
 async function runTimer() {
-  await bikes.getBikeLocation();
   await bikes.rentBike();
 
   timer = setInterval(function () {
@@ -48,8 +45,11 @@ function returnData(input) {
 }
 
 async function goHome() {
+  console.dir(bikes);
+  await bikes.getBikeLocation()
   await users.saveToHistory(
     bikes.currentId,
+    bikes.startLocation,
     bikes.currentLocation,
     sum,
     bikes.currentTime
@@ -63,6 +63,7 @@ async function goHome() {
 
 let counter = {
   oninit: async function () {
+    await bikes.getStartLocation();
     await runTimer();
   },
   view: function () {

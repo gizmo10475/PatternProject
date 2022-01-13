@@ -13,15 +13,15 @@ let users = {
             users.infoUser = result.data;
         });
     },
-    saveToHistory: async function(bikeId, currLoc, sum, startTime) {
+    saveToHistory: async function(bikeId, startLoc, endLoc, sum, startTime) {
         var tripInfo = {
             customer: 3,
             bike: bikeId,
-            start_longitude: currLoc[0],
-            start_latitude: currLoc[1],
+            start_longitude: startLoc[0],
+            start_latitude: startLoc[1],
             start_time: startTime,
-            end_longitude: 0,
-            end_latitude: 0,
+            end_longitude: endLoc[0],
+            end_latitude: endLoc[1],
             cost: sum,
             city: 1
         };

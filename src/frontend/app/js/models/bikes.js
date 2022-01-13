@@ -6,11 +6,12 @@ let bikes = {
     infoBikes: {},
     currentId: "",
     currentTime: "",
+    startLocation: {},
     currentLocation: {},
     getAllLocations: function() {
         return m.request({
             method: "GET",
-            url: `http://localhost:8080/api/bike?active=false`,
+            url: `http://localhost:8080/api/bike?available=true`,
             headers: {"Authorization": `Bearer ${apiKey}`}
         }).then(function(result) {
             bikes.locations(result);
@@ -28,6 +29,15 @@ let bikes = {
         // });
         bikes.currentLocation[0] = response.data.longitude;
         bikes.currentLocation[1] = response.data.latitude;
+    },
+    getStartLocation: async function() {
+        const response = await m.request({
+            method: "GET",
+            url: `http://localhost:8080/api/bike/${bikes.currentId}`,
+            headers: {"Authorization": `Bearer ${apiKey}`}
+        });
+        bikes.startLocation[0] = response.data.longitude;
+        bikes.startLocation[1] = response.data.latitude;
     },
     locations: function(info) {
         for (var i = 0; i < info.data.length; i++) {

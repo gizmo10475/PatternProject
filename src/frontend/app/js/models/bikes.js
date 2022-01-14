@@ -8,14 +8,13 @@ let bikes = {
     currentTime: "",
     startLocation: {},
     currentLocation: {},
-    getAllLocations: function() {
-        return m.request({
+    getAllLocations: async function() {
+        const response = await m.request({
             method: "GET",
             url: `http://localhost:8080/api/bike?available=true`,
             headers: {"Authorization": `Bearer ${apiKey}`}
-        }).then(function(result) {
-            bikes.locations(result);
         });
+        bikes.locations(response);
     },
     getBikeLocation: async function() {
         const response = await m.request({

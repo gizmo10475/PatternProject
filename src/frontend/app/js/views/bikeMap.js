@@ -7,6 +7,7 @@ import "leaflet.markercluster.layersupport";
 
 let map;
 let marker;
+let refreshInterval = 0;
 
 function showMap() {
     const places = {
@@ -40,6 +41,8 @@ const markers = new L.markerClusterGroup.layerSupport({
 //gjorde om renderStations och renderBikes så dessa lägga till i en layer som sedan läggs till maps,  marker -> lägga i layers -> läggs på map.
 
 function renderStations() {
+    clearInterval(refreshInterval);
+    refreshInterval = 0;
     removeMarkers();
 
     for (const id in stations.infoStations) {
@@ -51,14 +54,21 @@ function renderStations() {
 }
 
 function renderBikes() {
+    clearInterval(refreshInterval);
+    refreshInterval = 0;
     removeMarkers();
 
     for (const id in bikes.infoBikes) {
         if (Object.prototype.hasOwnProperty.call(bikes.infoBikes, id)) {
-            markers.addLayer(L.marker(bikes.infoBikes[id]).bindPopup(id));
+            markers.addLayer(L.marker(bikes.infoBikes[id]).bindPopup(`Cykel ${id}`));
             map.addLayer(markers);
         }
     }
+
+    refreshInterval = window.setInterval(async () => {
+        await bikes.getAllLocations();
+        renderBikes();
+    }, 10000);
 }
 
 function removeMarkers() {
@@ -66,9 +76,10 @@ function removeMarkers() {
 }
 
 let bikeMap = {
-    oninit: function () {
-        bikes.getAllLocations();
+    oninit: async function () {
+        await bikes.getAllLocations();
         stations.getAllLocations();
+        renderBikes();
     },
     view: function () {
         return m("main.container", [
@@ -76,7 +87,17 @@ let bikeMap = {
             m("div.buttons", [
                 m("button.renderBikes", { onclick: renderBikes }, "Cyklar"),
                 m("button.renderStations", { onclick: renderStations }, "Stationer"),
-                m("button.removeMarkers", { onclick: removeMarkers }, "Göm markörer"),
+                m(
+                    "button.removeMarkers",
+                    {
+                        onclick: () => {
+                            removeMarkers();
+                            clearInterval(refreshInterval);
+                            refreshInterval = 0;
+                        },
+                    },
+                    "Göm markörer"
+                ),
             ]),
             m("br"),
             m(m.route.Link, { href: "/form", className: "rent" }, "Hyr en cykel"),

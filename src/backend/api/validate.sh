@@ -2,12 +2,26 @@
 
 function cmd-phpcs
 {
-    .bin/phpcs . | tee validation-out/phpcs
+    local output
+    output=$(.bin/phpcs .)
+    local exitC=$?
+    if [ $exitC -ne 0 ] ; then
+        echo "PHPCS validation failed"
+        exit $exitC
+    fi
+    echo "$output" | tee validation-out/phpcs
 }
 
 function cmd-phpmd
 {
-    .bin/phpmd . text .phpmd.xml | tee validation-out/phpmd
+    local output
+    output=$(.bin/phpmd . text .phpmd.xml)
+    local exitC=$?
+    if [ $exitC -ne 0 ] ; then
+        echo "PHPMD validation failed"
+        exit $exitC
+    fi
+    echo "$output" | tee validation-out/phpmd
 }
 
 function cmd-phpunit

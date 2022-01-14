@@ -5,6 +5,7 @@ const router = express.Router();
 const fetch = require("node-fetch");
 const request = require("request");
 const intervalIds = {};
+let simulationIntervals = [];
 let clearingInterval = 0;
 
 router.get("/", async (req, res) => {
@@ -65,10 +66,7 @@ router.get("/simulate/:bikeid", async (req, res) => {
             clearInterval(intervalId);
             return;
         }
-        if (
-            oldLat2.toFixed(3) == newLat.toFixed(3) &&
-            oldLong2.toFixed(3) == newLong.toFixed(3)
-        ) {
+        if (oldLat2.toFixed(3) == newLat.toFixed(3) && oldLong2.toFixed(3) == newLong.toFixed(3)) {
             console.log("Done.");
             deactiveBike(bikeid);
             clearInterval(intervalId);
@@ -129,6 +127,65 @@ router.get("/resetbike/:bikeid/:longitude/:latitude", async (req, res) => {
     resetBike(bikeid, longitude, latitude);
 
     res.status(200).send("ok");
+});
+
+router.get("/simulation/:count", async (req, res) => {
+    const bikeCount = Number(req.params.count);
+    const response = await fetch("http://api/api/bike?inactive=true", {
+        headers: {
+            Authorization: "Bearer 3|SOSgnf9gCBBi4eVXj3qqwuC20HVXlDUiiyHOJYQr",
+            Accept: "application/json",
+        },
+    });
+    const json = await response.json();
+    const bikes = json.data;
+
+    for (let i = 0; i < bikeCount; i++) {
+        const index = Math.floor(Math.random() * bikes.length);
+        const bike = bikes[index];
+        bikes.splice(index, 1);
+        const bikeid = bike.id;
+        activeBike(bikeid);
+        let oldLat2 = Number(bike.latitude);
+        let oldLong2 = Number(bike.longitude);
+        const intId = setInterval(() => {
+            const charging = bike.charging;
+            const warning = bike.warning;
+
+            if (charging != 0 || warning != 0 || clearingInterval != 0) {
+                console.log("ERROR. Bike charging or other warning.");
+                deactiveBike(bikeid);
+                clearInterval(intId);
+                return;
+            }
+
+            if (Math.random() > 0.5) {
+                oldLat2 -= 0.001;
+            } else {
+                oldLat2 += 0.001;
+            }
+
+            if (Math.random() > 0.5) {
+                oldLong2 -= 0.001;
+            } else {
+                oldLong2 += 0.001;
+            }
+
+            putLocation(bikeid, oldLat2.toFixed(3), oldLong2.toFixed(3));
+        }, 10000);
+        simulationIntervals.push({ intId, bikeid });
+    }
+
+    res.status(200).send("Simulating\n");
+});
+
+router.get("/stop-simulation", async (req, res) => {
+    simulationIntervals.forEach((interval) => {
+        clearInterval(interval["intId"]);
+        deactiveBike(interval["bikeid"]);
+    });
+    simulationIntervals = [];
+    res.status(200).send("Stopped simulating\n");
 });
 
 const putLocation = (bikeid, newLat, newLong) => {

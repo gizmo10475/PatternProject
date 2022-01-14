@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Bike;
+use App\Models\Bike2Station;
 use App\Models\Station;
 use App\Models\Station2City;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -22,6 +24,7 @@ class StationTest extends TestCase
         parent::setUp();
         $this->artisan("db:seed", ["--class" => "StationSeeder"]);
         $this->artisan("db:seed", ["--class" => "CitySeeder"]);
+        $this->artisan("db:seed", ["--class" => "BikeSeeder"]);
         $this->token = Help::createCustomerAccount("station@customer.test");
         $this->adminToken = Help::createAdminAccount("station@admin.test");
     }
@@ -124,5 +127,29 @@ class StationTest extends TestCase
 
         $this->expectException(ModelNotFoundException::class);
         Station::findOrFail(8);
+    }
+
+    public function testMoveBike()
+    {
+        $response = $this->withToken($this->adminToken)->postJson("/api/stations/moveBike", [
+            "station" => 2,
+            "bike" => 4
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson(fn (AssertableJson $json) =>
+                $json->where("data", "Bike moved")
+        );
+
+        try {
+            Bike2Station::findOrFail(1);
+            $station = Station::findOrFail(2);
+            $bike = Bike::findOrFail(4);
+        } catch (ModelNotFoundException $e) {
+            $this->fail($e->getMessage());
+        }
+
+        $this->assertEquals($bike->longitude, $station->longitude);
+        $this->assertEquals($bike->latitude, $station->latitude);
     }
 }

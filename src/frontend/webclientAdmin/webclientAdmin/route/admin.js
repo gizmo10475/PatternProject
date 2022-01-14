@@ -44,12 +44,21 @@ router.post("/clients/:id", urlencodedParser, async (req, res) => {
 
 
 router.get("/map", async (req, res) => {
-  var data1 = await adminfunc.getAllBikes();
-  var data2 = await adminfunc.getAllStations();
-  var data3 = await adminfunc.getAllParking();
-  
+  res.render("admin/map");
+});
 
-  res.render("admin/map", {data1: data1, data2: data2, data3: data3});
+router.get("/bikes", async (req, res) => {
+  let bikes;
+  if (req.query["city"]) {
+    bikes = await adminfunc.getBikesInCity(Number(req.query["city"]));
+  } else {
+    bikes = await adminfunc.getAllBikeInfo();
+  }
+
+  const cities = await adminfunc.getAllCities();
+  const stations = await adminfunc.getAllStationInfo();
+
+  res.render("admin/bikes", {bikes, cities, stations});
 });
 
 

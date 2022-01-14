@@ -7,32 +7,33 @@ module.exports = {
     getUser: getUser,
     getAllBikes: getAllBikes,
     getAllStations: getAllStations,
-    getAllParking: getAllParking
+    getAllParking: getAllParking,
+    getAllBikeInfo,
+    getAllCities,
+    getBikesInCity,
+    getAllStationInfo
 };
 
-
+let headers = {
+    Authorization: `Bearer ${config.apiKey}`,
+    Accept: "application/json"
+}
 
 async function getAllUsers() {
-    let response = await fetch("http://api/api/customer", {
-        headers: {"Authorization": `Bearer ${config.apiKey}`}
-    });
+    let response = await fetch("http://api/api/customer", { headers });
     let {data} = await response.json();
     return data;
 }
 
 async function getUser(id) {
-    let response = await fetch(`http://api/api/customer/${id}`, {
-        headers: {"Authorization": `Bearer ${config.apiKey}`}
-    });
+    let response = await fetch(`http://api/api/customer/${id}`, { headers });
     let {data} = await response.json();
     return data;
 }
 
 
 async function getAllBikes() {
-    let response = await fetch("http://api/api/bike", {
-        headers: {"Authorization": `Bearer ${config.apiKey}`}
-    });
+    let response = await fetch("http://api/api/bike", { headers });
     let {data} = await response.json();
     
     let infoBikes = {};
@@ -46,9 +47,7 @@ async function getAllBikes() {
 
 
 async function getAllStations() {
-    let response = await fetch("http://api/api/stations", {
-        headers: {"Authorization": `Bearer ${config.apiKey}`}
-    });
+    let response = await fetch("http://api/api/stations", { headers });
     let {data} = await response.json();
     
     let infoStations = {};
@@ -62,9 +61,7 @@ async function getAllStations() {
 
 
 async function getAllParking() {
-    let response = await fetch("http://api/api/parking", {
-        headers: {"Authorization": `Bearer ${config.apiKey}`}
-    });
+    let response = await fetch("http://api/api/parking", { headers });
     let {data} = await response.json();
     
     let infoParking = {};
@@ -74,4 +71,32 @@ async function getAllParking() {
     }
 
     return infoParking;
+}
+
+async function getAllCities() {
+    const response = await fetch("http://api/api/city", { headers });
+    const { data } = await response.json();
+
+    return data;
+}
+
+async function getBikesInCity(cityID) {
+    const response = await fetch(`http://api/api/city/${cityID}/bikes`, { headers });
+    const { data } = await response.json();
+
+    return data["bikes"];
+}
+
+async function getAllBikeInfo() {
+    const response = await fetch("http://api/api/bike", { headers });
+    const { data } = await response.json();
+
+    return data;
+}
+
+async function getAllStationInfo() {
+    const response = await fetch("http://api/api/stations", { headers });
+    const { data } = await response.json();
+
+    return data;
 }

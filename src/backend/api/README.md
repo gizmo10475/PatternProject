@@ -1,6 +1,6 @@
 # API
 
-[![Build Status](https://app.travis-ci.com/gizmo10475/PatternProject.svg?branch=api)](https://app.travis-ci.com/gizmo10475/PatternProject) 
+[![Build Status](https://app.travis-ci.com/gizmo10475/PatternProject.svg?branch=api)](https://app.travis-ci.com/gizmo10475/PatternProject) [![Coverage Status](https://coveralls.io/repos/github/gizmo10475/PatternProject/badge.svg?branch=api)](https://coveralls.io/github/gizmo10475/PatternProject?branch=main)
 
 ## Table of Contents
 

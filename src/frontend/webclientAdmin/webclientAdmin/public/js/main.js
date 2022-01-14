@@ -47,5 +47,17 @@
         });
     });
 
+    document.querySelector("button#delAcc")?.addEventListener("click", async (event) => {
+        const accID = Number(event.target.dataset["id"]);
+        await fetch(`http://localhost:8080/api/customer/${accID}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: "Bearer 1|fEMkWDqEzE5zJv250nVx4cZwvHUbwR98fFTShUa6",
+                "Content-Type": "application/json",
+            },
+        });
+        window.location = "http://localhost:1336/admin/clients";
+    });
+
     console.log("All ready.");
 })();

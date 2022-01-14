@@ -13,30 +13,27 @@ let users = {
             users.infoUser = result.data;
         });
     },
-    saveToHistory: function(bikeId, currLoc, sum, startTime) {
+    saveToHistory: async function(bikeId, startLoc, endLoc, sum, startTime) {
         var tripInfo = {
             customer: 3,
             bike: bikeId,
-            start_longitude: currLoc[0],
-            start_latitude: currLoc[1],
+            start_longitude: startLoc[0],
+            start_latitude: startLoc[1],
             start_time: startTime,
-            end_longitude: 0,
-            end_latitude: 0,
+            end_longitude: endLoc[0],
+            end_latitude: endLoc[1],
             cost: sum,
             city: 1
         };
         
-        return m.request({
+        await m.request({
             method: "POST",
             url: `http://localhost:8080/api/customer/3/history`,
             headers: {"Authorization": `Bearer ${apiKey}`},
             body: tripInfo,
-        }).then(function(result) {
-            // console.log(result);
-            // return m.route.set("/timer");
-        });
+        })
     },
-    pay: function(sum) {
+    pay: async function(sum) {
         // console.log(users.infoUser);
         var money = parseInt(users.infoUser.credits) - parseInt(sum);
         // console.log(money);
@@ -44,15 +41,12 @@ let users = {
             credits: money
         };
 
-        return m.request({
+        await m.request({
             method: "PUT",
             url: `http://localhost:8080/api/customer/3`,
             headers: {"Authorization": `Bearer ${apiKey}`},
             body: paymentInfo,
-        }).then(function(result) {
-            // console.log("pay");
-            // return m.route.set("/timer");
-        });
+        })
     }
 };
 

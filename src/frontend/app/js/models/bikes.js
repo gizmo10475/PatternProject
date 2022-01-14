@@ -6,38 +6,48 @@ let bikes = {
     infoBikes: {},
     currentId: "",
     currentTime: "",
+    startLocation: {},
     currentLocation: {},
-    getAllLocations: function() {
-        return m.request({
+    getAllLocations: async function() {
+        const response = await m.request({
             method: "GET",
-            url: `http://localhost:8080/api/bike`,
+            url: `http://localhost:8080/api/bike?available=true`,
             headers: {"Authorization": `Bearer ${apiKey}`}
-        }).then(function(result) {
-            bikes.locations(result);
         });
+        bikes.locations(response);
     },
-    getBikeLocation: function() {
-        return m.request({
+    getBikeLocation: async function() {
+        const response = await m.request({
             method: "GET",
             url: `http://localhost:8080/api/bike/${bikes.currentId}`,
             headers: {"Authorization": `Bearer ${apiKey}`}
-        }).then(function(result) {
-            bikes.currentLocation[0] = result.data.longitude;
-            bikes.currentLocation[1] = result.data.latitude;
+        })
+        // .then(function(result) {
+        //     bikes.currentLocation[0] = result.data.longitude;
+        //     bikes.currentLocation[1] = result.data.latitude;
+        // });
+        bikes.currentLocation[0] = response.data.longitude;
+        bikes.currentLocation[1] = response.data.latitude;
+    },
+    getStartLocation: async function() {
+        const response = await m.request({
+            method: "GET",
+            url: `http://localhost:8080/api/bike/${bikes.currentId}`,
+            headers: {"Authorization": `Bearer ${apiKey}`}
         });
+        bikes.startLocation[0] = response.data.longitude;
+        bikes.startLocation[1] = response.data.latitude;
     },
     locations: function(info) {
         for (var i = 0; i < info.data.length; i++) {
             bikes.infoBikes[info.data[i].id] = [info.data[i].longitude, info.data[i].latitude]
         }
     },
-    rentBike: function() {
-        m.request({
+    rentBike: async function() {
+        await m.request({
             method: "GET",
             url: `http://localhost:1338/simulate/${bikes.currentId}`
-        }).then(function(result) {
-            // return m.route.set("/timer");
-        });
+        })
 
         var today = new Date();
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -48,35 +58,32 @@ let bikes = {
             active: 1
         };
     
-        return m.request({
+        await m.request({
             method: "PUT",
             url: `http://localhost:8080/api/bike/${bikes.currentId}`,
             headers: {"Authorization": `Bearer ${apiKey}`},
             body: bikeInfo,
-        }).then(function(result) {
-            return m.route.set("/timer");
         });
+        return m.route.set("/timer");
     },
-    returnBike: function() {
-        m.request({
+    returnBike: async function() {
+        await m.request({
             method: "GET",
             url: `http://localhost:1338/stop/${bikes.currentId}`
-        }).then(function(result) {
-            // return m.route.set("/timer");
-        });
+        })
 
         var bikeInfo = {
             active: 0
         };
     
-        return m.request({
-            method: "PUT",
-            url: `http://localhost:8080/api/bike/${bikes.currentId}`,
-            headers: {"Authorization": `Bearer ${apiKey}`},
-            body: bikeInfo,
-        }).then(function(result) {
+        // return m.request({
+        //     method: "PUT",
+        //     url: `http://localhost:8080/api/bike/${bikes.currentId}`,
+        //     headers: {"Authorization": `Bearer ${apiKey}`},
+        //     body: bikeInfo,
+        // }).then(function(result) {
 
-        });
+        // });
     },
 };
 

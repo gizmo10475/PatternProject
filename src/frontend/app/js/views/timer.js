@@ -22,9 +22,8 @@ var Counter = {
   },
 };
 
-function test() {
-  bikes.getBikeLocation();
-  bikes.rentBike();
+async function runTimer() {
+  await bikes.rentBike();
 
   timer = setInterval(function () {
     second++;
@@ -45,23 +44,27 @@ function returnData(input) {
   return input > 9 ? input : `0${input}`;
 }
 
-function goHome() {
-  users.saveToHistory(
+async function goHome() {
+  console.dir(bikes);
+  await bikes.getBikeLocation()
+  await users.saveToHistory(
     bikes.currentId,
+    bikes.startLocation,
     bikes.currentLocation,
     sum,
     bikes.currentTime
   );
-  users.pay(sum);
-  bikes.returnBike();
+  await users.pay(sum);
+  await bikes.returnBike();
   m.route.set("/");
   window.location.reload();
   alert("Din resa är nu avslutad!");
 }
 
 let counter = {
-  oninit: function () {
-    test();
+  oninit: async function () {
+    await bikes.getStartLocation();
+    await runTimer();
   },
   view: function () {
     return m("main.container", [

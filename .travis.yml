@@ -13,3 +13,6 @@ before_script:
     - cd src/backend/api && php artisan migrate --force --database=testing
 script:
     - ./validate.sh
+
+after_success:
+    - travis_retry php vendor/bin/php-coveralls --coverage_clover=validation-out/coverage.clover -o validation-out/coveralls-upload.json

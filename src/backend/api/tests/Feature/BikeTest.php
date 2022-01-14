@@ -50,7 +50,7 @@ class BikeTest extends TestCase
 
     public function testInactiveBikes()
     {
-        $response = $this->withToken($this->token)->get("/api/bike?inactive=true");
+        $response = $this->withToken($this->token)->get("/api/bike?available=true");
 
         $response
             ->assertStatus(200)
@@ -73,7 +73,7 @@ class BikeTest extends TestCase
 
     public function testActiveBikes()
     {
-        $response = $this->withToken($this->token)->get("/api/bike?active=true");
+        $response = $this->withToken($this->token)->get("/api/bike?rented=true");
 
         $response
             ->assertStatus(200)

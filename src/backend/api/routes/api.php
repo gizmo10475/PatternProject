@@ -53,6 +53,7 @@ Route::middleware(["auth:sanctum", "ability:admin"])
         Route::post("/bike", [BikeController::class, "store"]);
         Route::post("/city", [CityController::class, "store"]);
         Route::post("/city/{id}/bikes", [CityController::class, "addBike"]);
+        Route::post("/stations/moveBike", [StationsController::class, "addBike"]);
 
         Route::put("/stations/{id}", [StationsController::class, "update"]);
         Route::put('/city/{id}', [CityController::class, 'update']);

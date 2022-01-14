@@ -15,10 +15,14 @@ class BikeController extends Controller
      */
     public function index(Request $request): JsonResponse //GET bike
     {
-        $onlyActive = $request->boolean("active", false);
-        $onlyInactive = $request->boolean("inactive", false);
+        $onlyActive = $request->boolean("rented", false);
+        $onlyInactive = $request->boolean("available", false);
         if ($onlyInactive) {
-            return response()->json(["data" => Bike::query()->get()->where("active", "=", false)]);
+            $bikes = Bike::query()
+                ->get()
+                ->where("active", "=", false)
+                ->where("warning", "=", false);
+            return response()->json(["data" => $bikes]);
         }
         if ($onlyActive) {
             return response()->json(["data" => Bike::query()->get()->where("active", "=", true)]);

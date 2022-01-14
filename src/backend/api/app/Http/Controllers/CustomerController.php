@@ -109,6 +109,9 @@ class CustomerController extends Controller
      */
     public function destroy(int $id): JsonResponse //DELETE customer/{id}
     {
-        return response()->json(["data" => Customer::destroy($id)]);
+        $customer = Customer::find($id);
+        $account = $customer->account;
+        $customer->delete();
+        return response()->json(["data" => Account::destroy($account)]);
     }
 }

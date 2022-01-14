@@ -59,5 +59,27 @@
         window.location = "http://localhost:1336/admin/clients";
     });
 
+    document.querySelector("button#moveToStation")?.addEventListener("click", async (event) => {
+        const select = document.querySelector("button#moveToStation + select");
+        select.classList.toggle("hide");
+        if (event.target.textContent == "Flytta cykel till station") {
+            event.target.textContent = "Bekräfta flytt";
+        } else {
+            event.target.textContent = "Flytta cykel till station";
+            await fetch("http://localhost:8080/api/stations/moveBike", {
+                method: "POST",
+                body: JSON.stringify({
+                    bike: select.dataset["bike"],
+                    station: select.value,
+                }),
+                headers: {
+                    Authorization: "Bearer 1|fEMkWDqEzE5zJv250nVx4cZwvHUbwR98fFTShUa6",
+                    "Content-Type": "application/json",
+                },
+            });
+            window.location.reload();
+        }
+    });
+
     console.log("All ready.");
 })();

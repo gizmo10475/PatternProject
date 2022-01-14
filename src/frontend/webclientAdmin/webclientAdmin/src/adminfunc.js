@@ -10,7 +10,8 @@ module.exports = {
     getAllParking: getAllParking,
     getAllBikeInfo,
     getAllCities,
-    getBikesInCity
+    getBikesInCity,
+    getAllStationInfo
 };
 
 let headers = {
@@ -88,6 +89,13 @@ async function getBikesInCity(cityID) {
 
 async function getAllBikeInfo() {
     const response = await fetch("http://api/api/bike", { headers });
+    const { data } = await response.json();
+
+    return data;
+}
+
+async function getAllStationInfo() {
+    const response = await fetch("http://api/api/stations", { headers });
     const { data } = await response.json();
 
     return data;

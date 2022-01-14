@@ -56,8 +56,9 @@ router.get("/bikes", async (req, res) => {
   }
 
   const cities = await adminfunc.getAllCities();
+  const stations = await adminfunc.getAllStationInfo();
 
-  res.render("admin/bikes", {bikes, cities});
+  res.render("admin/bikes", {bikes, cities, stations});
 });
 
 

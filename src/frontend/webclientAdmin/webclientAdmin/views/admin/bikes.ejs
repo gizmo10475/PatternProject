@@ -33,6 +33,12 @@
                 <% } else { %>
                 <button class="maintenance" data-bike="<%= bike["id"] %>">Ta in på service</button>
                 <% } %>
+                <button id="moveToStation">Flytta cykel till station</button>
+                <select name="stationMover" id="stationMover" data-bike="<%= bike["id"] %>" class="hide">
+                <% for (const station of stations) { %>
+                    <option value="<%= station["id"] %>">Station <%= station["id"] %></option>
+                <% } %>
+                </select>
             </td>
         </tr>
         <% } %>

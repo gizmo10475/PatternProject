@@ -5,7 +5,7 @@ const router = express.Router();
 const fetch = require("node-fetch");
 const request = require("request");
 const intervalIds = {};
-const simulationIntervals = [];
+let simulationIntervals = [];
 let clearingInterval = 0;
 
 router.get("/", async (req, res) => {
